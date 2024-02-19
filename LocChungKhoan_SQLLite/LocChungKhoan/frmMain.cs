@@ -177,7 +177,7 @@ namespace LocChungKhoan
                 foreach (var item in list)
                 {  
                     decimal dolech23 = Math.Abs (item.DoLech23) * 100 / Math.Max(item.Gia2, item.Gia3);
-                    if (item.Gia1 < item.Gia2 && item.Gia1 < item.Gia3
+                    if (item.Gia1 < item.Gia2 && item.Gia2 <= item.Gia3
                         && dolech23 >=nguongDuoi && dolech23 <=nguongTren)
                     {
                         DataRow dr = dt.NewRow();

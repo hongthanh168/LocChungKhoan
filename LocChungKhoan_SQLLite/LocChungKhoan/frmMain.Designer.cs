@@ -60,10 +60,10 @@
             this.btnXoaToanBo = new System.Windows.Forms.ToolStripMenuItem();
             this.btnXoaTheoNgay = new System.Windows.Forms.ToolStripMenuItem();
             this.btnXoaTheoThoiGian = new System.Windows.Forms.ToolStripMenuItem();
-            this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.lọcChứngKhoánTheoNgàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -179,7 +179,7 @@
             this.btnLocDaNguong.Name = "btnLocDaNguong";
             this.btnLocDaNguong.Size = new System.Drawing.Size(244, 28);
             this.btnLocDaNguong.TabIndex = 5;
-            this.btnLocDaNguong.Text = "Giá 1< giá 2, giá 1< giá 3";
+            this.btnLocDaNguong.Text = "Giá 1< giá 2<=giá 3";
             this.btnLocDaNguong.UseVisualStyleBackColor = true;
             this.btnLocDaNguong.Click += new System.EventHandler(this.btnLoc_Click);
             // 
@@ -409,6 +409,18 @@
             this.btnXoaTheoThoiGian.Text = "Xóa dữ liệu trong khoảng thời gian";
             this.btnXoaTheoThoiGian.Click += new System.EventHandler(this.btnXoaTheoThoiGian_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(321, 6);
+            // 
+            // lọcChứngKhoánTheoNgàyToolStripMenuItem
+            // 
+            this.lọcChứngKhoánTheoNgàyToolStripMenuItem.Name = "lọcChứngKhoánTheoNgàyToolStripMenuItem";
+            this.lọcChứngKhoánTheoNgàyToolStripMenuItem.Size = new System.Drawing.Size(324, 26);
+            this.lọcChứngKhoánTheoNgàyToolStripMenuItem.Text = "Lọc chứng khoán theo ngày";
+            this.lọcChứngKhoánTheoNgàyToolStripMenuItem.Click += new System.EventHandler(this.lọcChứngKhoánTheoNgàyToolStripMenuItem_Click);
+            // 
             // trợGiúpToolStripMenuItem
             // 
             this.trợGiúpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -423,18 +435,6 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             this.thôngTinToolStripMenuItem.Click += new System.EventHandler(this.thôngTinToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(321, 6);
-            // 
-            // lọcChứngKhoánTheoNgàyToolStripMenuItem
-            // 
-            this.lọcChứngKhoánTheoNgàyToolStripMenuItem.Name = "lọcChứngKhoánTheoNgàyToolStripMenuItem";
-            this.lọcChứngKhoánTheoNgàyToolStripMenuItem.Size = new System.Drawing.Size(324, 26);
-            this.lọcChứngKhoánTheoNgàyToolStripMenuItem.Text = "Lọc chứng khoán theo ngày";
-            this.lọcChứngKhoánTheoNgàyToolStripMenuItem.Click += new System.EventHandler(this.lọcChứngKhoánTheoNgàyToolStripMenuItem_Click);
             // 
             // frmMain
             // 
