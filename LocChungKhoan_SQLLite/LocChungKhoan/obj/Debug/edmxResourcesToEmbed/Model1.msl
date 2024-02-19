@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ChungKhoanModelStoreContainer" CdmEntityContainer="ChungKhoanEntities">
+    <EntitySetMapping Name="BieuDoGias">
+      <EntityTypeMapping TypeName="ChungKhoanModel.BieuDoGia">
+        <MappingFragment StoreEntitySet="BieuDoGia">
+          <ScalarProperty Name="BieuDoGiaID" ColumnName="BieuDoGiaID" />
+          <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+          <ScalarProperty Name="ChungKhoanID" ColumnName="ChungKhoanID" />
+          <ScalarProperty Name="GiaDongCua" ColumnName="GiaDongCua" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DanhMucChungKhoans">
+      <EntityTypeMapping TypeName="ChungKhoanModel.DanhMucChungKhoan">
+        <MappingFragment StoreEntitySet="DanhMucChungKhoan">
+          <ScalarProperty Name="ChungKhoanID" ColumnName="ChungKhoanID" />
+          <ScalarProperty Name="MaChungKhoan" ColumnName="MaChungKhoan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_ThongKe2Ngay" FunctionName="ChungKhoanModel.Store.sp_ThongKe2Ngay">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ChungKhoanModel.sp_ThongKe2Ngay_Result">
+          <ScalarProperty Name="MaChungKhoan" ColumnName="MaChungKhoan" />
+          <ScalarProperty Name="Gia1" ColumnName="Gia1" />
+          <ScalarProperty Name="Gia2" ColumnName="Gia2" />
+          <ScalarProperty Name="DoLech" ColumnName="DoLech" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ThongKe3Ngay" FunctionName="ChungKhoanModel.Store.sp_ThongKe3Ngay">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ChungKhoanModel.sp_ThongKe3Ngay_Result">
+          <ScalarProperty Name="MaChungKhoan" ColumnName="MaChungKhoan" />
+          <ScalarProperty Name="Gia1" ColumnName="Gia1" />
+          <ScalarProperty Name="Gia2" ColumnName="Gia2" />
+          <ScalarProperty Name="Gia3" ColumnName="Gia3" />
+          <ScalarProperty Name="DoLech12" ColumnName="DoLech12" />
+          <ScalarProperty Name="DoLech13" ColumnName="DoLech13" />
+          <ScalarProperty Name="DoLech23" ColumnName="DoLech23" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

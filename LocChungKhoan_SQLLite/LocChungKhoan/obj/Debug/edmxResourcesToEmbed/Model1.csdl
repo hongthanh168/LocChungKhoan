@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ChungKhoanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BieuDoGia">
+    <Key>
+      <PropertyRef Name="BieuDoGiaID" />
+    </Key>
+    <Property Name="BieuDoGiaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ChungKhoanID" Type="Int32" Nullable="false" />
+    <Property Name="GiaDongCua" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="DanhMucChungKhoan" Relationship="Self.FK_BieuDoGia_DanhMuc" FromRole="BieuDoGia" ToRole="DanhMucChungKhoan" />
+  </EntityType>
+  <EntityType Name="DanhMucChungKhoan">
+    <Key>
+      <PropertyRef Name="ChungKhoanID" />
+    </Key>
+    <Property Name="ChungKhoanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaChungKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BieuDoGias" Relationship="Self.FK_BieuDoGia_DanhMuc" FromRole="DanhMucChungKhoan" ToRole="BieuDoGia" />
+  </EntityType>
+  <Association Name="FK_BieuDoGia_DanhMuc">
+    <End Role="DanhMucChungKhoan" Type="Self.DanhMucChungKhoan" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BieuDoGia" Type="Self.BieuDoGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanhMucChungKhoan">
+        <PropertyRef Name="ChungKhoanID" />
+      </Principal>
+      <Dependent Role="BieuDoGia">
+        <PropertyRef Name="ChungKhoanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ChungKhoanEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BieuDoGias" EntityType="Self.BieuDoGia" />
+    <EntitySet Name="DanhMucChungKhoans" EntityType="Self.DanhMucChungKhoan" />
+    <AssociationSet Name="FK_BieuDoGia_DanhMuc" Association="Self.FK_BieuDoGia_DanhMuc">
+      <End Role="DanhMucChungKhoan" EntitySet="DanhMucChungKhoans" />
+      <End Role="BieuDoGia" EntitySet="BieuDoGias" />
+    </AssociationSet>
+    <FunctionImport Name="sp_ThongKe2Ngay" ReturnType="Collection(ChungKhoanModel.sp_ThongKe2Ngay_Result)">
+      <Parameter Name="ngay1" Mode="In" Type="DateTime" />
+      <Parameter Name="ngay2" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ThongKe3Ngay" ReturnType="Collection(ChungKhoanModel.sp_ThongKe3Ngay_Result)">
+      <Parameter Name="ngay1" Mode="In" Type="DateTime" />
+      <Parameter Name="ngay2" Mode="In" Type="DateTime" />
+      <Parameter Name="ngay3" Mode="In" Type="DateTime" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_ThongKe2Ngay_Result">
+    <Property Type="String" Name="MaChungKhoan" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Gia1" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="Gia2" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="DoLech" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_ThongKe3Ngay_Result">
+    <Property Type="String" Name="MaChungKhoan" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Gia1" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="Gia2" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="Gia3" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="DoLech12" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="DoLech13" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="DoLech23" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+</Schema>

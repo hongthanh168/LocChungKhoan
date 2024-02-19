@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ChungKhoanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BieuDoGia">
+    <Key>
+      <PropertyRef Name="BieuDoGiaID" />
+    </Key>
+    <Property Name="BieuDoGiaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ngay" Type="smalldatetime" Nullable="false" />
+    <Property Name="ChungKhoanID" Type="int" Nullable="false" />
+    <Property Name="GiaDongCua" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DanhMucChungKhoan">
+    <Key>
+      <PropertyRef Name="ChungKhoanID" />
+    </Key>
+    <Property Name="ChungKhoanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaChungKhoan" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_BieuDoGia_DanhMuc">
+    <End Role="DanhMucChungKhoan" Type="Self.DanhMucChungKhoan" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BieuDoGia" Type="Self.BieuDoGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanhMucChungKhoan">
+        <PropertyRef Name="ChungKhoanID" />
+      </Principal>
+      <Dependent Role="BieuDoGia">
+        <PropertyRef Name="ChungKhoanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_ThongKe2Ngay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ngay1" Type="smalldatetime" Mode="In" />
+    <Parameter Name="ngay2" Type="smalldatetime" Mode="In" />
+  </Function>
+  <Function Name="sp_ThongKe3Ngay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ngay1" Type="smalldatetime" Mode="In" />
+    <Parameter Name="ngay2" Type="smalldatetime" Mode="In" />
+    <Parameter Name="ngay3" Type="smalldatetime" Mode="In" />
+  </Function>
+  <EntityContainer Name="ChungKhoanModelStoreContainer">
+    <EntitySet Name="BieuDoGia" EntityType="Self.BieuDoGia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DanhMucChungKhoan" EntityType="Self.DanhMucChungKhoan" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BieuDoGia_DanhMuc" Association="Self.FK_BieuDoGia_DanhMuc">
+      <End Role="DanhMucChungKhoan" EntitySet="DanhMucChungKhoan" />
+      <End Role="BieuDoGia" EntitySet="BieuDoGia" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
