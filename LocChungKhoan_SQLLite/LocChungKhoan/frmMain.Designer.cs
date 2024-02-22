@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -64,6 +64,7 @@
             this.lọcChứngKhoánTheoNgàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -115,6 +116,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.btnLocDonNguong);
             this.groupBox1.Controls.Add(this.btnTinhNhanh);
             this.groupBox1.Controls.Add(this.btnLocDaNguong);
@@ -157,7 +159,7 @@
             this.btnLocDonNguong.Name = "btnLocDonNguong";
             this.btnLocDonNguong.Size = new System.Drawing.Size(244, 28);
             this.btnLocDonNguong.TabIndex = 7;
-            this.btnLocDonNguong.Text = "Giá 1 > giá 2, giá 1 > giá 3";
+            this.btnLocDonNguong.Text = "Giá 1 >= giá 2, giá 1 >= giá 3";
             this.btnLocDonNguong.UseVisualStyleBackColor = true;
             this.btnLocDonNguong.Click += new System.EventHandler(this.btnLocDonNguong_Click);
             // 
@@ -166,9 +168,9 @@
             this.btnTinhNhanh.Location = new System.Drawing.Point(351, 157);
             this.btnTinhNhanh.Margin = new System.Windows.Forms.Padding(4);
             this.btnTinhNhanh.Name = "btnTinhNhanh";
-            this.btnTinhNhanh.Size = new System.Drawing.Size(244, 28);
+            this.btnTinhNhanh.Size = new System.Drawing.Size(363, 28);
             this.btnTinhNhanh.TabIndex = 6;
-            this.btnTinhNhanh.Text = "Giá 1 >= giá 2>= giá 3, giá 4>=giá 3";
+            this.btnTinhNhanh.Text = "Giá 1 >= giá 2, giá 1>= giá 3, giá 4>=max(giá 2,giá 3)\r\n";
             this.btnTinhNhanh.UseVisualStyleBackColor = true;
             this.btnTinhNhanh.Click += new System.EventHandler(this.btnTinhNhanh_Click);
             // 
@@ -179,7 +181,7 @@
             this.btnLocDaNguong.Name = "btnLocDaNguong";
             this.btnLocDaNguong.Size = new System.Drawing.Size(244, 28);
             this.btnLocDaNguong.TabIndex = 5;
-            this.btnLocDaNguong.Text = "Giá 1< giá 2<=giá 3";
+            this.btnLocDaNguong.Text = "Giá 1< giá 2, giá 1<giá 3";
             this.btnLocDaNguong.UseVisualStyleBackColor = true;
             this.btnLocDaNguong.Click += new System.EventHandler(this.btnLoc_Click);
             // 
@@ -309,15 +311,15 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(889, 580);
+            this.groupBox2.Size = new System.Drawing.Size(889, 579);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kết quả lọc";
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -325,17 +327,17 @@
             this.gridKQLoc.Margin = new System.Windows.Forms.Padding(4);
             this.gridKQLoc.Name = "gridKQLoc";
             this.gridKQLoc.RowHeadersWidth = 51;
-            this.gridKQLoc.Size = new System.Drawing.Size(881, 557);
+            this.gridKQLoc.Size = new System.Drawing.Size(881, 556);
             this.gridKQLoc.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 28);
+            this.panel1.Location = new System.Drawing.Point(0, 30);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(893, 916);
+            this.panel1.Size = new System.Drawing.Size(893, 914);
             this.panel1.TabIndex = 6;
             // 
             // splitContainer1
@@ -359,8 +361,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(893, 916);
-            this.splitContainer1.SplitterDistance = 327;
+            this.splitContainer1.Size = new System.Drawing.Size(893, 914);
+            this.splitContainer1.SplitterDistance = 326;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -372,7 +374,7 @@
             this.trợGiúpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(893, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(893, 30);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "Xóa dữ liệu";
             // 
@@ -385,7 +387,7 @@
             this.toolStripSeparator1,
             this.lọcChứngKhoánTheoNgàyToolStripMenuItem});
             this.quảnLýDữLiệuToolStripMenuItem.Name = "quảnLýDữLiệuToolStripMenuItem";
-            this.quảnLýDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(123, 24);
+            this.quảnLýDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(123, 26);
             this.quảnLýDữLiệuToolStripMenuItem.Text = "Quản lý dữ liệu";
             // 
             // btnXoaToanBo
@@ -426,7 +428,7 @@
             this.trợGiúpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.thôngTinToolStripMenuItem});
             this.trợGiúpToolStripMenuItem.Name = "trợGiúpToolStripMenuItem";
-            this.trợGiúpToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
+            this.trợGiúpToolStripMenuItem.Size = new System.Drawing.Size(78, 26);
             this.trợGiúpToolStripMenuItem.Text = "Trợ giúp";
             // 
             // thôngTinToolStripMenuItem
@@ -435,6 +437,17 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             this.thôngTinToolStripMenuItem.Click += new System.EventHandler(this.thôngTinToolStripMenuItem_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(722, 157);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(125, 28);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Lọc tùy ý";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // frmMain
             // 
@@ -501,6 +514,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem lọcChứngKhoánTheoNgàyToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
     }
 }
 

@@ -90,8 +90,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\CNguong.cs" />
+    <Compile Include="Controller\CToanTu.cs" />
     <Compile Include="Controller\TABCKController.cs" />
     <Compile Include="Controller\BieuDoGiaController.cs" />
+    <Compile Include="frmDieuKienLoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDieuKienLoc.Designer.cs">
+      <DependentUpon>frmDieuKienLoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLocTheoNgay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +137,9 @@
     <Compile Include="Model\ThongKe2_Result.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmDieuKienLoc.resx">
+      <DependentUpon>frmDieuKienLoc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLocTheoNgay.resx">
       <DependentUpon>frmLocTheoNgay.cs</DependentUpon>
     </EmbeddedResource>

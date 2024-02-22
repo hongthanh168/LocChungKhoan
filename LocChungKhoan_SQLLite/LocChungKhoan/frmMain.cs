@@ -14,6 +14,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Configuration;
 using System.Runtime.InteropServices.ComTypes;
+using LocChungKhoan.Controller;
 
 namespace LocChungKhoan
 {
@@ -165,7 +166,7 @@ namespace LocChungKhoan
             }            
             try
             {
-                var list = BieuDoGiaController.ThongKe2(ngay1, ngay2, ngay3).OrderBy(x => x.MaChungKhoan);
+                var list = BieuDoGiaController.ThongKe3(ngay1, ngay2, ngay3).OrderBy(x => x.MaChungKhoan);
                 System.Data.DataTable dt = new System.Data.DataTable();
                 dt.Columns.Add("STT", typeof(int));
                 dt.Columns.Add("MaCK", typeof(string));
@@ -177,7 +178,7 @@ namespace LocChungKhoan
                 foreach (var item in list)
                 {  
                     decimal dolech23 = Math.Abs (item.DoLech23) * 100 / Math.Max(item.Gia2, item.Gia3);
-                    if (item.Gia1 < item.Gia2 && item.Gia2 <= item.Gia3
+                    if (item.Gia1 < item.Gia2 && item.Gia1 < item.Gia3
                         && dolech23 >=nguongDuoi && dolech23 <=nguongTren)
                     {
                         DataRow dr = dt.NewRow();
@@ -263,7 +264,7 @@ namespace LocChungKhoan
             }
             try
             {
-                var list = BieuDoGiaController.ThongKe2(ngay1, ngay2, ngay3).OrderBy(x => x.MaChungKhoan);
+                var list = BieuDoGiaController.ThongKe3(ngay1, ngay2, ngay3).OrderBy(x => x.MaChungKhoan);
 
                 System.Data.DataTable dt = new System.Data.DataTable();
                 dt.Columns.Add("STT", typeof(int));
@@ -276,7 +277,7 @@ namespace LocChungKhoan
                 foreach (var item in list)
                 {
                     decimal dolech23 = Math.Abs(item.DoLech23) * 100 / Math.Max(item.Gia2, item.Gia3);
-                    if (item.Gia1 > item.Gia2 && item.Gia1 > item.Gia3
+                    if (item.Gia1 >= item.Gia2 && item.Gia1 >= item.Gia3
                         && dolech23 >=nguongDuoi && dolech23<= nguongTren)
                     {
                         DataRow dr = dt.NewRow();
@@ -372,7 +373,7 @@ namespace LocChungKhoan
                 foreach (var item in list)
                 {
                     decimal dolech23 = Math.Abs(item.Gia2 - item.Gia3) * 100 / Math.Max(item.Gia2, item.Gia3);
-                    if (dolech23 <= nguongTren && dolech23 >= nguongDuoi && item.Gia1 > item.Gia2 && item.Gia2 >= item.Gia3 &&  item.Gia4 >= item.Gia3)
+                    if (dolech23 <= nguongTren && dolech23 >= nguongDuoi && item.Gia1 >= item.Gia2 && item.Gia1 >= item.Gia3 &&  item.Gia4 >= Math.Max (item.Gia3,item.Gia2))
                     {
                         DataRow dr = dt.NewRow();
                         //dr["STT"] = i;
@@ -399,6 +400,138 @@ namespace LocChungKhoan
         {
             frmLocTheoNgay frm = new frmLocTheoNgay();
             frm.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (txtNgay1.Text == "" || txtNgay2.Text == "" || txtNgay3.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập ngày");
+                return;
+            }
+            //show frmDieuKienLoc and get listToanTu and listNguong from it
+            frmDieuKienLoc frm = new frmDieuKienLoc();
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
+            {                
+                List<CToanTuSoSanh > listToanTu = frm.listToanTu;
+                List<CSoSanhNguong > listNguong = frm.listNguong;
+                DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                ngay1 = new DateTime(ngay1.Year, ngay1.Month, ngay1.Day, 0, 0, 0);
+                ngay2 = new DateTime(ngay2.Year, ngay2.Month, ngay2.Day, 0, 0, 0);
+                ngay3 = new DateTime(ngay3.Year, ngay3.Month, ngay3.Day, 0, 0, 0);                
+                try
+                {
+                    if (txtNgay4.Text != "")
+                    {
+                        System.Data.DataTable dt = new System.Data.DataTable();
+                        dt.Columns.Add("STT", typeof(int));
+                        dt.Columns.Add("MaCK", typeof(string));
+                        dt.Columns.Add("Gia1", typeof(decimal));
+                        dt.Columns.Add("Gia2", typeof(decimal));
+                        dt.Columns.Add("Gia3", typeof(decimal));
+                        dt.Columns.Add("Gia4", typeof(decimal));
+                        int i = 1;
+                        DateTime ngay4 = DateTime.ParseExact(txtNgay4.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture); 
+                        ngay4 = new DateTime(ngay4.Year, ngay4.Month, ngay4.Day, 0, 0, 0);
+                        var list = BieuDoGiaController.ThongKe4(ngay1, ngay2, ngay3, ngay4 ).OrderBy(x => x.MaChungKhoan);
+                        
+                        foreach (var item in list)
+                        {
+                            decimal[] dayso = new decimal[4] { item.Gia1, item.Gia2, item.Gia3, item.Gia4 };
+                            Boolean kqKiemTra = true;
+                            foreach (CToanTuSoSanh itemToanTu in listToanTu)
+                            {
+                                if (!itemToanTu.SoSanh(dayso))
+                                {
+                                    kqKiemTra = false;
+                                    break;
+                                }
+                            }
+                            if (kqKiemTra)
+                            {
+                                foreach (CSoSanhNguong itemNguong in listNguong)
+                                {
+                                    if (!itemNguong.SoSanh(dayso))
+                                    {
+                                        kqKiemTra = false;
+                                        break;
+                                    }
+                                }
+                                if (kqKiemTra)
+                                {
+                                    DataRow dr = dt.NewRow();
+                                    dr["STT"] = i;
+                                    dr["MaCK"] = item.MaChungKhoan;
+                                    dr["Gia1"] = Math.Round(item.Gia1, 2, MidpointRounding.AwayFromZero);
+                                    dr["Gia2"] = Math.Round(item.Gia2, 2, MidpointRounding.AwayFromZero);
+                                    dr["Gia3"] = Math.Round(item.Gia3, 2, MidpointRounding.AwayFromZero);
+                                    dr["Gia4"] = Math.Round(item.Gia4, 2, MidpointRounding.AwayFromZero);
+                                    dt.Rows.Add(dr);
+                                    i++;
+                                }
+                            }
+                        }
+                        gridKQLoc.DataSource = dt;
+                    }
+                    else
+                    {
+                        System.Data.DataTable dt = new System.Data.DataTable();
+                        dt.Columns.Add("STT", typeof(int));
+                        dt.Columns.Add("MaCK", typeof(string));
+                        dt.Columns.Add("Gia1", typeof(decimal));
+                        dt.Columns.Add("Gia2", typeof(decimal));
+                        dt.Columns.Add("Gia3", typeof(decimal));
+                        int i = 1;
+                        var list = BieuDoGiaController.ThongKe3(ngay1, ngay2, ngay3).OrderBy(x => x.MaChungKhoan);
+                        foreach (var item in list)
+                        {
+                            decimal[] dayso = new decimal[3] { item.Gia1, item.Gia2, item.Gia3};
+                            Boolean kqKiemTra = true;
+                            foreach (CToanTuSoSanh itemToanTu in listToanTu)
+                            {
+                                if (!itemToanTu.SoSanh(dayso))
+                                {
+                                    kqKiemTra = false;
+                                    break;
+                                }
+                            }
+                            if (kqKiemTra)
+                            {
+                                foreach (CSoSanhNguong itemNguong in listNguong)
+                                {
+                                    if (!itemNguong.SoSanh(dayso))
+                                    {
+                                        kqKiemTra = false;
+                                        break;
+                                    }
+                                }
+                                if (kqKiemTra)
+                                {
+                                    DataRow dr = dt.NewRow();
+                                    dr["STT"] = i;
+                                    dr["MaCK"] = item.MaChungKhoan;
+                                    dr["Gia1"] = Math.Round(item.Gia1, 2, MidpointRounding.AwayFromZero);
+                                    dr["Gia2"] = Math.Round(item.Gia2, 2, MidpointRounding.AwayFromZero);
+                                    dr["Gia3"] = Math.Round(item.Gia3, 2, MidpointRounding.AwayFromZero);
+                                    dt.Rows.Add(dr);
+                                    i++;
+                                }                                
+                            }
+                            
+                        }
+                        gridKQLoc.DataSource = dt;
+                    }
+                    
+                }
+                catch
+                {
+                    MessageBox.Show("Không tìm được dữ liệu!");
+                    return;
+                }
+            }
         }
     }
 }

@@ -62,7 +62,7 @@ namespace LocChungKhoan
             }
             return obj.BieuDoGiaID;
         }
-        public static List<sp_ThongKe2Ngay_Result> ThongKe1(DateTime ngay1, DateTime ngay2)
+        public static List<sp_ThongKe2Ngay_Result> ThongKe2(DateTime ngay1, DateTime ngay2)
         {
             ChungKhoanEntities db = new ChungKhoanEntities();
             var result = db.BieuDoGias
@@ -151,7 +151,7 @@ namespace LocChungKhoan
         //                    .ToList();
         //    return result;
         //}
-        public static List<sp_ThongKe3Ngay_Result> ThongKe2(DateTime ngay1, DateTime ngay2, DateTime ngay3)
+        public static List<sp_ThongKe3Ngay_Result> ThongKe3(DateTime ngay1, DateTime ngay2, DateTime ngay3)
         {
             using (var dbContext = new ChungKhoanEntities())
             {

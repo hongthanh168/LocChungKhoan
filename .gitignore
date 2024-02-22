@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/LocChungKhoan_SQLLite/.vs
+/LocChungKhoan_SQLLite/LocChungKhoan/bin
+/LocChungKhoan_SQLLite/packages

@@ -141,7 +141,7 @@ namespace LocChungKhoan
             decimal nguongTren = Convert.ToDecimal(txtNguongTren.Text);            
             try
             {
-                var list = BieuDoGiaController.ThongKe1(ngay1, ngay2).OrderBy(x => x.MaChungKhoan);
+                var list = BieuDoGiaController.ThongKe2(ngay1, ngay2).OrderBy(x => x.MaChungKhoan);
                 System.Data.DataTable dt = new System.Data.DataTable();
                 dt.Columns.Add("STT", typeof(int));
                 dt.Columns.Add("MaCK", typeof(string));
@@ -202,7 +202,7 @@ namespace LocChungKhoan
             decimal nguongTren = Convert.ToDecimal(txtNguongTren.Text);
             try
             {
-                var list = BieuDoGiaController.ThongKe2(ngay1, ngay2, ngay3).OrderBy(x => x.MaChungKhoan);
+                var list = BieuDoGiaController.ThongKe3(ngay1, ngay2, ngay3).OrderBy(x => x.MaChungKhoan);
 
                 System.Data.DataTable dt = new System.Data.DataTable();
                 dt.Columns.Add("STT", typeof(int));
