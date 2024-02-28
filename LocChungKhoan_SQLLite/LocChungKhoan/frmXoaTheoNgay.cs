@@ -15,14 +15,16 @@ namespace LocChungKhoan
     {
         // Khai báo biến        
         public bool isTuNgayDenNgay = false;
+        public int iFormGoi = 0; // 0: frmMain, 1: frmMainKhoiLuong
         public frmXoaTheoNgay()
         {
             InitializeComponent();
         }
-        public frmXoaTheoNgay(Boolean _isTuNgayDenNgay)
+        public frmXoaTheoNgay(Boolean _isTuNgayDenNgay, int _maFormGoi)
         {
             InitializeComponent();
             isTuNgayDenNgay = _isTuNgayDenNgay;
+            iFormGoi = _maFormGoi;
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -35,7 +37,14 @@ namespace LocChungKhoan
                     //delete all data in BieuDoGias
                     ngayBatDau = new DateTime(ngayBatDau.Year, ngayBatDau.Month, ngayBatDau.Day, 0, 0, 0);
                     ngayKetThuc = new DateTime(ngayKetThuc.Year, ngayKetThuc.Month, ngayKetThuc.Day, 23, 59, 59);
-                    BieuDoGiaController.DeleteFromTo(ngayBatDau, ngayKetThuc);
+                    if (iFormGoi == 0)
+                    {
+                        BieuDoGiaController.DeleteFromTo(ngayBatDau, ngayKetThuc);
+                    }
+                    else
+                    {
+                        BieuDoKhoiLuongController.DeleteFromTo(ngayBatDau, ngayKetThuc);
+                    }                    
                     MessageBox.Show("Đã xóa dữ liệu từ ngày " + ngayBatDau.ToString("dd/MM/yyyy") + " đến ngày " + ngayKetThuc.ToString("dd/MM/yyyy"));
                     this.Close();
                 }   
@@ -50,7 +59,14 @@ namespace LocChungKhoan
                 {
                     DateTime ngay = DateTime.ParseExact(txtNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     ngay = new DateTime(ngay.Year, ngay.Month, ngay.Day, 0, 0, 0);
-                    BieuDoGiaController.DeleteTheoNgay (ngay);
+                    if (iFormGoi == 0)
+                    {
+                        BieuDoGiaController.DeleteTheoNgay(ngay);
+                    }
+                    else
+                    {
+                        BieuDoKhoiLuongController.DeleteTheoNgay(ngay);
+                    }                    
                     MessageBox.Show("Đã xóa dữ liệu ngày " + ngay.ToString("dd/MM/yyyy"));
                     this.Close();
                 }

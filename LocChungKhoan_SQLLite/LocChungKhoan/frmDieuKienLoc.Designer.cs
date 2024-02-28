@@ -58,6 +58,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.btnDauKhac = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +70,7 @@
             this.groupBox1.Controls.Add(this.btnXoaDieuKien);
             this.groupBox1.Controls.Add(this.btnThemSoSanh);
             this.groupBox1.Controls.Add(this.btnSoSanhMoi);
+            this.groupBox1.Controls.Add(this.btnDauKhac);
             this.groupBox1.Controls.Add(this.btnBang);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
@@ -156,7 +158,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(238, 64);
+            this.button2.Location = new System.Drawing.Point(289, 64);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(43, 38);
@@ -168,7 +170,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(181, 64);
+            this.button1.Location = new System.Drawing.Point(232, 64);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(43, 38);
@@ -416,6 +418,18 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // btnDauKhac
+            // 
+            this.btnDauKhac.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDauKhac.Location = new System.Drawing.Point(179, 64);
+            this.btnDauKhac.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDauKhac.Name = "btnDauKhac";
+            this.btnDauKhac.Size = new System.Drawing.Size(43, 38);
+            this.btnDauKhac.TabIndex = 4;
+            this.btnDauKhac.Text = "#";
+            this.btnDauKhac.UseVisualStyleBackColor = true;
+            this.btnDauKhac.Click += new System.EventHandler(this.btnBang_Click);
+            // 
             // frmDieuKienLoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -469,5 +483,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnXoaDieuKien;
         private System.Windows.Forms.Button btnXoaNguong;
+        private System.Windows.Forms.Button btnDauKhac;
     }
 }

@@ -22,5 +22,15 @@ namespace LocChungKhoan
         public string MaCK { get; set; }
         public int PhanLoai { get; set; }
     }
-    
+    public partial class BieuDoKhoiLuong
+    {
+        [Key]
+        public int BieuDoKhoiLuongID { get; set; }
+        public System.DateTime Ngay { get; set; }
+        public string MaChungKhoan { get; set; }
+        public decimal GiaMoCua { get; set; }
+        public decimal GiaDongCua { get; set; }        
+        public decimal KhoiLuong { get; set; }
+    }
+
 }

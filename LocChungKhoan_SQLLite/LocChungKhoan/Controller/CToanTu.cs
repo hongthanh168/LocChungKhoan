@@ -68,6 +68,15 @@ namespace LocChungKhoan.Controller
                     {
                         return false;
                     }
+                case "#":
+                    if (giatri1 != giatri2)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 default:
                     return false;
             }

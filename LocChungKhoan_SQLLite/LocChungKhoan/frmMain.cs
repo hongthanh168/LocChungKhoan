@@ -219,13 +219,13 @@ namespace LocChungKhoan
 
         private void btnXoaTheoThoiGian_Click(object sender, EventArgs e)
         {
-            frmXoaTheoNgay frm = new frmXoaTheoNgay(true);
+            frmXoaTheoNgay frm = new frmXoaTheoNgay(true,0);
             frm.ShowDialog();            
         }
 
         private void btnXoaTheoNgay_Click(object sender, EventArgs e)
         {
-            frmXoaTheoNgay frm = new frmXoaTheoNgay(false);
+            frmXoaTheoNgay frm = new frmXoaTheoNgay(false,0);
             frm.ShowDialog();            
         }
 

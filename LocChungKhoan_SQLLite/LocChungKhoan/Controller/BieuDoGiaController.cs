@@ -27,10 +27,22 @@ namespace LocChungKhoan
                 var list = dbContext.BieuDoGias
                     .Select(data => data.Ngay)
                     .Distinct()
+                    //order by date
+                    .OrderBy(data => data)
                     .ToList();
                 return list;
             }           
             
+        }
+        public static BieuDoGia GetItem(string MaCK, DateTime ngay)
+        {
+            using (var db = new ChungKhoanEntities())
+            {
+                BieuDoGia obj = (from b in db.BieuDoGias
+                                                                where b.MaChungKhoan == MaCK && b.Ngay == ngay
+                                                                                               select b).FirstOrDefault();
+                return obj;
+            }
         }
         public static int Insert(BieuDoGia obj)
         {
