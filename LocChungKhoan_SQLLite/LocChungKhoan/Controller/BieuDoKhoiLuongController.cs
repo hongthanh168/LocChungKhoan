@@ -91,28 +91,75 @@ namespace LocChungKhoan
                 
             }
         }
-        public static List<sp_ThongKe3Ngay_Result> ThongKe3(DateTime ngay1, DateTime ngay2, DateTime ngay3)
+        public static List<ThongKeKhoiLuong> ThongKe(DateTime tuan1_start, DateTime tuan1_end, DateTime tuan2_start, DateTime tuan2_end, DateTime tuan3_start, DateTime tuan3_end)
         {
             using (var dbContext = new ChungKhoanEntities())
             {
-                var statisticalTable = dbContext.BieuDoKhoiLuongs
-                    .Where(data => data.Ngay == ngay1 || data.Ngay == ngay2 || data.Ngay == ngay3)
-                    .GroupBy(data => data.MaChungKhoan)
-                    .Select(group => new sp_ThongKe3Ngay_Result
-                    {
-                        MaChungKhoan = group.Key,
-                        //get Gia1 if data.Ngay == ngay1 else 0
-                        Gia1 = group.Sum(data => data.Ngay == ngay1 ? data.GiaDongCua : 0),
-                        Gia2 = group.Sum(data => data.Ngay == ngay2 ? data.GiaDongCua : 0),
-                        Gia3 = group.Sum(data => data.Ngay == ngay3 ? data.GiaDongCua : 0),
-                        DoLech12 = group.Sum(data => data.Ngay == ngay1 ? data.GiaDongCua : 0) - group.Sum(data => data.Ngay == ngay2 ? data.GiaDongCua : 0),
-                        DoLech13 = group.Sum(data => data.Ngay == ngay1 ? data.GiaDongCua : 0) - group.Sum(data => data.Ngay == ngay3 ? data.GiaDongCua : 0),
-                        DoLech23 = group.Sum(data => data.Ngay == ngay2 ? data.GiaDongCua : 0) - group.Sum(data => data.Ngay == ngay3 ? data.GiaDongCua : 0)
-                    })
-                    .Where(x => x.Gia1 != 0 && x.Gia2 != 0 && x.Gia3 != 0)
-                    .ToList();
+                var results = (from t1 in dbContext .BieuDoKhoiLuongs
+                               where t1.Ngay >= tuan1_start && t1.Ngay <= tuan1_end
+                               select new ThongKeKhoiLuong 
+                               {
+                                   MaChungKhoan = t1.MaChungKhoan,
+                                   GiaDongCua1 = (t1.Ngay == tuan1_end) ? t1.GiaDongCua : 0,
+                                   GiaDongCua2 = 0,
+                                   GiaDongCua3 = 0,
+                                   GiaMoCua1 = (t1.Ngay == tuan1_end) ? t1.GiaMoCua  : 0,
+                                   GiaMoCua2 = 0,
+                                   GiaMoCua3 = 0,
+                                   KhoiLuong1 = t1.KhoiLuong,
+                                   KhoiLuong2 = 0,
+                                   KhoiLuong3 = 0
+                               })
+                               .Union(
+                               from t2 in dbContext.BieuDoKhoiLuongs 
+                               where t2.Ngay >= tuan2_start && t2.Ngay <= tuan2_end
+                               select new ThongKeKhoiLuong
+                               {
+                                   MaChungKhoan = t2.MaChungKhoan,
+                                   GiaDongCua1 = 0,
+                                   GiaDongCua2 = (t2.Ngay == tuan2_end) ? t2.GiaDongCua : 0,
+                                   GiaDongCua3 = 0,
+                                   GiaMoCua1 = 0,
+                                   GiaMoCua2 = (t2.Ngay == tuan2_end) ? t2.GiaMoCua : 0,
+                                   GiaMoCua3 = 0,
+                                   KhoiLuong1 = 0,
+                                   KhoiLuong2 = t2.KhoiLuong,
+                                   KhoiLuong3 = 0
+                               })
+                               .Union(
+                               from t3 in dbContext.BieuDoKhoiLuongs
+                               where t3.Ngay >= tuan3_start && t3.Ngay <= tuan3_end
+                               select new ThongKeKhoiLuong
+                               {
+                                   MaChungKhoan = t3.MaChungKhoan,
+                                   GiaDongCua1 = 0,
+                                   GiaDongCua2 = 0,
+                                   GiaDongCua3 = (t3.Ngay == tuan3_end) ? t3.GiaDongCua : 0,
+                                   GiaMoCua1 = 0,
+                                   GiaMoCua2 = 0,
+                                   GiaMoCua3 = (t3.Ngay == tuan3_end) ? t3.GiaMoCua : 0,
+                                   KhoiLuong1 = 0,
+                                   KhoiLuong2 = 0,
+                                   KhoiLuong3 = t3.KhoiLuong
+                               })
+                               .GroupBy(x => x.MaChungKhoan)
+                               .Select(g => new ThongKeKhoiLuong
+                               {
+                                   MaChungKhoan = g.Key,
+                                   GiaDongCua1 = g.Sum(x => x.GiaDongCua1),
+                                   GiaDongCua2 = g.Sum(x => x.GiaDongCua2),
+                                   GiaDongCua3 = g.Sum(x => x.GiaDongCua3),
+                                   GiaMoCua1 = g.Sum(x => x.GiaMoCua1),
+                                   GiaMoCua2 = g.Sum(x => x.GiaMoCua2),
+                                   GiaMoCua3 = g.Sum(x => x.GiaMoCua3),
+                                   KhoiLuong1 = g.Sum(x => x.KhoiLuong1),
+                                   KhoiLuong2 = g.Sum(x => x.KhoiLuong2),
+                                   KhoiLuong3 = g.Sum(x => x.KhoiLuong3)
+                               })
+                               .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua2 != 0 && x.GiaDongCua3 != 0)
+                               .ToList();
 
-                return statisticalTable;
+                return results;
             }
         }        
         public static void Delete(int id)

@@ -107,62 +107,7 @@ namespace LocChungKhoan
                         .OrderBy(x=> x.MaChungKhoan)
                         .ToList();
             return result;
-        }
-        //public static List<sp_ThongKe3Ngay_Result> ThongKe2(DateTime ngay1, DateTime ngay2, DateTime ngay3)
-        //{
-        //    ChungKhoanEntities db = new ChungKhoanEntities();
-        //    var result = db.BieuDoGias
-        //                    .Where(g => g.Ngay == ngay1)
-        //                    .Select(g => new sp_ThongKe3Ngay_Result
-        //                    {
-        //                        MaChungKhoan = g.MaChungKhoan,
-        //                        Gia1 = g.GiaDongCua,
-        //                        Gia2 = 0,
-        //                        Gia3 = 0,
-        //                        DoLech12 = g.GiaDongCua,
-        //                        DoLech13 = g.GiaDongCua,
-        //                        DoLech23 = 0
-        //                    })
-        //                    .Union(db.BieuDoGias
-        //                        .Where(g => g.Ngay == ngay2)
-        //                        .Select(g => new sp_ThongKe3Ngay_Result
-        //                        {
-        //                            MaChungKhoan = g.MaChungKhoan,
-        //                            Gia1 = 0,
-        //                            Gia2 = g.GiaDongCua,
-        //                            Gia3 = 0,
-        //                            DoLech12 = -g.GiaDongCua,
-        //                            DoLech13 = 0,
-        //                            DoLech23 = g.GiaDongCua,
-        //                        }))
-        //                    .Union(db.BieuDoGias
-        //                        .Where(g => g.Ngay == ngay3)
-        //                        .Select(g => new sp_ThongKe3Ngay_Result
-        //                        {
-        //                            MaChungKhoan = g.MaChungKhoan,
-        //                            Gia1 = 0,
-        //                            Gia2 = 0,
-        //                            Gia3 = g.GiaDongCua,
-        //                            DoLech12 = 0,
-        //                            DoLech13 = -g.GiaDongCua,
-        //                            DoLech23 = -g.GiaDongCua,
-        //                        }))
-        //                    .GroupBy(temp => temp.MaChungKhoan)
-        //                    .Select(group => new sp_ThongKe3Ngay_Result
-        //                    {
-        //                        MaChungKhoan = group.Key,
-        //                        Gia1 = group.Sum(g => g.Gia1),
-        //                        Gia2 = group.Sum(g => g.Gia2),
-        //                        Gia3 = group.Sum(g => g.Gia3),
-        //                        DoLech12 = group.Sum(g => g.DoLech12),
-        //                        DoLech13 = group.Sum(g => g.DoLech13),
-        //                        DoLech23 = group.Sum(g => g.DoLech23)
-        //                    })
-        //                    .Where(x => x.Gia1 != 0 && x.Gia2 != 0 && x.Gia3 != 0)
-        //                    .OrderBy(x => x.MaChungKhoan)
-        //                    .ToList();
-        //    return result;
-        //}
+        }        
         public static List<sp_ThongKe3Ngay_Result> ThongKe3(DateTime ngay1, DateTime ngay2, DateTime ngay3)
         {
             using (var dbContext = new ChungKhoanEntities())

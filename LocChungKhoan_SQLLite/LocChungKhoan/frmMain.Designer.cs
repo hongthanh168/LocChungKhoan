@@ -65,6 +65,7 @@
             this.lọcChứngKhoánTheoNgàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLocKhoiLuong = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -115,6 +116,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnLocKhoiLuong);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.btnLocDonNguong);
@@ -449,6 +451,17 @@
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             this.thôngTinToolStripMenuItem.Click += new System.EventHandler(this.thôngTinToolStripMenuItem_Click);
             // 
+            // btnLocKhoiLuong
+            // 
+            this.btnLocKhoiLuong.Location = new System.Drawing.Point(603, 88);
+            this.btnLocKhoiLuong.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLocKhoiLuong.Name = "btnLocKhoiLuong";
+            this.btnLocKhoiLuong.Size = new System.Drawing.Size(244, 28);
+            this.btnLocKhoiLuong.TabIndex = 4;
+            this.btnLocKhoiLuong.Text = "Mở form Lọc theo khối lượng";
+            this.btnLocKhoiLuong.UseVisualStyleBackColor = true;
+            this.btnLocKhoiLuong.Click += new System.EventHandler(this.btnLocKhoiLuong_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -515,6 +528,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem lọcChứngKhoánTheoNgàyToolStripMenuItem;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnLocKhoiLuong;
     }
 }
 

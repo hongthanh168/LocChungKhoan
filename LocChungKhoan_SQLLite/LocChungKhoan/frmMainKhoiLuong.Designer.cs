@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -144,7 +144,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(390, 84);
+            this.label6.Location = new System.Drawing.Point(416, 84);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(102, 16);
             this.label6.TabIndex = 8;
@@ -153,7 +153,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(390, 54);
+            this.label4.Location = new System.Drawing.Point(416, 54);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(102, 16);
             this.label4.TabIndex = 8;
@@ -162,7 +162,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(390, 24);
+            this.label8.Location = new System.Drawing.Point(416, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(102, 16);
             this.label8.TabIndex = 8;
@@ -210,6 +210,7 @@
             this.btnBoLoc1.TabIndex = 9;
             this.btnBoLoc1.Text = "Giá 1 >= giá 3, giá 2 >= giá 3";
             this.btnBoLoc1.UseVisualStyleBackColor = true;
+            this.btnBoLoc1.Click += new System.EventHandler(this.btnBoLoc1_Click);
             // 
             // btnBoLoc3
             // 
@@ -220,6 +221,7 @@
             this.btnBoLoc3.TabIndex = 11;
             this.btnBoLoc3.Text = "Giá đóng cửa tuần 2, tuần 3";
             this.btnBoLoc3.UseVisualStyleBackColor = true;
+            this.btnBoLoc3.Click += new System.EventHandler(this.btnBoLoc3_Click);
             // 
             // btnBoLoc2
             // 
@@ -230,10 +232,11 @@
             this.btnBoLoc2.TabIndex = 10;
             this.btnBoLoc2.Text = "Giá 1<= giá 3 <=giá 2";
             this.btnBoLoc2.UseVisualStyleBackColor = true;
+            this.btnBoLoc2.Click += new System.EventHandler(this.btnBoLoc2_Click);
             // 
             // txtTuan3CuoiTuan
             // 
-            this.txtTuan3CuoiTuan.Location = new System.Drawing.Point(499, 81);
+            this.txtTuan3CuoiTuan.Location = new System.Drawing.Point(534, 81);
             this.txtTuan3CuoiTuan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTuan3CuoiTuan.Name = "txtTuan3CuoiTuan";
             this.txtTuan3CuoiTuan.Size = new System.Drawing.Size(211, 22);
@@ -241,7 +244,7 @@
             // 
             // txtTuan2CuoiTuan
             // 
-            this.txtTuan2CuoiTuan.Location = new System.Drawing.Point(499, 51);
+            this.txtTuan2CuoiTuan.Location = new System.Drawing.Point(534, 51);
             this.txtTuan2CuoiTuan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTuan2CuoiTuan.Name = "txtTuan2CuoiTuan";
             this.txtTuan2CuoiTuan.Size = new System.Drawing.Size(211, 22);
@@ -249,7 +252,7 @@
             // 
             // txtTuan1CuoiTuan
             // 
-            this.txtTuan1CuoiTuan.Location = new System.Drawing.Point(499, 21);
+            this.txtTuan1CuoiTuan.Location = new System.Drawing.Point(534, 21);
             this.txtTuan1CuoiTuan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTuan1CuoiTuan.Name = "txtTuan1CuoiTuan";
             this.txtTuan1CuoiTuan.Size = new System.Drawing.Size(211, 22);
@@ -257,7 +260,7 @@
             // 
             // txtTuan3DauTuan
             // 
-            this.txtTuan3DauTuan.Location = new System.Drawing.Point(171, 81);
+            this.txtTuan3DauTuan.Location = new System.Drawing.Point(180, 81);
             this.txtTuan3DauTuan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTuan3DauTuan.Name = "txtTuan3DauTuan";
             this.txtTuan3DauTuan.Size = new System.Drawing.Size(211, 22);
@@ -275,7 +278,7 @@
             // 
             // txtTuan2DauTuan
             // 
-            this.txtTuan2DauTuan.Location = new System.Drawing.Point(171, 51);
+            this.txtTuan2DauTuan.Location = new System.Drawing.Point(180, 51);
             this.txtTuan2DauTuan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTuan2DauTuan.Name = "txtTuan2DauTuan";
             this.txtTuan2DauTuan.Size = new System.Drawing.Size(211, 22);
@@ -293,7 +296,7 @@
             // 
             // txtTuan1DauTuan
             // 
-            this.txtTuan1DauTuan.Location = new System.Drawing.Point(171, 21);
+            this.txtTuan1DauTuan.Location = new System.Drawing.Point(180, 21);
             this.txtTuan1DauTuan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTuan1DauTuan.Name = "txtTuan1DauTuan";
             this.txtTuan1DauTuan.Size = new System.Drawing.Size(211, 22);
@@ -334,8 +337,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;

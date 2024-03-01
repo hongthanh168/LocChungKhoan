@@ -54,13 +54,13 @@ namespace LocChungKhoan
                             progressBar1.Value = i - 2 + 1;
                             System.Windows.Forms.Application.DoEvents();
                             //kiểm tra mã chứng khoán có chưa
-                            Cell cellB = row.Elements<Cell>().ElementAtOrDefault(0);
+                            Cell cellB = row.Elements<Cell>().ElementAtOrDefault(1);
                             string name = GetCellValue(cellB, workbookPart);
                             BieuDoKhoiLuong  obj = new BieuDoKhoiLuong ();
                             obj.MaChungKhoan = name.Trim();
                             //ngày
-                            Cell cellA = row.Elements<Cell>().ElementAtOrDefault(1);
-                            string myString = GetCellValue(cellB, workbookPart);
+                            Cell cellA = row.Elements<Cell>().ElementAtOrDefault(0);
+                            string myString = GetCellValue(cellA, workbookPart);
                             obj.Ngay = DateTime.ParseExact(myString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                             //giá mở cửa
                             Cell cellC = row.Elements<Cell>().ElementAtOrDefault(2);
@@ -181,7 +181,7 @@ namespace LocChungKhoan
 
         private void frmMainKhoiLuong_Load(object sender, EventArgs e)
         {
-            string boloc1 = "Gia1 >= Giá 3\r\nGia2>= Giá 3\r\nĐiều kiện hiển thị sẽ sắp xếp theo tự tăng dần của chỉ số hiển thị , chỉ số hiển thị được tính như sau: \r\n               Chỉ số hiển thị =   (Khối lượng tuần 3 / max(Khối lượng tuần 1, Khối lượng tuần 2))*100 ";
+            string boloc1 = "GiaDongCua1 >= Giá 3\r\nGiaDongCua2>= Giá 3\r\nĐiều kiện hiển thị sẽ sắp xếp theo tự tăng dần của chỉ số hiển thị , chỉ số hiển thị được tính như sau: \r\n               Chỉ số hiển thị =   (Khối lượng tuần 3 / max(Khối lượng tuần 1, Khối lượng tuần 2))*100 ";
             string boloc2 = "Giá1 <= Giá 3 <= Giá 2\r\nĐiều kiện hiển thị : Sắp xếp theo thứ  theo thứ tự tăng dần của     (Giá 2 - giá 3 ) / giá 2 * 100 ";
             string boloc3 = "Giá mở cửa đầu tuần (Tuần 3) = Giá đóng cửa cuối tuần (Tuần 3)\r\nGiá đóng cửa cuối tuần (Tuần 2)  <=  Giá đóng cửa cuối tuần (Tuần 3) \r\n Chỉ số hiển thị  \r\n                                = 0 nếu Giá đóng cửa cuối tuần (Tuần 2)  =  Giá đóng cửa cuối tuần (Tuần 3) \r\n                                 =1  nếu Giá đóng cửa cuối tuần (Tuần 2)  <  Giá đóng cửa cuối tuần (Tuần 3)  \r\n Sắp xếp theo chiều tăng của chỉ số hiển thị .";
             System.Windows.Forms.ToolTip toolTip1 = new System.Windows.Forms.ToolTip();
@@ -195,13 +195,180 @@ namespace LocChungKhoan
         private void btnChuyenDuLieu_Click(object sender, EventArgs e)
         {
             BieuDoKhoiLuongController.ChuyenDuLieuSangGia();
+            MessageBox.Show("Chuyển dữ liệu xong");
         }
 
         private void btnMoFormLocTheoGia_Click(object sender, EventArgs e)
         {
-            frmMain frm = new frmMain();
-            frm.ShowDialog();
-            this.Close();
+            //open frmMain and close this form
+            this.Hide();
+            var form2 = new frmMain();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
+
+        }
+
+        private void btnBoLoc1_Click(object sender, EventArgs e)
+        {
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan , tuan3DauTuan , tuan3CuoiTuan );
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("GiaDongCua1", typeof(decimal));
+            dt.Columns.Add("GiaDongCua2", typeof(decimal));
+            dt.Columns.Add("GiaDongCua3", typeof(decimal));
+            dt.Columns.Add("KL1", typeof(decimal));
+            dt.Columns.Add("KL2", typeof(decimal));
+            dt.Columns.Add("KL3", typeof(decimal));
+            dt.Columns.Add("ChiSo", typeof(decimal));
+            gridKQLoc.DataSource = null;
+            foreach (var item in list)
+            {
+                decimal chiSo = (item.KhoiLuong3 / Math.Max(item.KhoiLuong1, item.KhoiLuong2)) * 100;
+                if (item.GiaDongCua1 >=item.GiaDongCua3 && item.GiaDongCua2 >= item.GiaDongCua3)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["GiaDongCua1"] = item.GiaDongCua1;
+                    dr["GiaDongCua2"] = item.GiaDongCua2;
+                    dr["GiaDongCua3"] = item.GiaDongCua3;
+                    dr["KL1"] = item.KhoiLuong1;
+                    dr["KL2"] = item.KhoiLuong2;
+                    dr["KL3"] = item.KhoiLuong3;
+                    dr["ChiSo"] = Math.Round (chiSo,2,MidpointRounding.AwayFromZero );
+                    dt.Rows.Add(dr);
+                }                
+            }
+            //order by ChiSo
+            DataView dv = dt.DefaultView;
+            dv.Sort = "ChiSo";
+            DataTable sortedDT = dv.ToTable();
+            gridKQLoc.DataSource = sortedDT;
+        }
+
+        private void btnBoLoc2_Click(object sender, EventArgs e)
+        {
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("GiaDongCua1", typeof(decimal));
+            dt.Columns.Add("GiaDongCua2", typeof(decimal));
+            dt.Columns.Add("GiaDongCua3", typeof(decimal));
+            dt.Columns.Add("KL1", typeof(decimal));
+            dt.Columns.Add("KL2", typeof(decimal));
+            dt.Columns.Add("KL3", typeof(decimal));
+            dt.Columns.Add("ChiSo", typeof(decimal));
+            gridKQLoc.DataSource = null;
+            foreach (var item in list)
+            {
+                decimal chiSo = (item.GiaDongCua2 - item.GiaDongCua3) / item.GiaDongCua2 * 100;
+                if (item.GiaDongCua1 <= item.GiaDongCua3 && item.GiaDongCua3 <= item.GiaDongCua2)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["GiaDongCua1"] = item.GiaDongCua1;
+                    dr["GiaDongCua2"] = item.GiaDongCua2;
+                    dr["GiaDongCua3"] = item.GiaDongCua3;
+                    dr["KL1"] = item.KhoiLuong1;
+                    dr["KL2"] = item.KhoiLuong2;
+                    dr["KL3"] = item.KhoiLuong3;
+                    dr["ChiSo"] = Math.Round(chiSo, 2, MidpointRounding.AwayFromZero);
+                    dt.Rows.Add(dr);
+                }
+            }
+            //order by ChiSo
+            DataView dv = dt.DefaultView;
+            dv.Sort = "ChiSo";
+            DataTable sortedDT = dv.ToTable();
+            gridKQLoc.DataSource = sortedDT;
+        }
+
+        private void btnBoLoc3_Click(object sender, EventArgs e)
+        {
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("GiaMC2", typeof(decimal));
+            dt.Columns.Add("GiaDC2", typeof(decimal));
+            dt.Columns.Add("GiaMC3", typeof(decimal));
+            dt.Columns.Add("GiaDC3", typeof(decimal));            
+            dt.Columns.Add("KL2", typeof(decimal));
+            dt.Columns.Add("KL3", typeof(decimal));
+            dt.Columns.Add("ChiSo", typeof(int));
+            gridKQLoc.DataSource= null;
+            foreach (var item in list)
+            {
+                decimal chiSo = -1;
+                if (item.GiaDongCua2 <item.GiaDongCua3 )
+                {
+                    chiSo = 1;
+                }
+                else if (item.GiaDongCua2 == item.GiaDongCua3) {                    
+                        chiSo = 0;                    
+                }
+                if (item.GiaDongCua3 == item.GiaMoCua3 && item.GiaDongCua2 <=item.GiaDongCua3 && chiSo >=0)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;                    
+                    dr["GiaMC2"] = item.GiaMoCua2;
+                    dr["GiaDC2"] = item.GiaDongCua2;
+                    dr["GiaMC3"] = item.GiaMoCua3;
+                    dr["GiaDC3"] = item.GiaDongCua3;
+                    dr["KL2"] = item.KhoiLuong2;
+                    dr["KL3"] = item.KhoiLuong3;
+                    dr["ChiSo"] = chiSo ;
+                    dt.Rows.Add(dr);
+                }
+            }
+            //order by ChiSo
+            DataView dv = dt.DefaultView;
+            dv.Sort = "ChiSo";
+            DataTable sortedDT = dv.ToTable();
+            // Finally, set the DataSource of the DataGridView to the sorted DataTable
+            gridKQLoc.DataSource = sortedDT;
+            //fit column width to content
+            gridKQLoc.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
     }
 }
