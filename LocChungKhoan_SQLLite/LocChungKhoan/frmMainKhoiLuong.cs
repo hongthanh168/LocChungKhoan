@@ -235,6 +235,7 @@ namespace LocChungKhoan
             dt.Columns.Add("KL3", typeof(decimal));
             dt.Columns.Add("ChiSo", typeof(decimal));
             gridKQLoc.DataSource = null;
+            int i = 1;
             foreach (var item in list)
             {
                 decimal chiSo = (item.KhoiLuong3 / Math.Max(item.KhoiLuong1, item.KhoiLuong2)) * 100;
@@ -250,8 +251,10 @@ namespace LocChungKhoan
                     dr["KL3"] = item.KhoiLuong3;
                     dr["ChiSo"] = Math.Round (chiSo,2,MidpointRounding.AwayFromZero );
                     dt.Rows.Add(dr);
+                    i++;
                 }                
             }
+            groupBox2 .Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
             //order by ChiSo
             DataView dv = dt.DefaultView;
             dv.Sort = "ChiSo";
@@ -286,6 +289,7 @@ namespace LocChungKhoan
             dt.Columns.Add("KL3", typeof(decimal));
             dt.Columns.Add("ChiSo", typeof(decimal));
             gridKQLoc.DataSource = null;
+            int i = 1;
             foreach (var item in list)
             {
                 decimal chiSo = (item.GiaDongCua2 - item.GiaDongCua3) / item.GiaDongCua2 * 100;
@@ -301,8 +305,10 @@ namespace LocChungKhoan
                     dr["KL3"] = item.KhoiLuong3;
                     dr["ChiSo"] = Math.Round(chiSo, 2, MidpointRounding.AwayFromZero);
                     dt.Rows.Add(dr);
+                    i++;
                 }
             }
+            groupBox2 .Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
             //order by ChiSo
             DataView dv = dt.DefaultView;
             dv.Sort = "ChiSo";
@@ -337,6 +343,7 @@ namespace LocChungKhoan
             dt.Columns.Add("KL3", typeof(decimal));
             dt.Columns.Add("ChiSo", typeof(int));
             gridKQLoc.DataSource= null;
+            int i = 1;
             foreach (var item in list)
             {
                 decimal chiSo = -1;
@@ -359,8 +366,10 @@ namespace LocChungKhoan
                     dr["KL3"] = item.KhoiLuong3;
                     dr["ChiSo"] = chiSo ;
                     dt.Rows.Add(dr);
+                    i++;
                 }
             }
+            groupBox2 .Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
             //order by ChiSo
             DataView dv = dt.DefaultView;
             dv.Sort = "ChiSo";
@@ -369,6 +378,68 @@ namespace LocChungKhoan
             gridKQLoc.DataSource = sortedDT;
             //fit column width to content
             gridKQLoc.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+
+        private void btnMoThuMuc_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Chức năng này sẽ import dữ liệu từ tất cả các file excel .xlsx trong thư mục được chọn. Dữ liệu bắt đầu từ dòng thứ 2 (Dòng đầu là tiêu đề cột). Dữ liệu có cấu trúc cột theo thứ tự: Ngày|Mã CK|Giá mở cửa|Giá đóng cửa|Khối lượng. Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                //open dialog to choose folder
+                FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    txtDuongDan.Text = folderBrowserDialog1.SelectedPath;
+                    //open foreach file in folder
+                    string[] filePaths = System.IO.Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.xlsx");
+                    foreach (string file in filePaths)
+                    {
+                        using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Open(file, false))
+                        {
+                            WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
+                            WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
+                            SheetData sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
+                            int lastRowIndex = GetRowCountWithData(sheetData);
+                            int soDong = lastRowIndex - 1;
+                            //hiển thị progress bar
+                            progressBar1.Visible = true;
+                            progressBar1.Maximum = soDong;
+                            progressBar1.Step = 1;
+
+                            // Lặp qua từng hàng trong SheetData
+                            for (int i = 2; i <= lastRowIndex; i++)
+                            {
+                                Row row = sheetData.Elements<Row>().ElementAtOrDefault(i - 1); // -1 vì index bắt đầu từ 0
+                                progressBar1.Value = i - 2 + 1;
+                                System.Windows.Forms.Application.DoEvents();
+                                //kiểm tra mã chứng khoán có chưa
+                                Cell cellB = row.Elements<Cell>().ElementAtOrDefault(1);
+                                string name = GetCellValue(cellB, workbookPart);
+                                BieuDoKhoiLuong obj = new BieuDoKhoiLuong();
+                                obj.MaChungKhoan = name.Trim();
+                                //ngày
+                                Cell cellA = row.Elements<Cell>().ElementAtOrDefault(0);
+                                string myString = GetCellValue(cellA, workbookPart);
+                                obj.Ngay = DateTime.ParseExact(myString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                //giá mở cửa
+                                Cell cellC = row.Elements<Cell>().ElementAtOrDefault(2);
+                                myString = GetCellValue(cellC, workbookPart);
+                                obj.GiaMoCua = Convert.ToDecimal(myString);
+                                //giá đong cửa
+                                Cell cellD = row.Elements<Cell>().ElementAtOrDefault(3);
+                                myString = GetCellValue(cellD, workbookPart);
+                                obj.GiaDongCua = Convert.ToDecimal(myString);
+                                //khối lượng
+                                Cell cellE = row.Elements<Cell>().ElementAtOrDefault(4);
+                                myString = GetCellValue(cellE, workbookPart);
+                                obj.KhoiLuong = Convert.ToDecimal(myString);
+                                BieuDoKhoiLuongController.Insert(obj);
+                            }
+                        }
+                    }
+                }
+                MessageBox.Show("Chuyển số liệu xong");
+            }        
+
         }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -64,6 +64,7 @@
             this.btnXoaTheoThoiGian = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMoThuMuc = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -77,10 +78,10 @@
             // 
             // btnMoFile
             // 
-            this.btnMoFile.Location = new System.Drawing.Point(790, 22);
+            this.btnMoFile.Location = new System.Drawing.Point(756, 21);
             this.btnMoFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnMoFile.Name = "btnMoFile";
-            this.btnMoFile.Size = new System.Drawing.Size(87, 28);
+            this.btnMoFile.Size = new System.Drawing.Size(110, 28);
             this.btnMoFile.TabIndex = 1;
             this.btnMoFile.Text = "File Excel...";
             this.btnMoFile.UseVisualStyleBackColor = true;
@@ -91,7 +92,7 @@
             this.txtDuongDan.Location = new System.Drawing.Point(152, 25);
             this.txtDuongDan.Margin = new System.Windows.Forms.Padding(4);
             this.txtDuongDan.Name = "txtDuongDan";
-            this.txtDuongDan.Size = new System.Drawing.Size(630, 22);
+            this.txtDuongDan.Size = new System.Drawing.Size(596, 22);
             this.txtDuongDan.TabIndex = 0;
             // 
             // progressBar1
@@ -99,7 +100,7 @@
             this.progressBar1.Location = new System.Drawing.Point(152, 57);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(725, 28);
+            this.progressBar1.Size = new System.Drawing.Size(845, 28);
             this.progressBar1.TabIndex = 2;
             // 
             // label1
@@ -136,7 +137,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(860, 213);
+            this.groupBox1.Size = new System.Drawing.Size(980, 213);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tham số:";
@@ -330,15 +331,15 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(889, 579);
+            this.groupBox2.Size = new System.Drawing.Size(1008, 581);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kết quả lọc";
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -346,17 +347,17 @@
             this.gridKQLoc.Margin = new System.Windows.Forms.Padding(4);
             this.gridKQLoc.Name = "gridKQLoc";
             this.gridKQLoc.RowHeadersWidth = 51;
-            this.gridKQLoc.Size = new System.Drawing.Size(881, 556);
+            this.gridKQLoc.Size = new System.Drawing.Size(1000, 558);
             this.gridKQLoc.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 30);
+            this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(893, 914);
+            this.panel1.Size = new System.Drawing.Size(1012, 916);
             this.panel1.TabIndex = 6;
             // 
             // splitContainer1
@@ -374,13 +375,14 @@
             this.splitContainer1.Panel1.Controls.Add(this.label7);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.txtDuongDan);
+            this.splitContainer1.Panel1.Controls.Add(this.btnMoThuMuc);
             this.splitContainer1.Panel1.Controls.Add(this.btnMoFile);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(893, 914);
+            this.splitContainer1.Size = new System.Drawing.Size(1012, 916);
             this.splitContainer1.SplitterDistance = 326;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 6;
@@ -393,7 +395,7 @@
             this.trợGiúpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(893, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1012, 28);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "Xóa dữ liệu";
             // 
@@ -404,7 +406,7 @@
             this.btnXoaTheoNgay,
             this.btnXoaTheoThoiGian});
             this.quảnLýDữLiệuToolStripMenuItem.Name = "quảnLýDữLiệuToolStripMenuItem";
-            this.quảnLýDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(123, 26);
+            this.quảnLýDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(123, 24);
             this.quảnLýDữLiệuToolStripMenuItem.Text = "Quản lý dữ liệu";
             // 
             // btnXoaToanBo
@@ -433,7 +435,7 @@
             this.trợGiúpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.thôngTinToolStripMenuItem});
             this.trợGiúpToolStripMenuItem.Name = "trợGiúpToolStripMenuItem";
-            this.trợGiúpToolStripMenuItem.Size = new System.Drawing.Size(78, 26);
+            this.trợGiúpToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
             this.trợGiúpToolStripMenuItem.Text = "Trợ giúp";
             // 
             // thôngTinToolStripMenuItem
@@ -442,11 +444,22 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
+            // btnMoThuMuc
+            // 
+            this.btnMoThuMuc.Location = new System.Drawing.Point(874, 22);
+            this.btnMoThuMuc.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMoThuMuc.Name = "btnMoThuMuc";
+            this.btnMoThuMuc.Size = new System.Drawing.Size(123, 28);
+            this.btnMoThuMuc.TabIndex = 1;
+            this.btnMoThuMuc.Text = "Thư mục...";
+            this.btnMoThuMuc.UseVisualStyleBackColor = true;
+            this.btnMoThuMuc.Click += new System.EventHandler(this.btnMoThuMuc_Click);
+            // 
             // frmMainKhoiLuong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(893, 944);
+            this.ClientSize = new System.Drawing.Size(1012, 944);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -508,6 +521,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtTuan2DauTuan;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnMoThuMuc;
     }
 }
 

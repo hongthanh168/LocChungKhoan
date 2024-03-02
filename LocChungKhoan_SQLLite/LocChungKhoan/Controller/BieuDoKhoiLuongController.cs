@@ -103,7 +103,7 @@ namespace LocChungKhoan
                                    GiaDongCua1 = (t1.Ngay == tuan1_end) ? t1.GiaDongCua : 0,
                                    GiaDongCua2 = 0,
                                    GiaDongCua3 = 0,
-                                   GiaMoCua1 = (t1.Ngay == tuan1_end) ? t1.GiaMoCua  : 0,
+                                   GiaMoCua1 = (t1.Ngay == tuan1_start) ? t1.GiaMoCua  : 0,
                                    GiaMoCua2 = 0,
                                    GiaMoCua3 = 0,
                                    KhoiLuong1 = t1.KhoiLuong,
@@ -120,7 +120,7 @@ namespace LocChungKhoan
                                    GiaDongCua2 = (t2.Ngay == tuan2_end) ? t2.GiaDongCua : 0,
                                    GiaDongCua3 = 0,
                                    GiaMoCua1 = 0,
-                                   GiaMoCua2 = (t2.Ngay == tuan2_end) ? t2.GiaMoCua : 0,
+                                   GiaMoCua2 = (t2.Ngay == tuan2_start) ? t2.GiaMoCua : 0,
                                    GiaMoCua3 = 0,
                                    KhoiLuong1 = 0,
                                    KhoiLuong2 = t2.KhoiLuong,
@@ -137,7 +137,7 @@ namespace LocChungKhoan
                                    GiaDongCua3 = (t3.Ngay == tuan3_end) ? t3.GiaDongCua : 0,
                                    GiaMoCua1 = 0,
                                    GiaMoCua2 = 0,
-                                   GiaMoCua3 = (t3.Ngay == tuan3_end) ? t3.GiaMoCua : 0,
+                                   GiaMoCua3 = (t3.Ngay == tuan3_start) ? t3.GiaMoCua : 0,
                                    KhoiLuong1 = 0,
                                    KhoiLuong2 = 0,
                                    KhoiLuong3 = t3.KhoiLuong
@@ -156,7 +156,7 @@ namespace LocChungKhoan
                                    KhoiLuong2 = g.Sum(x => x.KhoiLuong2),
                                    KhoiLuong3 = g.Sum(x => x.KhoiLuong3)
                                })
-                               .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua2 != 0 && x.GiaDongCua3 != 0)
+                               .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua2 != 0 && x.GiaDongCua3 != 0 && x.KhoiLuong1 !=0 && x.KhoiLuong2 !=0 && x.KhoiLuong3 !=0)
                                .ToList();
 
                 return results;
