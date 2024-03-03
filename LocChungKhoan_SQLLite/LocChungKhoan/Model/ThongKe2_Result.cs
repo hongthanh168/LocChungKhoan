@@ -41,4 +41,21 @@ namespace LocChungKhoan
         public decimal KhoiLuong2 { get; set; }
         public decimal KhoiLuong3 { get; set; }
     }
+    public partial class ThongKeKhoiLuong4Tuan
+    {
+        [Key]
+        public string MaChungKhoan { get; set; }
+        public decimal GiaDongCua1 { get; set; }
+        public decimal GiaDongCua2 { get; set; }
+        public decimal GiaDongCua3 { get; set; }
+        public decimal GiaDongCua4 { get; set; }
+        public decimal GiaMoCua1 { get; set; }
+        public decimal GiaMoCua2 { get; set; }
+        public decimal GiaMoCua3 { get; set; }
+        public decimal GiaMoCua4 { get; set; }
+        public decimal KhoiLuong1 { get; set; }
+        public decimal KhoiLuong2 { get; set; }
+        public decimal KhoiLuong3 { get; set; }
+        public decimal KhoiLuong4 { get; set; }
+    }
 }

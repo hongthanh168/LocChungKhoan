@@ -161,7 +161,154 @@ namespace LocChungKhoan
 
                 return results;
             }
-        }        
+        }
+        public static List<ThongKeKhoiLuong4Tuan> ThongKe4(DateTime tuan1_start, DateTime tuan1_end, DateTime tuan2_start, DateTime tuan2_end, DateTime tuan3_start, DateTime tuan3_end, DateTime tuan4_start, DateTime tuan4_end)
+        {
+            using (var dbContext = new ChungKhoanEntities())
+            {
+                DateTime tuan11, tuan12, tuan21, tuan22, tuan31, tuan32, tuan41, tuan42;
+                //tìm ra ngày bắt đầu và kết thúc của tuần 1, tuần 2, tuần 3, tuần 4
+                //ngày bắt đầu của tuần là ngày nhỏ nhất trong khoảng thời gian từ tuần 1_start đến tuần 1_end
+                //select min ngay from BieuDoKhoiLuong where ngay >= tuan1_start and ngay <= tuan1_end
+                tuan11 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan1_start && x.Ngay <= tuan1_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan1_start)
+                    .Min();
+                tuan12 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan1_start && x.Ngay <= tuan1_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan1_end)
+                    .Max();
+                tuan21 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan2_start && x.Ngay <= tuan2_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan2_start)
+                    .Min();
+                tuan22 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan2_start && x.Ngay <= tuan2_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan2_end)
+                    .Max();
+                tuan31 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan3_start && x.Ngay <= tuan3_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan3_start)
+                    .Min();
+                tuan32 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan3_start && x.Ngay <= tuan3_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan3_end)
+                    .Max();
+                tuan41 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan4_start && x.Ngay <= tuan4_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan4_start)
+                    .Min();
+                tuan42 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan4_start && x.Ngay <= tuan4_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan4_end)
+                    .Max();
+
+                var results = (from t1 in dbContext.BieuDoKhoiLuongs
+                               where t1.Ngay >= tuan1_start && t1.Ngay <= tuan1_end
+                               select new ThongKeKhoiLuong4Tuan
+                               {
+                                   MaChungKhoan = t1.MaChungKhoan,
+                                   GiaDongCua1 = (t1.Ngay == tuan12) ? t1.GiaDongCua : 0,
+                                   GiaDongCua2 = 0,
+                                   GiaDongCua3 = 0,
+                                   GiaDongCua4 = 0,
+                                   GiaMoCua1 = (t1.Ngay == tuan11) ? t1.GiaMoCua : 0,
+                                   GiaMoCua2 = 0,
+                                   GiaMoCua3 = 0,
+                                   GiaMoCua4 = 0,
+                                   KhoiLuong1 = t1.KhoiLuong,
+                                   KhoiLuong2 = 0,
+                                   KhoiLuong3 = 0,
+                                   KhoiLuong4 = 0
+                               })
+                               .Union(
+                               from t2 in dbContext.BieuDoKhoiLuongs
+                               where t2.Ngay >= tuan2_start && t2.Ngay <= tuan2_end
+                               select new ThongKeKhoiLuong4Tuan
+                               {
+                                   MaChungKhoan = t2.MaChungKhoan,
+                                   GiaDongCua1 = 0,
+                                   GiaDongCua2 = (t2.Ngay == tuan22) ? t2.GiaDongCua : 0,
+                                   GiaDongCua3 = 0,
+                                   GiaDongCua4 = 0,
+                                   GiaMoCua1 = 0,
+                                   GiaMoCua2 = (t2.Ngay == tuan21) ? t2.GiaMoCua : 0,
+                                   GiaMoCua3 = 0,
+                                   GiaMoCua4 = 0,
+                                   KhoiLuong1 = 0,
+                                   KhoiLuong2 = t2.KhoiLuong,
+                                   KhoiLuong3 = 0,
+                                   KhoiLuong4 = 0
+                               })
+                               .Union(
+                               from t3 in dbContext.BieuDoKhoiLuongs
+                               where t3.Ngay >= tuan3_start && t3.Ngay <= tuan3_end
+                               select new ThongKeKhoiLuong4Tuan
+                               {
+                                   MaChungKhoan = t3.MaChungKhoan,
+                                   GiaDongCua1 = 0,
+                                   GiaDongCua2 = 0,
+                                   GiaDongCua3 = (t3.Ngay == tuan32) ? t3.GiaDongCua : 0,
+                                   GiaDongCua4 = 0,
+                                   GiaMoCua1 = 0,
+                                   GiaMoCua2 = 0,
+                                   GiaMoCua3 = (t3.Ngay == tuan31) ? t3.GiaMoCua : 0,
+                                    GiaMoCua4 = 0,
+                                   KhoiLuong1 = 0,
+                                   KhoiLuong2 = 0,
+                                   KhoiLuong3 = t3.KhoiLuong,
+                                   KhoiLuong4 = 0
+                               })
+                               .Union(
+                               from t4 in dbContext.BieuDoKhoiLuongs
+                                where t4.Ngay >= tuan4_start && t4.Ngay <= tuan4_end
+                                select new ThongKeKhoiLuong4Tuan
+                                {
+                                    MaChungKhoan = t4.MaChungKhoan,
+                                    GiaDongCua1 = 0,
+                                    GiaDongCua2 = 0,
+                                    GiaDongCua3 = 0,
+                                    GiaDongCua4 = (t4.Ngay == tuan42) ? t4.GiaDongCua : 0,
+                                    GiaMoCua1 = 0,
+                                    GiaMoCua2 = 0,
+                                    GiaMoCua3 = 0,
+                                    GiaMoCua4 = (t4.Ngay == tuan41) ? t4.GiaMoCua : 0,
+                                    KhoiLuong1 = 0,
+                                    KhoiLuong2 = 0,
+                                    KhoiLuong3 = 0,
+                                    KhoiLuong4 = t4.KhoiLuong
+                                })
+                               .GroupBy(x => x.MaChungKhoan)
+                               .Select(g => new ThongKeKhoiLuong4Tuan
+                               {
+                                   MaChungKhoan = g.Key,
+                                   GiaDongCua1 = g.Sum(x => x.GiaDongCua1),
+                                   GiaDongCua2 = g.Sum(x => x.GiaDongCua2),
+                                   GiaDongCua3 = g.Sum(x => x.GiaDongCua3),
+                                   GiaDongCua4 = g.Sum(x => x.GiaDongCua4),
+                                   GiaMoCua1 = g.Sum(x => x.GiaMoCua1),
+                                   GiaMoCua2 = g.Sum(x => x.GiaMoCua2),
+                                   GiaMoCua3 = g.Sum(x => x.GiaMoCua3),
+                                   GiaMoCua4 = g.Sum(x => x.GiaMoCua4),
+                                   KhoiLuong1 = g.Sum(x => x.KhoiLuong1),
+                                   KhoiLuong2 = g.Sum(x => x.KhoiLuong2),
+                                   KhoiLuong3 = g.Sum(x => x.KhoiLuong3),
+                                   KhoiLuong4 = g.Sum(x => x.KhoiLuong4)
+                               })
+                               .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua2 != 0 && x.GiaDongCua3 != 0 && x.GiaDongCua4!=0 && x.KhoiLuong1 != 0 && x.KhoiLuong2 != 0 && x.KhoiLuong3 != 0 && x.KhoiLuong4 !=0)
+                               .ToList();
+
+                return results;
+            }
+        }
         public static void Delete(int id)
         {
             using (var db = new ChungKhoanEntities())
