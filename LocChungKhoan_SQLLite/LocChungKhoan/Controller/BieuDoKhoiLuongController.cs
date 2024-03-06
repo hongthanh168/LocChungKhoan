@@ -19,10 +19,11 @@ namespace LocChungKhoan
                         select t).ToList();
             return list;
         }
-        public static List<BieuDoKhoiLuong> GetAll()
+        public static List<BieuDoKhoiLuong> GetAll(DateTime tuNgay, DateTime denNgay)
         {
             ChungKhoanEntities db = new ChungKhoanEntities();
             var list = (from t in db.BieuDoKhoiLuongs
+                        where t.Ngay >= tuNgay && t.Ngay <= denNgay
                         select t).ToList();
             return list;
         }
@@ -71,10 +72,10 @@ namespace LocChungKhoan
             }
             return obj.BieuDoKhoiLuongID;
         }   
-        public static void ChuyenDuLieuSangGia()
+        public static void ChuyenDuLieuSangGia(DateTime tuNgay, DateTime denNgay)
         {            
             //lấy toàn bộ dữ liệu của BieuDoKhoiLuong
-            List<BieuDoKhoiLuong> list = BieuDoKhoiLuongController.GetAll();
+            List<BieuDoKhoiLuong> list = BieuDoKhoiLuongController.GetAll(tuNgay, denNgay);
             //chuyển dữ liệu từ BieuDoKhoiLuong sang BieuDoGia
             foreach (var item in list)
             {
@@ -95,15 +96,50 @@ namespace LocChungKhoan
         {
             using (var dbContext = new ChungKhoanEntities())
             {
-                var results = (from t1 in dbContext .BieuDoKhoiLuongs
+                DateTime tuan11, tuan12, tuan21, tuan22, tuan31, tuan32;
+                //tìm ra ngày bắt đầu và kết thúc của tuần 1, tuần 2, tuần 3, tuần 4
+                //ngày bắt đầu của tuần là ngày nhỏ nhất trong khoảng thời gian từ tuần 1_start đến tuần 1_end
+                //select min ngay from BieuDoKhoiLuong where ngay >= tuan1_start and ngay <= tuan1_end
+                tuan11 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan1_start && x.Ngay <= tuan1_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan1_start)
+                    .Min();
+                tuan12 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan1_start && x.Ngay <= tuan1_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan1_end)
+                    .Max();
+                tuan21 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan2_start && x.Ngay <= tuan2_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan2_start)
+                    .Min();
+                tuan22 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan2_start && x.Ngay <= tuan2_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan2_end)
+                    .Max();
+                tuan31 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan3_start && x.Ngay <= tuan3_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan3_start)
+                    .Min();
+                tuan32 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan3_start && x.Ngay <= tuan3_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan3_end)
+                    .Max();               
+
+                var results = (from t1 in dbContext.BieuDoKhoiLuongs
                                where t1.Ngay >= tuan1_start && t1.Ngay <= tuan1_end
-                               select new ThongKeKhoiLuong 
+                               select new ThongKeKhoiLuong
                                {
                                    MaChungKhoan = t1.MaChungKhoan,
-                                   GiaDongCua1 = (t1.Ngay == tuan1_end) ? t1.GiaDongCua : 0,
+                                   GiaDongCua1 = (t1.Ngay == tuan12) ? t1.GiaDongCua : 0,
                                    GiaDongCua2 = 0,
                                    GiaDongCua3 = 0,
-                                   GiaMoCua1 = (t1.Ngay == tuan1_start) ? t1.GiaMoCua  : 0,
+                                   GiaMoCua1 = (t1.Ngay == tuan11) ? t1.GiaMoCua : 0,
                                    GiaMoCua2 = 0,
                                    GiaMoCua3 = 0,
                                    KhoiLuong1 = t1.KhoiLuong,
@@ -111,16 +147,16 @@ namespace LocChungKhoan
                                    KhoiLuong3 = 0
                                })
                                .Union(
-                               from t2 in dbContext.BieuDoKhoiLuongs 
+                               from t2 in dbContext.BieuDoKhoiLuongs
                                where t2.Ngay >= tuan2_start && t2.Ngay <= tuan2_end
                                select new ThongKeKhoiLuong
                                {
                                    MaChungKhoan = t2.MaChungKhoan,
                                    GiaDongCua1 = 0,
-                                   GiaDongCua2 = (t2.Ngay == tuan2_end) ? t2.GiaDongCua : 0,
+                                   GiaDongCua2 = (t2.Ngay == tuan22) ? t2.GiaDongCua : 0,
                                    GiaDongCua3 = 0,
                                    GiaMoCua1 = 0,
-                                   GiaMoCua2 = (t2.Ngay == tuan2_start) ? t2.GiaMoCua : 0,
+                                   GiaMoCua2 = (t2.Ngay == tuan21) ? t2.GiaMoCua : 0,
                                    GiaMoCua3 = 0,
                                    KhoiLuong1 = 0,
                                    KhoiLuong2 = t2.KhoiLuong,
@@ -134,14 +170,14 @@ namespace LocChungKhoan
                                    MaChungKhoan = t3.MaChungKhoan,
                                    GiaDongCua1 = 0,
                                    GiaDongCua2 = 0,
-                                   GiaDongCua3 = (t3.Ngay == tuan3_end) ? t3.GiaDongCua : 0,
+                                   GiaDongCua3 = (t3.Ngay == tuan32) ? t3.GiaDongCua : 0,
                                    GiaMoCua1 = 0,
                                    GiaMoCua2 = 0,
-                                   GiaMoCua3 = (t3.Ngay == tuan3_start) ? t3.GiaMoCua : 0,
+                                   GiaMoCua3 = (t3.Ngay == tuan31) ? t3.GiaMoCua : 0,
                                    KhoiLuong1 = 0,
                                    KhoiLuong2 = 0,
                                    KhoiLuong3 = t3.KhoiLuong
-                               })
+                               })                               
                                .GroupBy(x => x.MaChungKhoan)
                                .Select(g => new ThongKeKhoiLuong
                                {
@@ -156,7 +192,7 @@ namespace LocChungKhoan
                                    KhoiLuong2 = g.Sum(x => x.KhoiLuong2),
                                    KhoiLuong3 = g.Sum(x => x.KhoiLuong3)
                                })
-                               .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua2 != 0 && x.GiaDongCua3 != 0 && x.KhoiLuong1 !=0 && x.KhoiLuong2 !=0 && x.KhoiLuong3 !=0)
+                               .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua2 != 0 && x.GiaDongCua3 != 0 && x.KhoiLuong1 != 0 && x.KhoiLuong2 != 0 && x.KhoiLuong3 != 0 )
                                .ToList();
 
                 return results;

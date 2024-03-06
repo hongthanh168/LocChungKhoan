@@ -34,6 +34,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnLocKhoiLuong = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnLocDonNguong = new System.Windows.Forms.Button();
@@ -65,7 +66,6 @@
             this.lọcChứngKhoánTheoNgàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnLocKhoiLuong = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -142,6 +142,17 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tham số:";
+            // 
+            // btnLocKhoiLuong
+            // 
+            this.btnLocKhoiLuong.Location = new System.Drawing.Point(603, 88);
+            this.btnLocKhoiLuong.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLocKhoiLuong.Name = "btnLocKhoiLuong";
+            this.btnLocKhoiLuong.Size = new System.Drawing.Size(244, 28);
+            this.btnLocKhoiLuong.TabIndex = 4;
+            this.btnLocKhoiLuong.Text = "Mở form Lọc theo khối lượng";
+            this.btnLocKhoiLuong.UseVisualStyleBackColor = true;
+            this.btnLocKhoiLuong.Click += new System.EventHandler(this.btnLocKhoiLuong_Click);
             // 
             // button1
             // 
@@ -324,7 +335,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(889, 581);
+            this.groupBox2.Size = new System.Drawing.Size(889, 580);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kết quả lọc";
@@ -340,17 +351,17 @@
             this.gridKQLoc.Margin = new System.Windows.Forms.Padding(4);
             this.gridKQLoc.Name = "gridKQLoc";
             this.gridKQLoc.RowHeadersWidth = 51;
-            this.gridKQLoc.Size = new System.Drawing.Size(881, 558);
+            this.gridKQLoc.Size = new System.Drawing.Size(881, 557);
             this.gridKQLoc.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 28);
+            this.panel1.Location = new System.Drawing.Point(0, 30);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(893, 916);
+            this.panel1.Size = new System.Drawing.Size(893, 914);
             this.panel1.TabIndex = 6;
             // 
             // splitContainer1
@@ -374,8 +385,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(893, 916);
-            this.splitContainer1.SplitterDistance = 326;
+            this.splitContainer1.Size = new System.Drawing.Size(893, 914);
+            this.splitContainer1.SplitterDistance = 325;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -387,7 +398,7 @@
             this.trợGiúpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(893, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(893, 30);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "Xóa dữ liệu";
             // 
@@ -400,7 +411,7 @@
             this.toolStripSeparator1,
             this.lọcChứngKhoánTheoNgàyToolStripMenuItem});
             this.quảnLýDữLiệuToolStripMenuItem.Name = "quảnLýDữLiệuToolStripMenuItem";
-            this.quảnLýDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(123, 24);
+            this.quảnLýDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(123, 26);
             this.quảnLýDữLiệuToolStripMenuItem.Text = "Quản lý dữ liệu";
             // 
             // btnXoaToanBo
@@ -441,7 +452,7 @@
             this.trợGiúpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.thôngTinToolStripMenuItem});
             this.trợGiúpToolStripMenuItem.Name = "trợGiúpToolStripMenuItem";
-            this.trợGiúpToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
+            this.trợGiúpToolStripMenuItem.Size = new System.Drawing.Size(78, 26);
             this.trợGiúpToolStripMenuItem.Text = "Trợ giúp";
             // 
             // thôngTinToolStripMenuItem
@@ -450,17 +461,6 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             this.thôngTinToolStripMenuItem.Click += new System.EventHandler(this.thôngTinToolStripMenuItem_Click);
-            // 
-            // btnLocKhoiLuong
-            // 
-            this.btnLocKhoiLuong.Location = new System.Drawing.Point(603, 88);
-            this.btnLocKhoiLuong.Margin = new System.Windows.Forms.Padding(4);
-            this.btnLocKhoiLuong.Name = "btnLocKhoiLuong";
-            this.btnLocKhoiLuong.Size = new System.Drawing.Size(244, 28);
-            this.btnLocKhoiLuong.TabIndex = 4;
-            this.btnLocKhoiLuong.Text = "Mở form Lọc theo khối lượng";
-            this.btnLocKhoiLuong.UseVisualStyleBackColor = true;
-            this.btnLocKhoiLuong.Click += new System.EventHandler(this.btnLocKhoiLuong_Click);
             // 
             // frmMain
             // 

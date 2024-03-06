@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -41,11 +42,15 @@
             this.btnChuyenDuLieu = new System.Windows.Forms.Button();
             this.btnKiemTraDuLieu = new System.Windows.Forms.Button();
             this.btnBoLoc1 = new System.Windows.Forms.Button();
+            this.btnThongKe4Tuan = new System.Windows.Forms.Button();
             this.btnBoLoc3 = new System.Windows.Forms.Button();
             this.btnBoLoc2 = new System.Windows.Forms.Button();
+            this.txtTuan4CuoiTuan = new System.Windows.Forms.TextBox();
             this.txtTuan3CuoiTuan = new System.Windows.Forms.TextBox();
             this.txtTuan2CuoiTuan = new System.Windows.Forms.TextBox();
+            this.txtTuan4DauTuan = new System.Windows.Forms.TextBox();
             this.txtTuan1CuoiTuan = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.txtTuan3DauTuan = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtTuan2DauTuan = new System.Windows.Forms.TextBox();
@@ -65,11 +70,7 @@
             this.btnXoaTheoThoiGian = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnThongKe4Tuan = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtTuan4DauTuan = new System.Windows.Forms.TextBox();
-            this.txtTuan4CuoiTuan = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -128,6 +129,7 @@
             this.groupBox1.Controls.Add(this.btnChuyenDuLieu);
             this.groupBox1.Controls.Add(this.btnKiemTraDuLieu);
             this.groupBox1.Controls.Add(this.btnBoLoc1);
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btnThongKe4Tuan);
             this.groupBox1.Controls.Add(this.btnBoLoc3);
             this.groupBox1.Controls.Add(this.btnBoLoc2);
@@ -151,6 +153,15 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tham số:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(416, 114);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(102, 16);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Ngày cuối tuần: ";
             // 
             // label6
             // 
@@ -181,10 +192,10 @@
             // 
             // btnMoFormLocTheoGia
             // 
-            this.btnMoFormLocTheoGia.Location = new System.Drawing.Point(490, 166);
+            this.btnMoFormLocTheoGia.Location = new System.Drawing.Point(438, 166);
             this.btnMoFormLocTheoGia.Margin = new System.Windows.Forms.Padding(4);
             this.btnMoFormLocTheoGia.Name = "btnMoFormLocTheoGia";
-            this.btnMoFormLocTheoGia.Size = new System.Drawing.Size(215, 28);
+            this.btnMoFormLocTheoGia.Size = new System.Drawing.Size(195, 28);
             this.btnMoFormLocTheoGia.TabIndex = 10;
             this.btnMoFormLocTheoGia.Text = "Mở form Lọc theo giá";
             this.btnMoFormLocTheoGia.UseVisualStyleBackColor = true;
@@ -195,7 +206,7 @@
             this.btnChuyenDuLieu.Location = new System.Drawing.Point(267, 166);
             this.btnChuyenDuLieu.Margin = new System.Windows.Forms.Padding(4);
             this.btnChuyenDuLieu.Name = "btnChuyenDuLieu";
-            this.btnChuyenDuLieu.Size = new System.Drawing.Size(215, 28);
+            this.btnChuyenDuLieu.Size = new System.Drawing.Size(163, 28);
             this.btnChuyenDuLieu.TabIndex = 9;
             this.btnChuyenDuLieu.Text = "Chuyển dữ liệu ";
             this.btnChuyenDuLieu.UseVisualStyleBackColor = true;
@@ -224,6 +235,17 @@
             this.btnBoLoc1.Visible = false;
             this.btnBoLoc1.Click += new System.EventHandler(this.btnBoLoc1_Click);
             // 
+            // btnThongKe4Tuan
+            // 
+            this.btnThongKe4Tuan.Location = new System.Drawing.Point(783, 166);
+            this.btnThongKe4Tuan.Margin = new System.Windows.Forms.Padding(4);
+            this.btnThongKe4Tuan.Name = "btnThongKe4Tuan";
+            this.btnThongKe4Tuan.Size = new System.Drawing.Size(135, 28);
+            this.btnThongKe4Tuan.TabIndex = 11;
+            this.btnThongKe4Tuan.Text = "Thống kê 4 tuần";
+            this.btnThongKe4Tuan.UseVisualStyleBackColor = true;
+            this.btnThongKe4Tuan.Click += new System.EventHandler(this.btnThongKe4Tuan_Click);
+            // 
             // btnBoLoc3
             // 
             this.btnBoLoc3.Location = new System.Drawing.Point(753, 95);
@@ -248,6 +270,14 @@
             this.btnBoLoc2.Visible = false;
             this.btnBoLoc2.Click += new System.EventHandler(this.btnBoLoc2_Click);
             // 
+            // txtTuan4CuoiTuan
+            // 
+            this.txtTuan4CuoiTuan.Location = new System.Drawing.Point(534, 111);
+            this.txtTuan4CuoiTuan.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTuan4CuoiTuan.Name = "txtTuan4CuoiTuan";
+            this.txtTuan4CuoiTuan.Size = new System.Drawing.Size(211, 22);
+            this.txtTuan4CuoiTuan.TabIndex = 7;
+            // 
             // txtTuan3CuoiTuan
             // 
             this.txtTuan3CuoiTuan.Location = new System.Drawing.Point(534, 81);
@@ -264,6 +294,14 @@
             this.txtTuan2CuoiTuan.Size = new System.Drawing.Size(211, 22);
             this.txtTuan2CuoiTuan.TabIndex = 3;
             // 
+            // txtTuan4DauTuan
+            // 
+            this.txtTuan4DauTuan.Location = new System.Drawing.Point(180, 111);
+            this.txtTuan4DauTuan.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTuan4DauTuan.Name = "txtTuan4DauTuan";
+            this.txtTuan4DauTuan.Size = new System.Drawing.Size(211, 22);
+            this.txtTuan4DauTuan.TabIndex = 6;
+            // 
             // txtTuan1CuoiTuan
             // 
             this.txtTuan1CuoiTuan.Location = new System.Drawing.Point(534, 21);
@@ -271,6 +309,16 @@
             this.txtTuan1CuoiTuan.Name = "txtTuan1CuoiTuan";
             this.txtTuan1CuoiTuan.Size = new System.Drawing.Size(211, 22);
             this.txtTuan1CuoiTuan.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(22, 114);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(144, 16);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Tuần 4, Ngày đầu tuần:";
             // 
             // txtTuan3DauTuan
             // 
@@ -352,8 +400,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -469,51 +517,16 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
-            // btnThongKe4Tuan
+            // button1
             // 
-            this.btnThongKe4Tuan.Location = new System.Drawing.Point(713, 166);
-            this.btnThongKe4Tuan.Margin = new System.Windows.Forms.Padding(4);
-            this.btnThongKe4Tuan.Name = "btnThongKe4Tuan";
-            this.btnThongKe4Tuan.Size = new System.Drawing.Size(215, 28);
-            this.btnThongKe4Tuan.TabIndex = 11;
-            this.btnThongKe4Tuan.Text = "Thống kê 4 tuần";
-            this.btnThongKe4Tuan.UseVisualStyleBackColor = true;
-            this.btnThongKe4Tuan.Click += new System.EventHandler(this.btnThongKe4Tuan_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(22, 114);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(144, 16);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Tuần 4, Ngày đầu tuần:";
-            // 
-            // txtTuan4DauTuan
-            // 
-            this.txtTuan4DauTuan.Location = new System.Drawing.Point(180, 111);
-            this.txtTuan4DauTuan.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTuan4DauTuan.Name = "txtTuan4DauTuan";
-            this.txtTuan4DauTuan.Size = new System.Drawing.Size(211, 22);
-            this.txtTuan4DauTuan.TabIndex = 6;
-            // 
-            // txtTuan4CuoiTuan
-            // 
-            this.txtTuan4CuoiTuan.Location = new System.Drawing.Point(534, 111);
-            this.txtTuan4CuoiTuan.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTuan4CuoiTuan.Name = "txtTuan4CuoiTuan";
-            this.txtTuan4CuoiTuan.Size = new System.Drawing.Size(211, 22);
-            this.txtTuan4CuoiTuan.TabIndex = 7;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(416, 114);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(102, 16);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Ngày cuối tuần: ";
+            this.button1.Location = new System.Drawing.Point(641, 166);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(135, 28);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Thống kê 3 tuần";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // frmMainKhoiLuong
             // 
@@ -587,6 +600,7 @@
         private System.Windows.Forms.TextBox txtTuan4CuoiTuan;
         private System.Windows.Forms.TextBox txtTuan4DauTuan;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button button1;
     }
 }
 
