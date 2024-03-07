@@ -15,11 +15,17 @@ namespace LocChungKhoan
         public string MaChungKhoan { get; set; }
         public decimal GiaDongCua { get; set; }
     }  
-    public partial class TABChungKhoan
+    public partial class DMQuanTam
     {
         [Key]
         public int ID { get; set;}
-        public string MaCK { get; set; }
+        public string MaChungKhoan { get; set; }
+    }
+    public partial class TABChungKhoan
+    {
+        [Key]
+        public int ID { get; set; }
+        public string MaChungKhoan { get; set; }
         public int PhanLoai { get; set; }
     }
     public partial class BieuDoKhoiLuong

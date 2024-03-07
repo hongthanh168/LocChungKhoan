@@ -93,8 +93,9 @@
     <Compile Include="Controller\BieuDoKhoiLuongController.cs" />
     <Compile Include="Controller\CNguong.cs" />
     <Compile Include="Controller\CToanTu.cs" />
-    <Compile Include="Controller\TABCKController.cs" />
+    <Compile Include="Controller\DMQuanTamController.cs" />
     <Compile Include="Controller\BieuDoGiaController.cs" />
+    <Compile Include="Controller\TABCKController.cs" />
     <Compile Include="frmDieuKienLoc.cs">
       <SubType>Form</SubType>
     </Compile>

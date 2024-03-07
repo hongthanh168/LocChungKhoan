@@ -25,7 +25,7 @@ namespace LocChungKhoan
             {
                 //kiểm tra xem có giá trị nào chưa
                 //nếu chưa có mới thêm
-                TABChungKhoan item = db.TABChungKhoans.Where (t => t.MaCK == obj.MaCK && t.PhanLoai == obj.PhanLoai).FirstOrDefault();
+                TABChungKhoan item = db.TABChungKhoans.Where (t => t.MaChungKhoan == obj.MaChungKhoan && t.PhanLoai == obj.PhanLoai).FirstOrDefault();
                 if (item ==null)
                 {
                     obj = db.TABChungKhoans.Add(obj);
@@ -38,10 +38,10 @@ namespace LocChungKhoan
         {
            using (var db = new ChungKhoanEntities())
             {
-                //get all TABChungKhoan if it has the same MaCK and it has PhanLoai =1 and not has PhanLoai =2 and not has PhanLoai =3
+                //get all TABChungKhoan if it has the same MaChungKhoan and it has PhanLoai =1 and not has PhanLoai =2 and not has PhanLoai =3
                 var list = db.TABChungKhoans
-                    .Where (t => t.PhanLoai == 1 && !db.TABChungKhoans.Any (t2 => t2.MaCK == t.MaCK && t2.PhanLoai == 2) 
-                    && !db.TABChungKhoans.Any (t3 => t3.MaCK == t.MaCK && t3.PhanLoai == 3))
+                    .Where (t => t.PhanLoai == 1 && !db.TABChungKhoans.Any (t2 => t2.MaChungKhoan == t.MaChungKhoan && t2.PhanLoai == 2) 
+                    && !db.TABChungKhoans.Any (t3 => t3.MaChungKhoan == t.MaChungKhoan && t3.PhanLoai == 3))
                     .ToList();
                 return list;
             }

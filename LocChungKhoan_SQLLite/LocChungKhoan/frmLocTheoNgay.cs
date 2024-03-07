@@ -123,7 +123,7 @@ namespace LocChungKhoan
                             Cell cellA = row.Elements<Cell>().ElementAtOrDefault(0);
                             string name = GetCellValue(cellA, workbookPart);
                             TABChungKhoan obj = new TABChungKhoan();
-                            obj.MaCK = name.Trim();
+                            obj.MaChungKhoan = name.Trim();
                             obj.PhanLoai = phanLoai;
                             TABCKController.Insert(obj);
                         }

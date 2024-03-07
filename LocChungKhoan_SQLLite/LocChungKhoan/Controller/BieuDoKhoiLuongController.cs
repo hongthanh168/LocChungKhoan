@@ -129,9 +129,10 @@ namespace LocChungKhoan
                     .Where(x => x.Ngay >= tuan3_start && x.Ngay <= tuan3_end)
                     .Select(x => x.Ngay)
                     .DefaultIfEmpty(tuan3_end)
-                    .Max();               
-
+                    .Max();  
+                
                 var results = (from t1 in dbContext.BieuDoKhoiLuongs
+                               //where MaChungKhoan in DMQuanTam
                                where t1.Ngay >= tuan1_start && t1.Ngay <= tuan1_end
                                select new ThongKeKhoiLuong
                                {
@@ -177,7 +178,8 @@ namespace LocChungKhoan
                                    KhoiLuong1 = 0,
                                    KhoiLuong2 = 0,
                                    KhoiLuong3 = t3.KhoiLuong
-                               })                               
+                               })  
+                               .Join (dbContext.DMQuanTams, t => t.MaChungKhoan, d => d.MaChungKhoan, (t, d) => t)
                                .GroupBy(x => x.MaChungKhoan)
                                .Select(g => new ThongKeKhoiLuong
                                {
@@ -192,7 +194,7 @@ namespace LocChungKhoan
                                    KhoiLuong2 = g.Sum(x => x.KhoiLuong2),
                                    KhoiLuong3 = g.Sum(x => x.KhoiLuong3)
                                })
-                               .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua2 != 0 && x.GiaDongCua3 != 0 && x.KhoiLuong1 != 0 && x.KhoiLuong2 != 0 && x.KhoiLuong3 != 0 )
+                               .Where(x => x.GiaDongCua1 >10 && x.GiaDongCua2 >10 && x.GiaDongCua3 >10 && x.KhoiLuong1 != 0 && x.KhoiLuong2 != 0 && x.KhoiLuong3 != 0 )
                                .ToList();
 
                 return results;

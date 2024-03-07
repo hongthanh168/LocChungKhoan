@@ -21,6 +21,7 @@ namespace LocChungKhoan
         }        
         public  DbSet<BieuDoGia> BieuDoGias { get; set; }
         public DbSet<BieuDoKhoiLuong> BieuDoKhoiLuongs { get; set; }
+        public DbSet<DMQuanTam> DMQuanTams { get; set; }
         public DbSet<TABChungKhoan> TABChungKhoans { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
