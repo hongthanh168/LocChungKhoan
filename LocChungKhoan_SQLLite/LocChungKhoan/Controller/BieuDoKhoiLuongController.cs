@@ -194,7 +194,7 @@ namespace LocChungKhoan
                                    KhoiLuong2 = g.Sum(x => x.KhoiLuong2),
                                    KhoiLuong3 = g.Sum(x => x.KhoiLuong3)
                                })
-                               .Where(x => x.GiaDongCua1 >10 && x.GiaDongCua2 >10 && x.GiaDongCua3 >10 && x.KhoiLuong1 != 0 && x.KhoiLuong2 != 0 && x.KhoiLuong3 != 0 )
+                               .Where(x => x.GiaDongCua1 !=0 && x.GiaDongCua2 !=0 && x.GiaDongCua3 !=0 && x.KhoiLuong1 != 0 && x.KhoiLuong2 != 0 && x.KhoiLuong3 != 0 )
                                .ToList();
 
                 return results;

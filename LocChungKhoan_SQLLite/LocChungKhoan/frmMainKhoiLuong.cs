@@ -439,7 +439,7 @@ namespace LocChungKhoan
                 {
                     chiSo += 1;
                 }
-                if (chiSo >0 && item.GiaDongCua3 > item.GiaMoCua3 )
+                if (chiSo >0 && item.GiaDongCua3 > item.GiaDongCua2 )
                 {
                     DataRow dr = dt.NewRow();
                     dr["MaCK"] = item.MaChungKhoan;
