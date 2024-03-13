@@ -61,7 +61,7 @@ namespace LocChungKhoan
                             //ngày
                             Cell cellA = row.Elements<Cell>().ElementAtOrDefault(0);
                             string myString = GetCellValue(cellA, workbookPart);
-                            obj.Ngay = DateTime.ParseExact(myString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            obj.Ngay = DateTime.ParseExact(myString, "d/M/yyyy", CultureInfo.InvariantCulture);
                             //giá mở cửa
                             Cell cellC = row.Elements<Cell>().ElementAtOrDefault(2);
                             myString = GetCellValue(cellC, workbookPart);
@@ -73,7 +73,15 @@ namespace LocChungKhoan
                             //khối lượng
                             Cell cellE = row.Elements<Cell>().ElementAtOrDefault(4);
                             myString = GetCellValue(cellE, workbookPart);
-                            obj.KhoiLuong = Convert.ToDecimal(myString);
+                            if (myString != "")
+                            {
+                                obj.KhoiLuong = Convert.ToDecimal(myString);
+                            }
+                            else
+                            {
+                                obj.KhoiLuong = 0;
+                            }
+                            
                             BieuDoKhoiLuongController .Insert(obj);
                         }
                     }
@@ -259,7 +267,7 @@ namespace LocChungKhoan
                                 //ngày
                                 Cell cellA = row.Elements<Cell>().ElementAtOrDefault(0);
                                 string myString = GetCellValue(cellA, workbookPart);
-                                obj.Ngay = DateTime.ParseExact(myString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                obj.Ngay = DateTime.ParseExact(myString, "d/M/yyyy", CultureInfo.InvariantCulture);
                                 //giá mở cửa
                                 Cell cellC = row.Elements<Cell>().ElementAtOrDefault(2);
                                 myString = GetCellValue(cellC, workbookPart);
@@ -271,6 +279,14 @@ namespace LocChungKhoan
                                 //khối lượng
                                 Cell cellE = row.Elements<Cell>().ElementAtOrDefault(4);
                                 myString = GetCellValue(cellE, workbookPart);
+                                if (myString!= "")
+                                {
+                                    obj.KhoiLuong = Convert.ToDecimal(myString);
+                                }
+                                else
+                                {
+                                    obj.KhoiLuong = 0;
+                                }   
                                 obj.KhoiLuong = Convert.ToDecimal(myString);
                                 BieuDoKhoiLuongController.Insert(obj);
                             }
@@ -439,7 +455,7 @@ namespace LocChungKhoan
                 {
                     chiSo += 1;
                 }
-                if (chiSo >0 && item.GiaDongCua3 > item.GiaDongCua2 )
+                if (chiSo >0 && (item.GiaDongCua3 >= item.GiaDongCua2 || item.GiaDongCua3 >= item.GiaMoCua3 ) )
                 {
                     DataRow dr = dt.NewRow();
                     dr["MaCK"] = item.MaChungKhoan;
@@ -534,6 +550,56 @@ namespace LocChungKhoan
                     MessageBox.Show("Chuyển số liệu xong");
                 }
             }
+        }
+
+        private void btnThongKeNgay_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" )
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("GiaMC1", typeof(decimal));
+            dt.Columns.Add("GiaMC2", typeof(decimal));
+            dt.Columns.Add("GiaMC3", typeof(decimal));
+            dt.Columns.Add("GiaDC1", typeof(decimal));
+            dt.Columns.Add("GiaDC2", typeof(decimal));
+            dt.Columns.Add("GiaDC3", typeof(decimal));
+            gridKQLoc.DataSource = null;
+            int i = 1;
+            foreach (var item in list)
+            {
+                decimal min = Math.Min(item.GiaDongCua1, Math.Min(item.GiaDongCua2, item.GiaDongCua3));
+                if (item.GiaDongCua1  > min && item.GiaDongCua3 >= item.GiaDongCua2 && item.GiaDongCua3 >= item.GiaMoCua3)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["GiaDC1"] = item.GiaDongCua1;
+                    dr["GiaDC2"] = item.GiaDongCua2;
+                    dr["GiaDC3"] = item.GiaDongCua3;
+                    dr["GiaMC1"] = item.GiaMoCua1;
+                    dr["GiaMC2"] = item.GiaMoCua2;
+                    dr["GiaMC3"] = item.GiaMoCua3;
+                    dt.Rows.Add(dr);
+                    i++;
+                }
+            }
+            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();            
+            gridKQLoc.DataSource = dt;
+            //invisible column ChiSo
+            //gridKQLoc.Columns["ChiSo"].Visible = false;
+            //fix first column when scroll
+            gridKQLoc.Columns[0].Frozen = true;
         }
     }
 }
