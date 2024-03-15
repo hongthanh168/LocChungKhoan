@@ -575,12 +575,14 @@ namespace LocChungKhoan
             dt.Columns.Add("GiaDC1", typeof(decimal));
             dt.Columns.Add("GiaDC2", typeof(decimal));
             dt.Columns.Add("GiaDC3", typeof(decimal));
+            dt.Columns.Add("Nguong", typeof(decimal));
             gridKQLoc.DataSource = null;
             int i = 1;
             foreach (var item in list)
             {
                 decimal min = Math.Min(item.GiaDongCua1, Math.Min(item.GiaDongCua2, item.GiaDongCua3));
-                if (item.GiaDongCua1  > min && item.GiaDongCua3 >= item.GiaDongCua2 && item.GiaDongCua3 >= item.GiaMoCua3)
+                decimal nguong = Math.Abs(item.GiaDongCua3 - item.GiaDongCua2) / Math.Max(item.GiaDongCua3, item.GiaDongCua2) * 100;
+                if (item.GiaDongCua1  > min && item.GiaDongCua3 >= item.GiaDongCua2 && item.GiaDongCua3 >= item.GiaMoCua3 && nguong<=1)
                 {
                     DataRow dr = dt.NewRow();
                     dr["MaCK"] = item.MaChungKhoan;
@@ -590,6 +592,7 @@ namespace LocChungKhoan
                     dr["GiaMC1"] = item.GiaMoCua1;
                     dr["GiaMC2"] = item.GiaMoCua2;
                     dr["GiaMC3"] = item.GiaMoCua3;
+                    dr["Nguong"] = Math.Round(nguong, 2, MidpointRounding.AwayFromZero);
                     dt.Rows.Add(dr);
                     i++;
                 }
