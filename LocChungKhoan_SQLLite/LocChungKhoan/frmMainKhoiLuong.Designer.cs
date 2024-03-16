@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -43,6 +43,7 @@
             this.btnChuyenDuLieu = new System.Windows.Forms.Button();
             this.btnDMChungKhoanQuanTam = new System.Windows.Forms.Button();
             this.btnKiemTraDuLieu = new System.Windows.Forms.Button();
+            this.btnThongKeNgay = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnThongKe4Tuan = new System.Windows.Forms.Button();
             this.txtTuan3CuoiTuan = new System.Windows.Forms.TextBox();
@@ -68,7 +69,7 @@
             this.btnXoaTheoThoiGian = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnThongKeNgay = new System.Windows.Forms.Button();
+            this.btnThongKeNgay2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -128,6 +129,7 @@
             this.groupBox1.Controls.Add(this.btnChuyenDuLieu);
             this.groupBox1.Controls.Add(this.btnDMChungKhoanQuanTam);
             this.groupBox1.Controls.Add(this.btnKiemTraDuLieu);
+            this.groupBox1.Controls.Add(this.btnThongKeNgay2);
             this.groupBox1.Controls.Add(this.btnThongKeNgay);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btnThongKe4Tuan);
@@ -240,6 +242,17 @@
             this.btnKiemTraDuLieu.Text = "Kiểm tra dữ liệu hiện có";
             this.btnKiemTraDuLieu.UseVisualStyleBackColor = true;
             this.btnKiemTraDuLieu.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // btnThongKeNgay
+            // 
+            this.btnThongKeNgay.Location = new System.Drawing.Point(45, 30);
+            this.btnThongKeNgay.Margin = new System.Windows.Forms.Padding(4);
+            this.btnThongKeNgay.Name = "btnThongKeNgay";
+            this.btnThongKeNgay.Size = new System.Drawing.Size(135, 28);
+            this.btnThongKeNgay.TabIndex = 11;
+            this.btnThongKeNgay.Text = "Thống kê ngày";
+            this.btnThongKeNgay.UseVisualStyleBackColor = true;
+            this.btnThongKeNgay.Click += new System.EventHandler(this.btnThongKeNgay_Click);
             // 
             // button1
             // 
@@ -368,8 +381,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -498,16 +511,16 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
-            // btnThongKeNgay
+            // btnThongKeNgay2
             // 
-            this.btnThongKeNgay.Location = new System.Drawing.Point(649, 126);
-            this.btnThongKeNgay.Margin = new System.Windows.Forms.Padding(4);
-            this.btnThongKeNgay.Name = "btnThongKeNgay";
-            this.btnThongKeNgay.Size = new System.Drawing.Size(135, 28);
-            this.btnThongKeNgay.TabIndex = 11;
-            this.btnThongKeNgay.Text = "Thống kê ngày";
-            this.btnThongKeNgay.UseVisualStyleBackColor = true;
-            this.btnThongKeNgay.Click += new System.EventHandler(this.btnThongKeNgay_Click);
+            this.btnThongKeNgay2.Location = new System.Drawing.Point(649, 126);
+            this.btnThongKeNgay2.Margin = new System.Windows.Forms.Padding(4);
+            this.btnThongKeNgay2.Name = "btnThongKeNgay2";
+            this.btnThongKeNgay2.Size = new System.Drawing.Size(135, 28);
+            this.btnThongKeNgay2.TabIndex = 11;
+            this.btnThongKeNgay2.Text = "Thống kê đáy";
+            this.btnThongKeNgay2.UseVisualStyleBackColor = true;
+            this.btnThongKeNgay2.Click += new System.EventHandler(this.btnThongKeNgay2_Click);
             // 
             // frmMainKhoiLuong
             // 
@@ -580,6 +593,7 @@
         private System.Windows.Forms.TextBox txtMaCK;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnThongKeNgay;
+        private System.Windows.Forms.Button btnThongKeNgay2;
     }
 }
 

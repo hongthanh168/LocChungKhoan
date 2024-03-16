@@ -582,7 +582,7 @@ namespace LocChungKhoan
             {
                 decimal min = Math.Min(item.GiaDongCua1, Math.Min(item.GiaDongCua2, item.GiaDongCua3));
                 decimal nguong = Math.Abs(item.GiaDongCua3 - item.GiaDongCua2) / Math.Max(item.GiaDongCua3, item.GiaDongCua2) * 100;
-                if (item.GiaDongCua1  > min && item.GiaDongCua3 >= item.GiaDongCua2 && item.GiaDongCua3 >= item.GiaMoCua3 && nguong<=1)
+                if (item.GiaDongCua1  > min && item.GiaDongCua3 >= item.GiaDongCua2 && item.GiaDongCua3 >= item.GiaMoCua3 )
                 {
                     DataRow dr = dt.NewRow();
                     dr["MaCK"] = item.MaChungKhoan;
@@ -598,6 +598,65 @@ namespace LocChungKhoan
                 }
             }
             groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();            
+            gridKQLoc.DataSource = dt;
+            //invisible column ChiSo
+            //gridKQLoc.Columns["ChiSo"].Visible = false;
+            //fix first column when scroll
+            gridKQLoc.Columns[0].Frozen = true;
+        }
+
+        private void btnThongKeNgay2_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));            
+            dt.Columns.Add("GiaDC1", typeof(decimal));
+            dt.Columns.Add("GiaDC2", typeof(decimal));
+            dt.Columns.Add("GiaDC3", typeof(decimal));
+            dt.Columns.Add("GiaDay", typeof(decimal));
+            dt.Columns.Add("NgayDay", typeof(string));
+            gridKQLoc.DataSource = null;
+            int i = 1;
+            foreach (var item in list)
+            {
+                string sNgayDay = "";
+                decimal giaMin = 0;
+                if (item.GiaDongCua2 < Math.Min(item.GiaDongCua1 , item.GiaDongCua3 ))
+                {
+                    giaMin = item.GiaDongCua2;
+                    sNgayDay = "Ngày 2";
+                }
+                else if (item.GiaDongCua3 < Math.Min(item.GiaDongCua1, item.GiaDongCua2))
+                {
+                    giaMin = item.GiaDongCua3 ;
+                    sNgayDay = "Ngày 3";
+                }
+                if (giaMin!=0)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["GiaDC1"] = item.GiaDongCua1;
+                    dr["GiaDC2"] = item.GiaDongCua2;
+                    dr["GiaDC3"] = item.GiaDongCua3;                    
+                    dr["GiaDay"] = giaMin;
+                    dr["NgayDay"] = sNgayDay;
+                    dt.Rows.Add(dr);
+                    i++;
+                }
+            }
+            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
             gridKQLoc.DataSource = dt;
             //invisible column ChiSo
             //gridKQLoc.Columns["ChiSo"].Visible = false;
