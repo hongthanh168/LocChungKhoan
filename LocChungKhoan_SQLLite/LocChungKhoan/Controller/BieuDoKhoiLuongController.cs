@@ -57,6 +57,10 @@ namespace LocChungKhoan
                 else
                 {
                     item.GiaDongCua = obj.GiaDongCua;
+                    item.GiaMoCua = obj.GiaMoCua;
+                    item.KhoiLuong = obj.KhoiLuong;
+                    item.GiaCaoNhat = obj.GiaCaoNhat;
+                    item.GiaThapNhat = obj.GiaThapNhat;
                     db.SaveChanges();
                 }               
             }
@@ -219,7 +223,13 @@ namespace LocChungKhoan
                                    GiaMoCua3 = 0,
                                    KhoiLuong1 = t1.KhoiLuong,
                                    KhoiLuong2 = 0,
-                                   KhoiLuong3 = 0
+                                   KhoiLuong3 = 0,
+                                   GiaCaoNhat1 = t1.GiaCaoNhat,
+                                   GiaCaoNhat2 = 0,
+                                   GiaCaoNhat3 = 0,
+                                   GiaThapNhat1 = t1.GiaThapNhat,
+                                   GiaThapNhat2 = 0,
+                                   GiaThapNhat3 = 0
                                })
                                .Union(
                                from t2 in dbContext.BieuDoKhoiLuongs
@@ -235,7 +245,13 @@ namespace LocChungKhoan
                                    GiaMoCua3 = 0,
                                    KhoiLuong1 = 0,
                                    KhoiLuong2 = t2.KhoiLuong,
-                                   KhoiLuong3 = 0
+                                   KhoiLuong3 = 0,
+                                   GiaCaoNhat1 = 0,
+                                   GiaCaoNhat2 = t2.GiaCaoNhat,
+                                   GiaCaoNhat3 = 0,
+                                   GiaThapNhat1 = 0,
+                                   GiaThapNhat2 = t2.GiaThapNhat,
+                                   GiaThapNhat3 = 0
                                })
                                .Union(
                                from t3 in dbContext.BieuDoKhoiLuongs
@@ -251,7 +267,13 @@ namespace LocChungKhoan
                                    GiaMoCua3 = t3.GiaMoCua,
                                    KhoiLuong1 = 0,
                                    KhoiLuong2 = 0,
-                                   KhoiLuong3 = t3.KhoiLuong
+                                   KhoiLuong3 = t3.KhoiLuong,
+                                   GiaCaoNhat1 = 0,
+                                   GiaCaoNhat2 = 0,
+                                   GiaCaoNhat3 = t3.GiaCaoNhat,
+                                   GiaThapNhat1 = 0,
+                                   GiaThapNhat2 = 0,
+                                   GiaThapNhat3 = t3.GiaThapNhat
                                })
                                .Join(dbContext.DMQuanTams, t => t.MaChungKhoan, d => d.MaChungKhoan, (t, d) => t)
                                .GroupBy(x => x.MaChungKhoan)
@@ -266,7 +288,13 @@ namespace LocChungKhoan
                                    GiaMoCua3 = g.Sum(x => x.GiaMoCua3),
                                    KhoiLuong1 = g.Sum(x => x.KhoiLuong1),
                                    KhoiLuong2 = g.Sum(x => x.KhoiLuong2),
-                                   KhoiLuong3 = g.Sum(x => x.KhoiLuong3)
+                                   KhoiLuong3 = g.Sum(x => x.KhoiLuong3),
+                                   GiaCaoNhat1 = g.Sum(x => x.GiaCaoNhat1),
+                                   GiaCaoNhat2 = g.Sum(x => x.GiaCaoNhat2),
+                                   GiaCaoNhat3 = g.Sum(x => x.GiaCaoNhat3),
+                                   GiaThapNhat1 = g.Sum(x => x.GiaThapNhat1),
+                                   GiaThapNhat2 = g.Sum(x => x.GiaThapNhat2),
+                                   GiaThapNhat3 = g.Sum(x => x.GiaThapNhat3)
                                })
                                .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua2 != 0 && x.GiaDongCua3 != 0)
                                .ToList();

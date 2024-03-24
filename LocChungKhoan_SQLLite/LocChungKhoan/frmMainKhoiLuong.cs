@@ -28,7 +28,7 @@ namespace LocChungKhoan
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Dữ liệu bắt đầu từ dòng thứ 2 (Dòng đầu là tiêu đề cột). Dữ liệu có cấu trúc cột theo thứ tự: Ngày|Mã CK|Giá mở cửa|Giá đóng cửa|Khối lượng. Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Dữ liệu bắt đầu từ dòng thứ 2 (Dòng đầu là tiêu đề cột). Dữ liệu có cấu trúc cột theo thứ tự: Ngày|Mã CK|Giá mở cửa|Giá đóng cửa|Giá cao nhất|Giá thấp nhất|Khối lượng. Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             { 
                 OpenFileDialog openFileDialog1 = new OpenFileDialog();
                 //mở file excel
@@ -38,7 +38,21 @@ namespace LocChungKhoan
                     using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Open(openFileDialog1.FileName, false))
                     {
                         WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
-                        WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
+                        // Find the sheet with the name "Sheet1"
+                        WorksheetPart worksheetPart = null;
+                        foreach (Sheet sheet in workbookPart.Workbook.Sheets)
+                        {
+                            if (sheet.Name == "Sheet1")
+                            {
+                                worksheetPart = (WorksheetPart)workbookPart.GetPartById(sheet.Id);
+                                break;
+                            }
+                        }
+                        if (worksheetPart == null)
+                        {
+                            MessageBox.Show("Không tìm thấy Sheet1");
+                            return;
+                        }
                         SheetData sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
                         int lastRowIndex = GetRowCountWithData(sheetData);
                         int soDong = lastRowIndex - 1;
@@ -70,9 +84,31 @@ namespace LocChungKhoan
                             Cell cellD = row.Elements<Cell>().ElementAtOrDefault(3);
                             myString = GetCellValue(cellD, workbookPart);
                             obj.GiaDongCua  = Convert.ToDecimal(myString);
-                            //khối lượng
+                            //giá cao nhất
                             Cell cellE = row.Elements<Cell>().ElementAtOrDefault(4);
                             myString = GetCellValue(cellE, workbookPart);
+                            if (myString != "")
+                            {
+                                obj.GiaCaoNhat = Convert.ToDecimal(myString);
+                            }
+                            else
+                            {
+                                obj.GiaCaoNhat = 0;
+                            }
+                            //giá thấp nhất
+                            Cell cellF = row.Elements<Cell>().ElementAtOrDefault(5);
+                            myString = GetCellValue(cellF, workbookPart);
+                            if (myString != "")
+                            {
+                                obj.GiaThapNhat = Convert.ToDecimal(myString);
+                            }
+                            else
+                            {
+                                obj.GiaThapNhat = 0;
+                            }
+                            //khối lượng
+                            Cell cellG = row.Elements<Cell>().ElementAtOrDefault(6);
+                            myString = GetCellValue(cellG, workbookPart);
                             if (myString != "")
                             {
                                 obj.KhoiLuong = Convert.ToDecimal(myString);
@@ -192,15 +228,21 @@ namespace LocChungKhoan
 
         private void frmMainKhoiLuong_Load(object sender, EventArgs e)
         {
-            //string boloc1 = "GiaDongCua1 >= Giá 3\r\nGiaDongCua2>= Giá 3\r\nĐiều kiện hiển thị sẽ sắp xếp theo tự tăng dần của chỉ số hiển thị , chỉ số hiển thị được tính như sau: \r\n               Chỉ số hiển thị =   (Khối lượng tuần 3 / max(Khối lượng tuần 1, Khối lượng tuần 2))*100 ";
-            //string boloc2 = "Giá1 <= Giá 3 <= Giá 2\r\nĐiều kiện hiển thị : Sắp xếp theo thứ  theo thứ tự tăng dần của     (Giá 2 - giá 3 ) / giá 2 * 100 ";
-            //string boloc3 = "Giá mở cửa đầu tuần (Tuần 3) = Giá đóng cửa cuối tuần (Tuần 3)\r\nGiá đóng cửa cuối tuần (Tuần 2)  <=  Giá đóng cửa cuối tuần (Tuần 3) \r\n Chỉ số hiển thị  \r\n                                = 0 nếu Giá đóng cửa cuối tuần (Tuần 2)  =  Giá đóng cửa cuối tuần (Tuần 3) \r\n                                 =1  nếu Giá đóng cửa cuối tuần (Tuần 2)  <  Giá đóng cửa cuối tuần (Tuần 3)  \r\n Sắp xếp theo chiều tăng của chỉ số hiển thị .";
-            //System.Windows.Forms.ToolTip toolTip1 = new System.Windows.Forms.ToolTip();
-            //toolTip1.SetToolTip(btnBoLoc1 , boloc1 );
-            //System.Windows.Forms.ToolTip toolTip2 = new System.Windows.Forms.ToolTip();
-            //toolTip2.SetToolTip(btnBoLoc2 , boloc2);
-            //System.Windows.Forms.ToolTip toolTip3 = new System.Windows.Forms.ToolTip();
-            //toolTip3.SetToolTip(btnBoLoc3 , boloc3);
+            string thongkeTuan = "Lọc theo cặp. Có 3 cặp , mỗi cặp chênh nhau <= 1% , GiaDongCua3 >= GiaDongCua2 hoặc GiaDongCua3 >= GiaMoCua3.";
+            string thongkeNgay = "- Min = min (gía đóng cửa 1, gía đóng cửa 2, gía đóng cửa 3)\r\n-Điều kiện: GiaDongCua1  > min && GiaDongCua3 >= item.GiaDongCua2 && item.GiaDongCua3 >= item.GiaMoCua3";
+            string boloc1 = "- Giá đóng cửa ngày 1 > Giá đóng cửa ngày 2 \r\n- Giá đóng cửa ngày 2 < Giá mở cửa ngày 2 \r\n- Giá đóng cửa ngày 3= giá mở cửa ngày 3 = giá đóng cửa ngày 2 ";
+            string boloc2 = "- Giá cao nhất ngày 1 < giá cao nhất ngày 2 \r\n- Giá đóng cửa ngày 1 < giá đóng cửa ngày 2 \r\n- Giá đóng cửa ngày 2 > giá mở cửa ngày 2 \r\n- Giá đóng cửa ngày 3 < Giá mở cửa ngày 3 \r\n- Giá đóng cửa ngày 3 > max ( giá đóng cửa ngày 1 , giá mở cửa ngày 2 ) ";
+            string boloc3 = "- (|giá đóng cửa ngày 3 - giá mở cửa ngày 3 | / max ( giá mở cửa ngày 3, giá đóng cửa ngày 3 ) ) *100 <= 1 \r\n- Giá đóng cửa ngày 2 > Giá mở cửa ngày 2 \r\n- Giá đóng cửa ngày 2 < min ( giá mở cửa ngày 3 , giá đóng cửa ngày 3 )";
+            System.Windows.Forms.ToolTip toolTip1 = new System.Windows.Forms.ToolTip();
+            toolTip1.SetToolTip(btnLocNhanh1, boloc1);
+            System.Windows.Forms.ToolTip toolTip2 = new System.Windows.Forms.ToolTip();
+            toolTip2.SetToolTip(btnLocNhanh2, boloc2);
+            System.Windows.Forms.ToolTip toolTip3 = new System.Windows.Forms.ToolTip();
+            toolTip3.SetToolTip(btnLocNhanh3, boloc3);
+            System.Windows.Forms.ToolTip toolTipNgay = new System.Windows.Forms.ToolTip();
+            toolTipNgay.SetToolTip(btnThongKeNgay , thongkeNgay );
+            System.Windows.Forms.ToolTip toolTipTuan = new System.Windows.Forms.ToolTip();
+            toolTipTuan.SetToolTip(btnThongKeTuan, thongkeTuan);
         }
 
         private void btnChuyenDuLieu_Click(object sender, EventArgs e)
@@ -230,7 +272,7 @@ namespace LocChungKhoan
 
         private void btnMoThuMuc_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Chức năng này sẽ import dữ liệu từ tất cả các file excel .xlsx trong thư mục được chọn. Dữ liệu bắt đầu từ dòng thứ 2 (Dòng đầu là tiêu đề cột). Dữ liệu có cấu trúc cột theo thứ tự: Ngày|Mã CK|Giá mở cửa|Giá đóng cửa|Khối lượng. Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Chức năng này sẽ import dữ liệu từ tất cả các file excel .xlsx trong thư mục được chọn. Dữ liệu bắt đầu từ dòng thứ 2 (Dòng đầu là tiêu đề cột). Dữ liệu có cấu trúc cột theo thứ tự: Ngày|Mã CK|Giá mở cửa|Giá đóng cửa|Giá cao nhất|Giá thấp nhất|Khối lượng. Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 //open dialog to choose folder
                 FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
@@ -244,7 +286,21 @@ namespace LocChungKhoan
                         using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Open(file, false))
                         {
                             WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
-                            WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
+                            // Find the sheet with the name "Sheet1"
+                            WorksheetPart worksheetPart = null;
+                            foreach (Sheet sheet in workbookPart.Workbook.Sheets)
+                            {
+                                if (sheet.Name == "Sheet1")
+                                {
+                                    worksheetPart = (WorksheetPart)workbookPart.GetPartById(sheet.Id);
+                                    break;
+                                }
+                            }
+                            if (worksheetPart == null)
+                            {
+                                MessageBox.Show("Không tìm thấy Sheet1");
+                                return;
+                            }
                             SheetData sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
                             int lastRowIndex = GetRowCountWithData(sheetData);
                             int soDong = lastRowIndex - 1;
@@ -276,18 +332,40 @@ namespace LocChungKhoan
                                 Cell cellD = row.Elements<Cell>().ElementAtOrDefault(3);
                                 myString = GetCellValue(cellD, workbookPart);
                                 obj.GiaDongCua = Convert.ToDecimal(myString);
-                                //khối lượng
+                                //giá cao nhất
                                 Cell cellE = row.Elements<Cell>().ElementAtOrDefault(4);
                                 myString = GetCellValue(cellE, workbookPart);
-                                if (myString!= "")
+                                if (myString != "")
+                                {
+                                    obj.GiaCaoNhat = Convert.ToDecimal(myString);
+                                }
+                                else
+                                {
+                                    obj.GiaCaoNhat = 0;
+                                }
+                                //giá thấp nhất
+                                Cell cellF = row.Elements<Cell>().ElementAtOrDefault(5);
+                                myString = GetCellValue(cellF, workbookPart);
+                                if (myString != "")
+                                {
+                                    obj.GiaThapNhat = Convert.ToDecimal(myString);
+                                }
+                                else
+                                {
+                                    obj.GiaThapNhat = 0;
+                                }
+                                //khối lượng
+                                Cell cellG = row.Elements<Cell>().ElementAtOrDefault(6);
+                                myString = GetCellValue(cellG, workbookPart);
+                                if (myString != "")
                                 {
                                     obj.KhoiLuong = Convert.ToDecimal(myString);
                                 }
                                 else
                                 {
                                     obj.KhoiLuong = 0;
-                                }   
-                                obj.KhoiLuong = Convert.ToDecimal(myString);
+                                }
+
                                 BieuDoKhoiLuongController.Insert(obj);
                             }
                         }
@@ -621,9 +699,10 @@ namespace LocChungKhoan
             //display to grid
             //create datatable
             System.Data.DataTable dt = new System.Data.DataTable();
-            dt.Columns.Add("MaCK", typeof(string));            
+            dt.Columns.Add("MaCK", typeof(string));
             dt.Columns.Add("GiaDC1", typeof(decimal));
             dt.Columns.Add("GiaDC2", typeof(decimal));
+            dt.Columns.Add("GiaMC3", typeof(decimal));
             dt.Columns.Add("GiaDC3", typeof(decimal));
             dt.Columns.Add("GiaDay", typeof(decimal));
             dt.Columns.Add("NgayDay", typeof(string));
@@ -633,25 +712,208 @@ namespace LocChungKhoan
             {
                 string sNgayDay = "";
                 decimal giaMin = 0;
-                if (item.GiaDongCua2 < Math.Min(item.GiaDongCua1 , item.GiaDongCua3 ))
+                if (item.GiaDongCua2 <= Math.Min(item.GiaDongCua1 , item.GiaDongCua3 ))
                 {
                     giaMin = item.GiaDongCua2;
                     sNgayDay = "Ngày 2";
                 }
-                else if (item.GiaDongCua3 < Math.Min(item.GiaDongCua1, item.GiaDongCua2))
+                else if (item.GiaDongCua3 <= Math.Min(item.GiaDongCua1, item.GiaDongCua2))
                 {
                     giaMin = item.GiaDongCua3 ;
                     sNgayDay = "Ngày 3";
                 }
-                if (giaMin!=0)
+                if (giaMin!=0 && item.GiaDongCua3>= item.GiaMoCua3)
                 {
                     DataRow dr = dt.NewRow();
                     dr["MaCK"] = item.MaChungKhoan;
                     dr["GiaDC1"] = item.GiaDongCua1;
                     dr["GiaDC2"] = item.GiaDongCua2;
-                    dr["GiaDC3"] = item.GiaDongCua3;                    
+                    dr["GiaMC3"] = item.GiaMoCua3;
+                    dr["GiaDC3"] = item.GiaDongCua3;
                     dr["GiaDay"] = giaMin;
                     dr["NgayDay"] = sNgayDay;
+                    dt.Rows.Add(dr);
+                    i++;
+                }
+            }
+            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
+            gridKQLoc.DataSource = dt;
+            //invisible column ChiSo
+            //gridKQLoc.Columns["ChiSo"].Visible = false;
+            //fix first column when scroll
+            gridKQLoc.Columns[0].Frozen = true;
+        }
+
+        private void btnLocNhanh1_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("GiaMC1", typeof(decimal));
+            dt.Columns.Add("GiaDC1", typeof(decimal));
+            dt.Columns.Add("GiaMC2", typeof(decimal));
+            dt.Columns.Add("GiaDC2", typeof(decimal));
+            dt.Columns.Add("GiaMC3", typeof(decimal));
+            dt.Columns.Add("GiaDC3", typeof(decimal));
+            gridKQLoc.DataSource = null;
+            int i = 1;
+            foreach (var item in list)
+            {
+                //- Giá đóng cửa ngày 1 > Giá đóng cửa ngày 2 
+                //-Giá đóng cửa ngày 2 < Giá mở cửa ngày 2
+               // - Giá đóng cửa ngày 3 = giá mở cửa ngày 3 = giá đóng cửa ngày 2
+                if (item.GiaDongCua1 > item.GiaDongCua2 &&
+                    item.GiaDongCua2 < item.GiaMoCua2 &&
+                    item.GiaDongCua3 == item.GiaMoCua3 &&
+                    item.GiaDongCua3 == item.GiaDongCua2 )
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["GiaDC1"] = item.GiaDongCua1;
+                    dr["GiaDC2"] = item.GiaDongCua2;                    
+                    dr["GiaDC3"] = item.GiaDongCua3;
+                    dr["GiaMC1"] = item.GiaMoCua1;
+                    dr["GiaMC2"] = item.GiaMoCua2;
+                    dr["GiaMC3"] = item.GiaMoCua3;
+                    dt.Rows.Add(dr);
+                    i++;
+                }
+            }
+            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
+            gridKQLoc.DataSource = dt;
+            //invisible column ChiSo
+            //gridKQLoc.Columns["ChiSo"].Visible = false;
+            //fix first column when scroll
+            gridKQLoc.Columns[0].Frozen = true;
+        }
+
+        private void btnLocNhanh2_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("GiaMC1", typeof(decimal));
+            dt.Columns.Add("GiaDC1", typeof(decimal));
+            dt.Columns.Add("GiaMax1", typeof(decimal));
+            dt.Columns.Add("GiaMin1", typeof(decimal));
+            dt.Columns.Add("GiaMC2", typeof(decimal));
+            dt.Columns.Add("GiaDC2", typeof(decimal));
+            dt.Columns.Add("GiaMax2", typeof(decimal));
+            dt.Columns.Add("GiaMin2", typeof(decimal));
+            dt.Columns.Add("GiaMC3", typeof(decimal));
+            dt.Columns.Add("GiaDC3", typeof(decimal));
+            dt.Columns.Add("GiaMax3", typeof(decimal));
+            dt.Columns.Add("GiaMin3", typeof(decimal));
+            gridKQLoc.DataSource = null;
+            int i = 1;
+            foreach (var item in list)
+            {
+                //- Giá cao nhất ngày 1 < giá cao nhất ngày 2 
+                //-Giá đóng cửa ngày 1 < giá đóng cửa ngày 2
+                //- Giá đóng cửa ngày 2 > giá mở cửa ngày 2
+                //- Giá đóng cửa ngày 3 < Giá mở cửa ngày 3
+                //- Giá đóng cửa ngày 3 > max(giá đóng cửa ngày 1, giá mở cửa ngày 2)
+                if (item.GiaCaoNhat1 < item.GiaCaoNhat2 &&
+                    item.GiaDongCua1 < item.GiaDongCua2 &&
+                    item.GiaDongCua2 > item.GiaMoCua2 &&
+                    item.GiaDongCua3 < item.GiaDongCua3 &&
+                    item.GiaDongCua3 > Math.Max (item.GiaDongCua1, item.GiaMoCua2 ))
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["GiaDC1"] = item.GiaDongCua1;
+                    dr["GiaDC2"] = item.GiaDongCua2;
+                    dr["GiaDC3"] = item.GiaDongCua3;
+                    dr["GiaMC1"] = item.GiaMoCua1;
+                    dr["GiaMC2"] = item.GiaMoCua2;
+                    dr["GiaMC3"] = item.GiaMoCua3;
+                    dr["GiaMax1"] = item.GiaCaoNhat1;
+                    dr["GiaMin1"] = item.GiaThapNhat1;
+                    dr["GiaMax2"] = item.GiaCaoNhat2;
+                    dr["GiaMin2"] = item.GiaThapNhat2;
+                    dr["GiaMax3"] = item.GiaCaoNhat3;
+                    dr["GiaMin3"] = item.GiaThapNhat3;
+                    dt.Rows.Add(dr);
+                    i++;
+                }
+            }
+            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
+            gridKQLoc.DataSource = dt;
+            //invisible column ChiSo
+            //gridKQLoc.Columns["ChiSo"].Visible = false;
+            //fix first column when scroll
+            gridKQLoc.Columns[0].Frozen = true;
+        }
+
+        private void btnLocNhanh3_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("GiaMC1", typeof(decimal));
+            dt.Columns.Add("GiaDC1", typeof(decimal));
+            dt.Columns.Add("GiaMC2", typeof(decimal));
+            dt.Columns.Add("GiaDC2", typeof(decimal));
+            dt.Columns.Add("GiaMC3", typeof(decimal));
+            dt.Columns.Add("GiaDC3", typeof(decimal));
+            dt.Columns.Add("LechNgay3", typeof(decimal));
+            gridKQLoc.DataSource = null;
+            int i = 1;
+            foreach (var item in list)
+            {
+                //-(| giá đóng cửa ngày 3 - giá mở cửa ngày 3 | / max(giá mở cửa ngày 3, giá đóng cửa ngày 3) ) *100 <= 1
+                //- Giá đóng cửa ngày 2 > Giá mở cửa ngày 2
+                //- Giá đóng cửa ngày 2 < min(giá mở cửa ngày 3, giá đóng cửa ngày 3)
+                decimal lech = Math.Abs(item.GiaDongCua3 - item.GiaMoCua3) / Math.Max(item.GiaDongCua3, item.GiaMoCua3) * 100;
+                if (item.GiaDongCua2 > item.GiaMoCua2 &&
+                    item.GiaDongCua2 < Math.Min(item.GiaMoCua3, item.GiaDongCua3) &&
+                    lech <=1)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["GiaDC1"] = item.GiaDongCua1;
+                    dr["GiaDC2"] = item.GiaDongCua2;
+                    dr["GiaDC3"] = item.GiaDongCua3;
+                    dr["GiaMC1"] = item.GiaMoCua1;
+                    dr["GiaMC2"] = item.GiaMoCua2;
+                    dr["GiaMC3"] = item.GiaMoCua3;
+                    dr["LechNgay3"] = Math.Round(lech, 2, MidpointRounding.AwayFromZero);
                     dt.Rows.Add(dr);
                     i++;
                 }

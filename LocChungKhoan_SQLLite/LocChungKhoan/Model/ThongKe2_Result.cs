@@ -40,6 +40,12 @@ namespace LocChungKhoan
         public decimal KhoiLuong1 { get; set; }
         public decimal KhoiLuong2 { get; set; }
         public decimal KhoiLuong3 { get; set; }
+        public decimal GiaCaoNhat1 { get; set; }
+        public decimal GiaCaoNhat2 { get; set; }
+        public decimal GiaCaoNhat3 { get; set; }
+        public decimal GiaThapNhat1 { get; set; }
+        public decimal GiaThapNhat2 { get; set; }
+        public decimal GiaThapNhat3 { get; set; }
     }
     public partial class ThongKeKhoiLuong4Tuan
     {

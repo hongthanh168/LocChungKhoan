@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -43,8 +43,12 @@
             this.btnChuyenDuLieu = new System.Windows.Forms.Button();
             this.btnDMChungKhoanQuanTam = new System.Windows.Forms.Button();
             this.btnKiemTraDuLieu = new System.Windows.Forms.Button();
+            this.btnLocNhanh3 = new System.Windows.Forms.Button();
+            this.btnLocNhanh2 = new System.Windows.Forms.Button();
+            this.btnLocNhanh1 = new System.Windows.Forms.Button();
+            this.btnThongKeNgay2 = new System.Windows.Forms.Button();
             this.btnThongKeNgay = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnThongKeTuan = new System.Windows.Forms.Button();
             this.btnThongKe4Tuan = new System.Windows.Forms.Button();
             this.txtTuan3CuoiTuan = new System.Windows.Forms.TextBox();
             this.txtTuan2CuoiTuan = new System.Windows.Forms.TextBox();
@@ -69,7 +73,6 @@
             this.btnXoaTheoThoiGian = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnThongKeNgay2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -129,9 +132,12 @@
             this.groupBox1.Controls.Add(this.btnChuyenDuLieu);
             this.groupBox1.Controls.Add(this.btnDMChungKhoanQuanTam);
             this.groupBox1.Controls.Add(this.btnKiemTraDuLieu);
+            this.groupBox1.Controls.Add(this.btnLocNhanh3);
+            this.groupBox1.Controls.Add(this.btnLocNhanh2);
+            this.groupBox1.Controls.Add(this.btnLocNhanh1);
             this.groupBox1.Controls.Add(this.btnThongKeNgay2);
             this.groupBox1.Controls.Add(this.btnThongKeNgay);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnThongKeTuan);
             this.groupBox1.Controls.Add(this.btnThongKe4Tuan);
             this.groupBox1.Controls.Add(this.txtTuan3CuoiTuan);
             this.groupBox1.Controls.Add(this.txtTuan2CuoiTuan);
@@ -146,14 +152,14 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1085, 172);
+            this.groupBox1.Size = new System.Drawing.Size(1085, 208);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tham số:";
             // 
             // txtMaCK
             // 
-            this.txtMaCK.Location = new System.Drawing.Point(903, 129);
+            this.txtMaCK.Location = new System.Drawing.Point(903, 166);
             this.txtMaCK.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaCK.Name = "txtMaCK";
             this.txtMaCK.Size = new System.Drawing.Size(109, 22);
@@ -163,7 +169,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(808, 133);
+            this.label9.Location = new System.Drawing.Point(808, 170);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 16);
@@ -234,7 +240,7 @@
             // 
             // btnKiemTraDuLieu
             // 
-            this.btnKiemTraDuLieu.Location = new System.Drawing.Point(302, 126);
+            this.btnKiemTraDuLieu.Location = new System.Drawing.Point(301, 126);
             this.btnKiemTraDuLieu.Margin = new System.Windows.Forms.Padding(4);
             this.btnKiemTraDuLieu.Name = "btnKiemTraDuLieu";
             this.btnKiemTraDuLieu.Size = new System.Drawing.Size(197, 28);
@@ -243,9 +249,53 @@
             this.btnKiemTraDuLieu.UseVisualStyleBackColor = true;
             this.btnKiemTraDuLieu.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // btnLocNhanh3
+            // 
+            this.btnLocNhanh3.Location = new System.Drawing.Point(507, 165);
+            this.btnLocNhanh3.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLocNhanh3.Name = "btnLocNhanh3";
+            this.btnLocNhanh3.Size = new System.Drawing.Size(135, 28);
+            this.btnLocNhanh3.TabIndex = 11;
+            this.btnLocNhanh3.Text = "Lọc nhanh 3";
+            this.btnLocNhanh3.UseVisualStyleBackColor = true;
+            this.btnLocNhanh3.Click += new System.EventHandler(this.btnLocNhanh3_Click);
+            // 
+            // btnLocNhanh2
+            // 
+            this.btnLocNhanh2.Location = new System.Drawing.Point(364, 165);
+            this.btnLocNhanh2.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLocNhanh2.Name = "btnLocNhanh2";
+            this.btnLocNhanh2.Size = new System.Drawing.Size(135, 28);
+            this.btnLocNhanh2.TabIndex = 11;
+            this.btnLocNhanh2.Text = "Lọc nhanh 2";
+            this.btnLocNhanh2.UseVisualStyleBackColor = true;
+            this.btnLocNhanh2.Click += new System.EventHandler(this.btnLocNhanh2_Click);
+            // 
+            // btnLocNhanh1
+            // 
+            this.btnLocNhanh1.Location = new System.Drawing.Point(212, 165);
+            this.btnLocNhanh1.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLocNhanh1.Name = "btnLocNhanh1";
+            this.btnLocNhanh1.Size = new System.Drawing.Size(135, 28);
+            this.btnLocNhanh1.TabIndex = 11;
+            this.btnLocNhanh1.Text = "Lọc nhanh 1";
+            this.btnLocNhanh1.UseVisualStyleBackColor = true;
+            this.btnLocNhanh1.Click += new System.EventHandler(this.btnLocNhanh1_Click);
+            // 
+            // btnThongKeNgay2
+            // 
+            this.btnThongKeNgay2.Location = new System.Drawing.Point(800, 126);
+            this.btnThongKeNgay2.Margin = new System.Windows.Forms.Padding(4);
+            this.btnThongKeNgay2.Name = "btnThongKeNgay2";
+            this.btnThongKeNgay2.Size = new System.Drawing.Size(135, 28);
+            this.btnThongKeNgay2.TabIndex = 11;
+            this.btnThongKeNgay2.Text = "Thống kê đáy";
+            this.btnThongKeNgay2.UseVisualStyleBackColor = true;
+            this.btnThongKeNgay2.Click += new System.EventHandler(this.btnThongKeNgay2_Click);
+            // 
             // btnThongKeNgay
             // 
-            this.btnThongKeNgay.Location = new System.Drawing.Point(45, 30);
+            this.btnThongKeNgay.Location = new System.Drawing.Point(653, 126);
             this.btnThongKeNgay.Margin = new System.Windows.Forms.Padding(4);
             this.btnThongKeNgay.Name = "btnThongKeNgay";
             this.btnThongKeNgay.Size = new System.Drawing.Size(135, 28);
@@ -254,16 +304,16 @@
             this.btnThongKeNgay.UseVisualStyleBackColor = true;
             this.btnThongKeNgay.Click += new System.EventHandler(this.btnThongKeNgay_Click);
             // 
-            // button1
+            // btnThongKeTuan
             // 
-            this.button1.Location = new System.Drawing.Point(506, 126);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 28);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Thống kê tuần";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            this.btnThongKeTuan.Location = new System.Drawing.Point(507, 126);
+            this.btnThongKeTuan.Margin = new System.Windows.Forms.Padding(4);
+            this.btnThongKeTuan.Name = "btnThongKeTuan";
+            this.btnThongKeTuan.Size = new System.Drawing.Size(135, 28);
+            this.btnThongKeTuan.TabIndex = 11;
+            this.btnThongKeTuan.Text = "Thống kê tuần";
+            this.btnThongKeTuan.UseVisualStyleBackColor = true;
+            this.btnThongKeTuan.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // btnThongKe4Tuan
             // 
@@ -374,15 +424,15 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1127, 531);
+            this.groupBox2.Size = new System.Drawing.Size(1127, 498);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kết quả lọc";
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -390,7 +440,7 @@
             this.gridKQLoc.Margin = new System.Windows.Forms.Padding(4);
             this.gridKQLoc.Name = "gridKQLoc";
             this.gridKQLoc.RowHeadersWidth = 51;
-            this.gridKQLoc.Size = new System.Drawing.Size(1119, 508);
+            this.gridKQLoc.Size = new System.Drawing.Size(1119, 475);
             this.gridKQLoc.TabIndex = 0;
             // 
             // panel1
@@ -427,7 +477,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Size = new System.Drawing.Size(1131, 818);
-            this.splitContainer1.SplitterDistance = 278;
+            this.splitContainer1.SplitterDistance = 311;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -511,17 +561,6 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
-            // btnThongKeNgay2
-            // 
-            this.btnThongKeNgay2.Location = new System.Drawing.Point(649, 126);
-            this.btnThongKeNgay2.Margin = new System.Windows.Forms.Padding(4);
-            this.btnThongKeNgay2.Name = "btnThongKeNgay2";
-            this.btnThongKeNgay2.Size = new System.Drawing.Size(135, 28);
-            this.btnThongKeNgay2.TabIndex = 11;
-            this.btnThongKeNgay2.Text = "Thống kê đáy";
-            this.btnThongKeNgay2.UseVisualStyleBackColor = true;
-            this.btnThongKeNgay2.Click += new System.EventHandler(this.btnThongKeNgay2_Click);
-            // 
             // frmMainKhoiLuong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -587,13 +626,16 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnMoThuMuc;
         private System.Windows.Forms.Button btnThongKe4Tuan;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnThongKeTuan;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnDMChungKhoanQuanTam;
         private System.Windows.Forms.TextBox txtMaCK;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnThongKeNgay;
         private System.Windows.Forms.Button btnThongKeNgay2;
+        private System.Windows.Forms.Button btnLocNhanh3;
+        private System.Windows.Forms.Button btnLocNhanh2;
+        private System.Windows.Forms.Button btnLocNhanh1;
     }
 }
 

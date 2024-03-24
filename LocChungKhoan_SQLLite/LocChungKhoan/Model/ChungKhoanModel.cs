@@ -37,6 +37,8 @@ namespace LocChungKhoan
         public decimal GiaMoCua { get; set; }
         public decimal GiaDongCua { get; set; }        
         public decimal KhoiLuong { get; set; }
+        public decimal GiaCaoNhat { get; set; }
+        public decimal GiaThapNhat { get; set; }
     }
 
 }
