@@ -39,6 +39,17 @@ namespace LocChungKhoan
         public decimal KhoiLuong { get; set; }
         public decimal GiaCaoNhat { get; set; }
         public decimal GiaThapNhat { get; set; }
+        public BieuDoKhoiLuong()
+        {
+            GiaCaoNhat = 0;
+            GiaThapNhat = 0;
+            Ngay = DateTime.Now;
+            MaChungKhoan = "";
+            GiaMoCua = 0;
+            GiaDongCua = 0;
+            KhoiLuong = 0;
+            BieuDoKhoiLuongID = 0;
+        }
     }
 
 }

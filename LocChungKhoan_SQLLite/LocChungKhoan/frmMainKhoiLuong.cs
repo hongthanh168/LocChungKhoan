@@ -262,7 +262,7 @@ namespace LocChungKhoan
         {
             //open frmMain and close this form
             this.Hide();
-            var form2 = new frmMain();
+            var form2 = new frmVersion1();
             form2.Closed += (s, args) => this.Close();
             form2.Show();
 
