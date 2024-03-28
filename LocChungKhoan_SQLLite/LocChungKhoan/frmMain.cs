@@ -195,8 +195,8 @@ namespace LocChungKhoan
         private void frmMainKhoiLuong_Load(object sender, EventArgs e)
         {
             //AdjustSplitterDistance();
-            string thongkeTuan = "- Giá đóng cửa tuần 1 > min ( giá đóng cửa tuần 2 , giá đóng cửa tuần 3 ) \r\n- giá đóng cửa tuần 3 >= giá đóng cửa tuần 2 \r\n(( Giá đóng cửa tuần 3- giá đóng cửa tuần 2 ) / Giá đóng cửa tuần 3 ) *100 <= 1";
-            string thongkeNgay = "- Giá đóng cửa ngày 1 > min ( giá đóng cửa ngày 2 , giá đóng cửa ngày 3 ) \r\n- giá đóng cửa ngày 3 >= giá đóng cửa ngày 2 \r\n(( Giá đóng cửa ngày 3- giá đóng cửa ngày 2 ) / Giá đóng cửa ngày 3 ) *100 <= 1";                      
+            string thongkeTuan = "- Giá đóng cửa tuần 1 > max ( giá đóng cửa tuần 2 , giá đóng cửa tuần 3 ) \r\n- giá đóng cửa tuần 3 >= giá đóng cửa tuần 2 \r\n- giá đóng cửa tuần 3 >= giá mở cửa tuần 3 \r\n(( Giá đóng cửa tuần 3- giá đóng cửa tuần 2 ) / Giá đóng cửa tuần 3 ) *100 <= 1";
+            string thongkeNgay = "- Giá đóng cửa ngày 1 > max ( giá đóng cửa ngày 2 , giá đóng cửa ngày 3 ) \r\n- giá đóng cửa ngày 3 >= giá đóng cửa ngày 2 \r\n- giá đóng cửa ngày 3 >= giá mở cửa ngày 3 \r\n(( Giá đóng cửa ngày 3- giá đóng cửa ngày 2 ) / Giá đóng cửa ngày 3 ) *100 <= 1\r\n- ((giá đóng cửa ngày 3-giá mở  cửa ngày 3) / giá đóng cửa ngày 3 )* 100 <= ngưỡng";                      
             System.Windows.Forms.ToolTip toolTipNgay = new System.Windows.Forms.ToolTip();
             toolTipNgay.SetToolTip(btnThongKeNgay , thongkeNgay );
             System.Windows.Forms.ToolTip toolTipTuan = new System.Windows.Forms.ToolTip();
@@ -376,23 +376,18 @@ namespace LocChungKhoan
             dt.Columns.Add("GiaDC2", typeof(decimal));
             dt.Columns.Add("GiaDC3", typeof(decimal));
             dt.Columns.Add("Nguong", typeof(decimal));
-            dt.Columns.Add("ChiSo", typeof(int));
             gridKQLoc.DataSource = null;
             int i = 1;
             foreach (var item in list)
             {
-                //-Giá đóng cửa tuần 1 > min(giá đóng cửa tuần 2, giá đóng cửa tuần 3)
+                //-Giá đóng cửa tuần 1 > max(giá đóng cửa tuần 2, giá đóng cửa tuần 3)
                 //- giá đóng cửa tuần 3 >= giá đóng cửa tuần 2
                 //- giá đóng cửa tuần 3 >= giá mở cửa tuần 3
-                //((Giá đóng cửa tuần 3 - giá đóng cửa tuần 2) / Giá đóng cửa tuần 3 ) *100 <= 1
-                int chiso = 0;
-                if (item.GiaDongCua3 >=item.GiaMoCua3)
-                {
-                    chiso = 1;
-                }
+                //- ((Giá đóng cửa tuần 3 - giá đóng cửa tuần 2) / Giá đóng cửa tuần 3 ) *100 <= 1                
                 decimal nguong = Math.Abs(item.GiaDongCua3 - item.GiaDongCua2) / item.GiaDongCua3  * 100;
-                if (item.GiaDongCua1 > Math.Min(item.GiaDongCua2 , item.GiaDongCua3 ) &&
+                if (item.GiaDongCua1 > Math.Max(item.GiaDongCua2 , item.GiaDongCua3 ) &&
                     item.GiaDongCua3 >= item.GiaDongCua2 && 
+                    item.GiaDongCua3 >= item.GiaMoCua3 &&
                     nguong<=nguongTren && nguong>=nguongDuoi
                     )
                 {
@@ -402,18 +397,18 @@ namespace LocChungKhoan
                     dr["GiaDC2"] = item.GiaDongCua2;
                     dr["GiaDC3"] = item.GiaDongCua3;
                     dr["Nguong"] = Math.Round(nguong, 2, MidpointRounding.AwayFromZero);
-                    dr["ChiSo"] = chiso;
                     dt.Rows.Add(dr);
                     i++;
                 }
             }
             groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();  
+            gridKQLoc.DataSource = dt;
             //order by ChiSo desc
-            DataView dv = dt.DefaultView;
-            dv.Sort = "ChiSo desc";
-            DataTable sortedDT = dv.ToTable();
-            // Finally, set the DataSource of the DataGridView to the sorted DataTable
-            gridKQLoc.DataSource = sortedDT;
+            //DataView dv = dt.DefaultView;
+            //dv.Sort = "ChiSo desc";
+            //DataTable sortedDT = dv.ToTable();
+            //// Finally, set the DataSource of the DataGridView to the sorted DataTable
+            //gridKQLoc.DataSource = sortedDT;
             //invisible column ChiSo
             //gridKQLoc.Columns["ChiSo"].Visible = false;
             //fix first column when scroll
@@ -511,25 +506,24 @@ namespace LocChungKhoan
             dt.Columns.Add("GiaDC1", typeof(decimal));
             dt.Columns.Add("GiaDC2", typeof(decimal));
             dt.Columns.Add("GiaDC3", typeof(decimal));
-            dt.Columns.Add("Nguong", typeof(decimal));
-            dt.Columns.Add("ChiSo", typeof(int));
+            dt.Columns.Add("Nguong23", typeof(decimal));
+            dt.Columns.Add("Nguong33", typeof(decimal));
             gridKQLoc.DataSource = null;
             int i = 1;
             foreach (var item in list)
             {
-                //-Giá đóng cửa tuần 1 > min(giá đóng cửa tuần 2, giá đóng cửa tuần 3)
-                //- giá đóng cửa tuần 3 >= giá đóng cửa tuần 2
-                //- giá đóng cửa tuần 3 >= giá mở cửa tuần 3
-                //((Giá đóng cửa tuần 3 - giá đóng cửa tuần 2) / Giá đóng cửa tuần 3 ) *100 <= 1
-                int chiso = 0;
-                if (item.GiaDongCua3 >= item.GiaMoCua3)
-                {
-                    chiso = 1;
-                }
-                decimal nguong = Math.Abs(item.GiaDongCua3 - item.GiaDongCua2) / item.GiaDongCua3 * 100;
-                if (item.GiaDongCua1 > Math.Min(item.GiaDongCua2, item.GiaDongCua3) &&
+                //-Giá đóng cửa ngày 1 > max(giá đóng cửa ngày 2, giá đóng cửa ngày 3)
+                //- giá đóng cửa ngày 3 >= giá đóng cửa ngày 2
+                //- giá đóng cửa ngày 3 >= giá mở cửa ngày 3
+                //((Giá đóng cửa ngày 3 - giá đóng cửa ngày 2) / Giá đóng cửa ngày 3 ) *100 <= 1
+                //- ((giá đóng cửa ngày 3 - giá mở cửa ngày 3) / giá đóng cửa ngày 3 )*100 <= ngưỡng                
+                decimal nguong23 = Math.Abs(item.GiaDongCua3 - item.GiaDongCua2) / item.GiaDongCua3 * 100;
+                decimal nguong33 = Math.Abs(item.GiaDongCua3 - item.GiaMoCua3) / item.GiaDongCua3 * 100;
+                if (item.GiaDongCua1 > Math.Max(item.GiaDongCua2, item.GiaDongCua3) &&
                     item.GiaDongCua3 >= item.GiaDongCua2 &&
-                    nguong <= nguongTren && nguong >= nguongDuoi
+                    item.GiaDongCua3 >= item.GiaMoCua3 &&
+                    nguong23 <= nguongTren && nguong23 >= nguongDuoi &&
+                    nguong33 <= nguongTren && nguong33 >= nguongDuoi
                     )
                 {
                     DataRow dr = dt.NewRow();
@@ -537,19 +531,20 @@ namespace LocChungKhoan
                     dr["GiaDC1"] = item.GiaDongCua1;
                     dr["GiaDC2"] = item.GiaDongCua2;
                     dr["GiaDC3"] = item.GiaDongCua3;
-                    dr["Nguong"] = Math.Round(nguong,2,MidpointRounding.AwayFromZero);
-                    dr["ChiSo"] = chiso;
+                    dr["Nguong23"] = Math.Round(nguong23,2,MidpointRounding.AwayFromZero);
+                    dr["Nguong33"] = Math.Round(nguong33, 2, MidpointRounding.AwayFromZero);
                     dt.Rows.Add(dr);
                     i++;
                 }
             }
             groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
-            //order by ChiSo desc
-            DataView dv = dt.DefaultView;
-            dv.Sort = "ChiSo desc";
-            DataTable sortedDT = dv.ToTable();
+            gridKQLoc.DataSource = dt;
+            ////order by ChiSo desc
+            //DataView dv = dt.DefaultView;
+            //dv.Sort = "ChiSo desc";
+            //DataTable sortedDT = dv.ToTable();
             // Finally, set the DataSource of the DataGridView to the sorted DataTable
-            gridKQLoc.DataSource = sortedDT;
+            //gridKQLoc.DataSource = sortedDT;
             //invisible column ChiSo
             //gridKQLoc.Columns["ChiSo"].Visible = false;
             //fix first column when scroll
