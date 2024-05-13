@@ -252,36 +252,22 @@ namespace LocChungKhoan
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            gridKQLoc.DataSource = null;
-            List<DateTime> list = BieuDoKhoiLuongController.GetAllNgay();
-            //display to grid
-            System.Data.DataTable dt = new System.Data.DataTable();
-            dt.Columns.Add("STT", typeof(int));
-            dt.Columns.Add("Ngay", typeof(string));
-            int i = 1;
-            foreach (var item in list)
-            {
-                DataRow dr = dt.NewRow();
-                dr["STT"] = i;
-                dr["Ngay"] = item.ToString("dd/MM/yyyy");
-                dt.Rows.Add(dr);
-                i++;
-            }
-            gridKQLoc.DataSource = dt;
-            //get number of rows
-            groupBox2.Text = "Số ngày có dữ liệu: " + (i - 1).ToString();
+            
         }      
 
         private void frmMainKhoiLuong_Load(object sender, EventArgs e)
         {
             //AdjustSplitterDistance();
-            string thongkeTuan = "- Giá đóng cửa tuần 1 > max ( giá đóng cửa tuần 2 , giá đóng cửa tuần 3 ) \r\n- giá đóng cửa tuần 3 >= giá đóng cửa tuần 2 \r\n- giá đóng cửa tuần 3 >= giá mở cửa tuần 3 \r\n(( Giá đóng cửa tuần 3- giá đóng cửa tuần 2 ) / Giá đóng cửa tuần 3 ) *100 <= 1";
+            string thongkeTuan1 = "- Giá đóng cửa tuần 1 > max ( giá đóng cửa tuần 2 , giá đóng cửa tuần 3 ) \r\n- giá đóng cửa tuần 3 >= giá đóng cửa tuần 2 \r\n- giá đóng cửa tuần 3 >= giá mở cửa tuần 3 \r\n(( Giá đóng cửa tuần 3- giá đóng cửa tuần 2 ) / Giá đóng cửa tuần 3 ) *100 <= 1";
+            string thongkeTuan2 = "-Biên độ thu hẹp dần: | Giá cao nhất  tuần 1 - Giá thấp nhất tuần  1 | > |Giá cao nhất tuần 2 -Giá thấp nhất tuần 2 | > = |Giá cao nhất tuần  3- Giá thấp tuần 3 | \r\n- Vol giảm dần: Khối lượng tuần 1 > Khối lượng tuần 2 > Khối lượng tuần 3 \r\n- Giá đóng cửa tuần 1 < Giá mở cửa tuần 1";
             string thongkeNgay = "- Giá đóng cửa ngày 1 > max ( giá đóng cửa ngày 2 , giá đóng cửa ngày 3 ) \r\n- giá đóng cửa ngày 3 >= giá đóng cửa ngày 2 \r\n- giá đóng cửa ngày 3 >= giá mở cửa ngày 3 \r\n(( Giá đóng cửa ngày 3- giá đóng cửa ngày 2 ) / Giá đóng cửa ngày 3 ) *100 <= 1\r\n- ((giá đóng cửa ngày 3-giá mở  cửa ngày 3) / giá đóng cửa ngày 3 )* 100 <= ngưỡng";
-            string thongkeNen = "Nến 1) có giá thấp nhất của ngày 3 = giá thấp nhất ngày 2 và giá đóng cửa ngày 3>= giá mở cửa ngày 3. \r\nNến 2 ) Giá mở cửa ngày 3<= min ( Giá đóng cửa ngày 2 , giá mở cửa ngày 2) \r\nvà Giá đóng cửa ngày 3 >= max ( giá mở cửa ngày 2 , giá đóng cửa ngày 3 ) và giá đóng cửa ngày 3>= giá mở cửa ngày 3 ";
+            string thongkeNen = "Nến 1) có giá thấp nhất của ngày 3 = giá thấp nhất ngày 2 và giá đóng cửa ngày 3>= giá mở cửa ngày 3. \r\nNến 2 ) Giá mở cửa ngày 3<= min ( Giá đóng cửa ngày 2 , giá mở cửa ngày 2) \r\nvà Giá đóng cửa ngày 3 >= max ( giá mở cửa ngày 2 , giá đóng cửa ngày 3 ) và giá đóng cửa ngày 3>= giá mở cửa ngày 3 ";            
             System.Windows.Forms.ToolTip toolTipNgay = new System.Windows.Forms.ToolTip();
             toolTipNgay.SetToolTip(btnThongKeNgay , thongkeNgay );
             System.Windows.Forms.ToolTip toolTipTuan = new System.Windows.Forms.ToolTip();
-            toolTipTuan.SetToolTip(btnThongKeTuan, thongkeTuan);
+            toolTipTuan.SetToolTip(btnThongKeTuan, thongkeTuan1);
+            System.Windows.Forms.ToolTip toolTipTuan2 = new System.Windows.Forms.ToolTip();
+            toolTipTuan2.SetToolTip(btnThongKeTuan2, thongkeTuan2);
             System.Windows.Forms.ToolTip toolTipNen = new System.Windows.Forms.ToolTip();
             toolTipNen.SetToolTip(btnThongKeNen, thongkeNen);
         }
@@ -496,7 +482,7 @@ namespace LocChungKhoan
             DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
             //display to grid
             //create datatable
             decimal nguong = decimal .Parse(txtNguong1.Text);
@@ -1011,6 +997,128 @@ namespace LocChungKhoan
             gridKQLoc.Columns["ChiSoHienThi"].Visible = false;
             //fix first column when scroll
             gridKQLoc.Columns[0].Frozen = true;
+        }
+
+        private void danhMụcChứngKhoánQuanTâmToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            List<DMQuanTam> list = DMQuanTamController.GetAll();
+            //display to grid
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("STT", typeof(int));
+            dt.Columns.Add("MaCK", typeof(string));
+            int i = 1;
+            foreach (var item in list)
+            {
+                DataRow dr = dt.NewRow();
+                dr["STT"] = i;
+                dr["MaCK"] = item.MaChungKhoan;
+                dt.Rows.Add(dr);
+                i++;
+            }
+            //order by MaCK
+            DataView dv = dt.DefaultView;
+            dv.Sort = "MaCK";
+            System.Data.DataTable sortedDT = dv.ToTable();
+            // Finally, set the DataSource of the DataGridView to the sorted DataTable
+            gridKQLoc.DataSource = sortedDT;
+            //get number of rows
+            groupBox2.Text = "Số mã chứng khoán quan tâm: " + (i - 1).ToString();
+        }
+
+        private void kiểmTraDữLiệuHiệnCóToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            List<DateTime> list = BieuDoKhoiLuongController.GetAllNgay();
+            //display to grid
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("STT", typeof(int));
+            dt.Columns.Add("Ngay", typeof(string));
+            int i = 1;
+            foreach (var item in list)
+            {
+                DataRow dr = dt.NewRow();
+                dr["STT"] = i;
+                dr["Ngay"] = item.ToString("dd/MM/yyyy");
+                dt.Rows.Add(dr);
+                i++;
+            }
+            gridKQLoc.DataSource = dt;
+            //get number of rows
+            groupBox2.Text = "Số ngày có dữ liệu: " + (i - 1).ToString();
+        }
+
+        private void btnThongKeTuan2_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            //display to grid
+            //create datatable
+            decimal nguong = decimal.Parse(txtNguong1.Text);
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("Max1", typeof(decimal));
+            dt.Columns.Add("Max2", typeof(decimal));
+            dt.Columns.Add("Max3", typeof(decimal));
+            dt.Columns.Add("Min1", typeof(decimal));
+            dt.Columns.Add("Min2", typeof(decimal));
+            dt.Columns.Add("Min3", typeof(decimal));
+            dt.Columns.Add("KL1", typeof(decimal));
+            dt.Columns.Add("KL2", typeof(decimal));
+            dt.Columns.Add("KL3", typeof(decimal));
+            dt.Columns.Add("MC1", typeof(decimal));
+            dt.Columns.Add("DC1", typeof(decimal));
+            gridKQLoc.DataSource = null;
+            int i = 1;
+            foreach (var item in list)
+            {
+                //-Biên độ thu hẹp dần: | Giá cao nhất  tuần 1 - Giá thấp nhất tuần  1 | > | Giá cao nhất tuần 2 - Giá thấp nhất tuần 2 | > = | Giá cao nhất tuần  3 - Giá thấp tuần 3 |
+                //-Vol giảm dần: Khối lượng tuần 1 > Khối lượng tuần 2 > Khối lượng tuần 3
+                //- Giá đóng cửa tuần 1 < Giá mở cửa tuần 1
+                decimal delta1 = Math.Abs(item.GiaCaoNhat1 - item.GiaThapNhat1);
+                decimal delta2 = Math.Abs(item.GiaCaoNhat2 - item.GiaThapNhat2);
+                decimal delta3 = Math.Abs(item.GiaCaoNhat3 - item.GiaThapNhat3);
+                if (delta1 > delta2 && delta2 >= delta3 &&
+                    item.KhoiLuong1 > item.KhoiLuong2 &&
+                    item.KhoiLuong2 > item.KhoiLuong3 && 
+                    item.GiaDongCua1 < item.GiaMoCua1)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["Max1"] = item.GiaCaoNhat1;
+                    dr["Max2"] = item.GiaCaoNhat2;
+                    dr["Max3"] = item.GiaCaoNhat3;
+                    dr["Min1"] = item.GiaThapNhat1;
+                    dr["Min2"] = item.GiaThapNhat2;
+                    dr["Min3"] = item.GiaThapNhat3;
+                    dr["KL1"] = item.KhoiLuong1;
+                    dr["KL2"] = item.KhoiLuong2;
+                    dr["KL3"] = item.KhoiLuong3;
+                    dr["MC1"] = item.GiaMoCua1;
+                    dr["DC1"] = item.GiaDongCua1;
+                    dt.Rows.Add(dr);
+                    i++;
+                }
+            }
+            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
+            gridKQLoc.DataSource = dt;
+            gridKQLoc.Columns[0].Frozen = true;
+            //format KL1, KL2, KL3 with 0 decimal
+            gridKQLoc.Columns["KL1"].DefaultCellStyle.Format = "N0";
+            gridKQLoc.Columns["KL2"].DefaultCellStyle.Format = "N0";
+            gridKQLoc.Columns["KL3"].DefaultCellStyle.Format = "N0";
         }
     }
 }

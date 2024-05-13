@@ -44,8 +44,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnDMChungKhoanQuanTam = new System.Windows.Forms.Button();
-            this.btnKiemTraDuLieu = new System.Windows.Forms.Button();
             this.btnThongKeNen = new System.Windows.Forms.Button();
             this.btnThongKeNgay = new System.Windows.Forms.Button();
             this.btnThongKeTuan = new System.Windows.Forms.Button();
@@ -72,6 +70,10 @@
             this.btnXoaTheoThoiGian = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.danhMụcChứngKhoánQuanTâmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kiểmTraDữLiệuHiệnCóToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnThongKeTuan2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -132,10 +134,9 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.btnDMChungKhoanQuanTam);
-            this.groupBox1.Controls.Add(this.btnKiemTraDuLieu);
             this.groupBox1.Controls.Add(this.btnThongKeNen);
             this.groupBox1.Controls.Add(this.btnThongKeNgay);
+            this.groupBox1.Controls.Add(this.btnThongKeTuan2);
             this.groupBox1.Controls.Add(this.btnThongKeTuan);
             this.groupBox1.Controls.Add(this.txtTuan3CuoiTuan);
             this.groupBox1.Controls.Add(this.txtTuan2CuoiTuan);
@@ -249,28 +250,6 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "Ngày cuối tuần: ";
             // 
-            // btnDMChungKhoanQuanTam
-            // 
-            this.btnDMChungKhoanQuanTam.Location = new System.Drawing.Point(59, 161);
-            this.btnDMChungKhoanQuanTam.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDMChungKhoanQuanTam.Name = "btnDMChungKhoanQuanTam";
-            this.btnDMChungKhoanQuanTam.Size = new System.Drawing.Size(143, 28);
-            this.btnDMChungKhoanQuanTam.TabIndex = 8;
-            this.btnDMChungKhoanQuanTam.Text = "Danh mục quan tâm";
-            this.btnDMChungKhoanQuanTam.UseVisualStyleBackColor = true;
-            this.btnDMChungKhoanQuanTam.Click += new System.EventHandler(this.btnDMChungKhoanQuanTam_Click);
-            // 
-            // btnKiemTraDuLieu
-            // 
-            this.btnKiemTraDuLieu.Location = new System.Drawing.Point(208, 161);
-            this.btnKiemTraDuLieu.Margin = new System.Windows.Forms.Padding(4);
-            this.btnKiemTraDuLieu.Name = "btnKiemTraDuLieu";
-            this.btnKiemTraDuLieu.Size = new System.Drawing.Size(178, 28);
-            this.btnKiemTraDuLieu.TabIndex = 9;
-            this.btnKiemTraDuLieu.Text = "Kiểm tra dữ liệu hiện có";
-            this.btnKiemTraDuLieu.UseVisualStyleBackColor = true;
-            this.btnKiemTraDuLieu.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // btnThongKeNen
             // 
             this.btnThongKeNen.Location = new System.Drawing.Point(673, 161);
@@ -278,7 +257,7 @@
             this.btnThongKeNen.Name = "btnThongKeNen";
             this.btnThongKeNen.Size = new System.Drawing.Size(135, 28);
             this.btnThongKeNen.TabIndex = 11;
-            this.btnThongKeNen.Text = "Lọc theo nến";
+            this.btnThongKeNen.Text = "Lọc nến ngày";
             this.btnThongKeNen.UseVisualStyleBackColor = true;
             this.btnThongKeNen.Click += new System.EventHandler(this.btnThongKeNen_Click);
             // 
@@ -295,12 +274,12 @@
             // 
             // btnThongKeTuan
             // 
-            this.btnThongKeTuan.Location = new System.Drawing.Point(391, 161);
+            this.btnThongKeTuan.Location = new System.Drawing.Point(248, 160);
             this.btnThongKeTuan.Margin = new System.Windows.Forms.Padding(4);
             this.btnThongKeTuan.Name = "btnThongKeTuan";
             this.btnThongKeTuan.Size = new System.Drawing.Size(135, 28);
             this.btnThongKeTuan.TabIndex = 10;
-            this.btnThongKeTuan.Text = "Thống kê tuần";
+            this.btnThongKeTuan.Text = "Thống kê tuần 1";
             this.btnThongKeTuan.UseVisualStyleBackColor = true;
             this.btnThongKeTuan.Click += new System.EventHandler(this.button1_Click_2);
             // 
@@ -498,7 +477,10 @@
             this.quảnLýDữLiệuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnXoaToanBo,
             this.btnXoaTheoNgay,
-            this.btnXoaTheoThoiGian});
+            this.btnXoaTheoThoiGian,
+            this.toolStripSeparator1,
+            this.danhMụcChứngKhoánQuanTâmToolStripMenuItem,
+            this.kiểmTraDữLiệuHiệnCóToolStripMenuItem});
             this.quảnLýDữLiệuToolStripMenuItem.Name = "quảnLýDữLiệuToolStripMenuItem";
             this.quảnLýDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(123, 24);
             this.quảnLýDữLiệuToolStripMenuItem.Text = "Quản lý dữ liệu";
@@ -537,6 +519,36 @@
             this.thôngTinToolStripMenuItem.Name = "thôngTinToolStripMenuItem";
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(396, 6);
+            // 
+            // danhMụcChứngKhoánQuanTâmToolStripMenuItem
+            // 
+            this.danhMụcChứngKhoánQuanTâmToolStripMenuItem.Name = "danhMụcChứngKhoánQuanTâmToolStripMenuItem";
+            this.danhMụcChứngKhoánQuanTâmToolStripMenuItem.Size = new System.Drawing.Size(399, 26);
+            this.danhMụcChứngKhoánQuanTâmToolStripMenuItem.Text = "Danh mục chứng khoán quan tâm";
+            this.danhMụcChứngKhoánQuanTâmToolStripMenuItem.Click += new System.EventHandler(this.danhMụcChứngKhoánQuanTâmToolStripMenuItem_Click);
+            // 
+            // kiểmTraDữLiệuHiệnCóToolStripMenuItem
+            // 
+            this.kiểmTraDữLiệuHiệnCóToolStripMenuItem.Name = "kiểmTraDữLiệuHiệnCóToolStripMenuItem";
+            this.kiểmTraDữLiệuHiệnCóToolStripMenuItem.Size = new System.Drawing.Size(399, 26);
+            this.kiểmTraDữLiệuHiệnCóToolStripMenuItem.Text = "Kiểm tra dữ liệu hiện có";
+            this.kiểmTraDữLiệuHiệnCóToolStripMenuItem.Click += new System.EventHandler(this.kiểmTraDữLiệuHiệnCóToolStripMenuItem_Click);
+            // 
+            // btnThongKeTuan2
+            // 
+            this.btnThongKeTuan2.Location = new System.Drawing.Point(391, 161);
+            this.btnThongKeTuan2.Margin = new System.Windows.Forms.Padding(4);
+            this.btnThongKeTuan2.Name = "btnThongKeTuan2";
+            this.btnThongKeTuan2.Size = new System.Drawing.Size(135, 28);
+            this.btnThongKeTuan2.TabIndex = 10;
+            this.btnThongKeTuan2.Text = "Thống kê tuần 2";
+            this.btnThongKeTuan2.UseVisualStyleBackColor = true;
+            this.btnThongKeTuan2.Click += new System.EventHandler(this.btnThongKeTuan2_Click);
             // 
             // frmMain
             // 
@@ -588,7 +600,6 @@
         private System.Windows.Forms.ToolStripMenuItem trợGiúpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem thôngTinToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btnKiemTraDuLieu;
         private System.Windows.Forms.ToolStripMenuItem btnXoaTheoThoiGian;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
@@ -602,7 +613,6 @@
         private System.Windows.Forms.Button btnMoThuMuc;
         private System.Windows.Forms.Button btnThongKeTuan;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button btnDMChungKhoanQuanTam;
         private System.Windows.Forms.TextBox txtMaCK;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnThongKeNgay;
@@ -612,6 +622,10 @@
         private System.Windows.Forms.TextBox txtNguong2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnThongKeNen;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem danhMụcChứngKhoánQuanTâmToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kiểmTraDữLiệuHiệnCóToolStripMenuItem;
+        private System.Windows.Forms.Button btnThongKeTuan2;
     }
 }
 
