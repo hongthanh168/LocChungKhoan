@@ -23,6 +23,10 @@ namespace LocChungKhoan
 {
     public partial class frmMain : Form
     {
+        public bool isLocKhoiLuong = true;
+        public bool isLocGiaCaoNhatThapNhat = true;
+        public bool isLocGiaDongCuaMoCua = false;
+        public bool isLocDieuKienGiaTuan1 = false;
         public frmMain()
         {
             InitializeComponent();
@@ -1050,75 +1054,163 @@ namespace LocChungKhoan
 
         private void btnThongKeTuan2_Click(object sender, EventArgs e)
         {
-            gridKQLoc.DataSource = null;
-            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
-            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
+            //display frmDieuKienTuan to get option
+            frmDieuKienTuan frm = new frmDieuKienTuan(isLocKhoiLuong,isLocGiaDongCuaMoCua, isLocGiaCaoNhatThapNhat, isLocDieuKienGiaTuan1  );
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
             {
-                MessageBox.Show("Vui lòng nhập đủ thông tin");
-                return;
-            }
-            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
-            //display to grid
-            //create datatable
-            decimal nguong = decimal.Parse(txtNguong1.Text);
-            System.Data.DataTable dt = new System.Data.DataTable();
-            dt.Columns.Add("MaCK", typeof(string));
-            dt.Columns.Add("Max1", typeof(decimal));
-            dt.Columns.Add("Max2", typeof(decimal));
-            dt.Columns.Add("Max3", typeof(decimal));
-            dt.Columns.Add("Min1", typeof(decimal));
-            dt.Columns.Add("Min2", typeof(decimal));
-            dt.Columns.Add("Min3", typeof(decimal));
-            dt.Columns.Add("KL1", typeof(decimal));
-            dt.Columns.Add("KL2", typeof(decimal));
-            dt.Columns.Add("KL3", typeof(decimal));
-            dt.Columns.Add("MC1", typeof(decimal));
-            dt.Columns.Add("DC1", typeof(decimal));
-            gridKQLoc.DataSource = null;
-            int i = 1;
-            foreach (var item in list)
-            {
-                //-Biên độ thu hẹp dần: | Giá cao nhất  tuần 1 - Giá thấp nhất tuần  1 | > | Giá cao nhất tuần 2 - Giá thấp nhất tuần 2 | > = | Giá cao nhất tuần  3 - Giá thấp tuần 3 |
-                //-Vol giảm dần: Khối lượng tuần 1 > Khối lượng tuần 2 > Khối lượng tuần 3
-                //- Giá đóng cửa tuần 1 < Giá mở cửa tuần 1
-                decimal delta1 = Math.Abs(item.GiaCaoNhat1 - item.GiaThapNhat1);
-                decimal delta2 = Math.Abs(item.GiaCaoNhat2 - item.GiaThapNhat2);
-                decimal delta3 = Math.Abs(item.GiaCaoNhat3 - item.GiaThapNhat3);
-                if (delta1 > delta2 && delta2 >= delta3 &&
-                    item.KhoiLuong1 > item.KhoiLuong2 &&
-                    item.KhoiLuong2 > item.KhoiLuong3 && 
-                    item.GiaDongCua1 < item.GiaMoCua1)
+                //get option
+                isLocGiaCaoNhatThapNhat = frm.IsGiaCaoThap ;
+                isLocGiaDongCuaMoCua = frm.IsGiaDongMo;
+                isLocKhoiLuong = frm.IsKhoiLuong; 
+                isLocDieuKienGiaTuan1 = frm.IsDieuKienTuan1 ;
+
+                gridKQLoc.DataSource = null;
+                //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+                if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
                 {
-                    DataRow dr = dt.NewRow();
-                    dr["MaCK"] = item.MaChungKhoan;
-                    dr["Max1"] = item.GiaCaoNhat1;
-                    dr["Max2"] = item.GiaCaoNhat2;
-                    dr["Max3"] = item.GiaCaoNhat3;
-                    dr["Min1"] = item.GiaThapNhat1;
-                    dr["Min2"] = item.GiaThapNhat2;
-                    dr["Min3"] = item.GiaThapNhat3;
-                    dr["KL1"] = item.KhoiLuong1;
-                    dr["KL2"] = item.KhoiLuong2;
-                    dr["KL3"] = item.KhoiLuong3;
-                    dr["MC1"] = item.GiaMoCua1;
-                    dr["DC1"] = item.GiaDongCua1;
-                    dt.Rows.Add(dr);
-                    i++;
+                    MessageBox.Show("Vui lòng nhập đủ thông tin");
+                    return;
                 }
-            }
-            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
-            gridKQLoc.DataSource = dt;
-            gridKQLoc.Columns[0].Frozen = true;
-            //format KL1, KL2, KL3 with 0 decimal
-            gridKQLoc.Columns["KL1"].DefaultCellStyle.Format = "N0";
-            gridKQLoc.Columns["KL2"].DefaultCellStyle.Format = "N0";
-            gridKQLoc.Columns["KL3"].DefaultCellStyle.Format = "N0";
+                DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+                //display to grid
+                //create datatable
+                System.Data.DataTable dt = new System.Data.DataTable();
+                dt.Columns.Add("MaCK", typeof(string));
+                if (isLocDieuKienGiaTuan1)
+                {
+                    dt.Columns.Add("MC1", typeof(decimal));
+                    dt.Columns.Add("DC1", typeof(decimal));
+                }
+                if (isLocGiaDongCuaMoCua)
+                {                    
+                    if (!isLocDieuKienGiaTuan1)
+                    {
+                        dt.Columns.Add("MC1", typeof(decimal));
+                        dt.Columns.Add("DC1", typeof(decimal));
+                    }
+                    dt.Columns.Add("MC2", typeof(decimal));
+                    dt.Columns.Add("DC2", typeof(decimal));
+                    dt.Columns.Add("MC3", typeof(decimal));
+                    dt.Columns.Add("DC3", typeof(decimal));
+                }
+                if (isLocGiaCaoNhatThapNhat)
+                {
+                    dt.Columns.Add("Max1", typeof(decimal));
+                    dt.Columns.Add("Max2", typeof(decimal));
+                    dt.Columns.Add("Max3", typeof(decimal));
+                    dt.Columns.Add("Min1", typeof(decimal));
+                    dt.Columns.Add("Min2", typeof(decimal));
+                    dt.Columns.Add("Min3", typeof(decimal));
+                }  
+                if (isLocKhoiLuong)
+                {
+                    dt.Columns.Add("KL1", typeof(decimal));
+                    dt.Columns.Add("KL2", typeof(decimal));
+                    dt.Columns.Add("KL3", typeof(decimal));
+                }
+                gridKQLoc.DataSource = null;
+                int i = 1;
+                foreach (var item in list)
+                {
+                    //-Biên độ thu hẹp dần: | Giá cao nhất  tuần 1 - Giá thấp nhất tuần  1 | > | Giá cao nhất tuần 2 - Giá thấp nhất tuần 2 | > = | Giá cao nhất tuần  3 - Giá thấp tuần 3 |
+                    //-Vol giảm dần: Khối lượng tuần 1 > Khối lượng tuần 2 > Khối lượng tuần 3
+                    //- Giá đóng cửa tuần 1 < Giá mở cửa tuần 1
+                    Boolean tieuChiLoc = true;
+                    decimal delta1 = 0;
+                    decimal delta2 = 0;
+                    decimal delta3 = 0;
+                    if (tieuChiLoc && isLocDieuKienGiaTuan1)
+                    {
+                        if (item.GiaDongCua1 < item.GiaMoCua1)
+                            tieuChiLoc = true;
+                        else
+                            tieuChiLoc = false;
+                    }
+                    if (tieuChiLoc && isLocGiaDongCuaMoCua )
+                    {
+                        delta1 = Math.Abs(item.GiaDongCua1 - item.GiaMoCua1);
+                        delta2 = Math.Abs(item.GiaDongCua2 - item.GiaMoCua2);
+                        delta3 = Math.Abs(item.GiaDongCua3 - item.GiaMoCua3);
+                        if (delta1>delta2 && delta2 > delta3)
+                            tieuChiLoc = true;
+                        else
+                            tieuChiLoc = false;
+                    }
+                    if (tieuChiLoc && isLocGiaCaoNhatThapNhat )
+                    {
+                        delta1 = Math.Abs(item.GiaCaoNhat1 - item.GiaThapNhat1);
+                        delta2 = Math.Abs(item.GiaCaoNhat2 - item.GiaThapNhat2);
+                        delta3 = Math.Abs(item.GiaCaoNhat3 - item.GiaThapNhat3);
+                        if (delta1 > delta2 && delta2 > delta3)
+                            tieuChiLoc = true;
+                        else
+                            tieuChiLoc = false;
+                    } 
+                    if (tieuChiLoc && isLocKhoiLuong)
+                    {
+                        if (item.KhoiLuong1 > item.KhoiLuong2 && item.KhoiLuong2 > item.KhoiLuong3 )
+                            tieuChiLoc = true;
+                        else
+                            tieuChiLoc = false;
+                    }
+                    if (tieuChiLoc)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["MaCK"] = item.MaChungKhoan;
+                        if (isLocDieuKienGiaTuan1)
+                        {
+                            dr["MC1"] = item.GiaMoCua1;
+                            dr["DC1"] = item.GiaDongCua1;
+                        }
+                        if (isLocGiaDongCuaMoCua)
+                        {
+                            if (!isLocDieuKienGiaTuan1)
+                            {
+                                dr["MC1"] = item.GiaMoCua1;
+                                dr["DC1"] = item.GiaDongCua1;
+                            }
+                            dr["MC2"] = item.GiaMoCua2;
+                            dr["DC2"] = item.GiaDongCua2;
+                            dr["MC3"] = item.GiaMoCua3;
+                            dr["DC3"] = item.GiaDongCua3;
+                        }
+                        if (isLocGiaCaoNhatThapNhat)
+                        {
+                            dr["Max1"] = item.GiaCaoNhat1;
+                            dr["Max2"] = item.GiaCaoNhat2;
+                            dr["Max3"] = item.GiaCaoNhat3;
+                            dr["Min1"] = item.GiaThapNhat1;
+                            dr["Min2"] = item.GiaThapNhat2;
+                            dr["Min3"] = item.GiaThapNhat3;
+                        }
+                        if (isLocKhoiLuong)
+                        {
+                            dr["KL1"] = item.KhoiLuong1;
+                            dr["KL2"] = item.KhoiLuong2;
+                            dr["KL3"] = item.KhoiLuong3;
+                        }
+                        dt.Rows.Add(dr);
+                        i++;
+                    }
+                }
+                groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
+                gridKQLoc.DataSource = dt;
+                gridKQLoc.Columns[0].Frozen = true;
+                //format KL1, KL2, KL3 with 0 decimal
+                if (isLocKhoiLuong)
+                {
+                    gridKQLoc.Columns["KL1"].DefaultCellStyle.Format = "N0";
+                    gridKQLoc.Columns["KL2"].DefaultCellStyle.Format = "N0";
+                    gridKQLoc.Columns["KL3"].DefaultCellStyle.Format = "N0";
+                }                              
+            }            
         }
     }
 }

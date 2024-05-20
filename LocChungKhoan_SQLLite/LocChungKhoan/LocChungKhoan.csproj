@@ -103,6 +103,12 @@
     <Compile Include="frmDieuKienLoc.Designer.cs">
       <DependentUpon>frmDieuKienLoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDieuKienTuan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDieuKienTuan.Designer.cs">
+      <DependentUpon>frmDieuKienTuan.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLocTheoNgay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +166,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmDieuKienLoc.resx">
       <DependentUpon>frmDieuKienLoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDieuKienTuan.resx">
+      <DependentUpon>frmDieuKienTuan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLocTheoNgay.resx">
       <DependentUpon>frmLocTheoNgay.cs</DependentUpon>
