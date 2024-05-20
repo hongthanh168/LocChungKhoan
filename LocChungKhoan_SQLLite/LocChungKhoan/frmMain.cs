@@ -263,7 +263,7 @@ namespace LocChungKhoan
         {
             //AdjustSplitterDistance();
             string thongkeTuan1 = "- Giá đóng cửa tuần 1 > max ( giá đóng cửa tuần 2 , giá đóng cửa tuần 3 ) \r\n- giá đóng cửa tuần 3 >= giá đóng cửa tuần 2 \r\n- giá đóng cửa tuần 3 >= giá mở cửa tuần 3 \r\n(( Giá đóng cửa tuần 3- giá đóng cửa tuần 2 ) / Giá đóng cửa tuần 3 ) *100 <= 1";
-            string thongkeTuan2 = "-Biên độ thu hẹp dần: | Giá cao nhất  tuần 1 - Giá thấp nhất tuần  1 | > |Giá cao nhất tuần 2 -Giá thấp nhất tuần 2 | > = |Giá cao nhất tuần  3- Giá thấp tuần 3 | \r\n- Vol giảm dần: Khối lượng tuần 1 > Khối lượng tuần 2 > Khối lượng tuần 3 \r\n- Giá đóng cửa tuần 1 < Giá mở cửa tuần 1";
+            string thongkeTuan2 = "1) Vol giảm từ tuần 1 đến tuần 3 \r\n2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 1 đến tuần 3 \r\n3) Biên độ giá theo |giá mở cửa - giá đóng cửa| giảm từ tuần 1 đến tuần 3 \r\n4) Giá đóng cửa tuần 1 < Giá mở cửa tuần 1\r\nCó thể lọc 4 điều kiện cùng một lúc , từng cặp 2 điều kiện hoặc từng điều kiện một";
             string thongkeNgay = "- Giá đóng cửa ngày 1 > max ( giá đóng cửa ngày 2 , giá đóng cửa ngày 3 ) \r\n- giá đóng cửa ngày 3 >= giá đóng cửa ngày 2 \r\n- giá đóng cửa ngày 3 >= giá mở cửa ngày 3 \r\n(( Giá đóng cửa ngày 3- giá đóng cửa ngày 2 ) / Giá đóng cửa ngày 3 ) *100 <= 1\r\n- ((giá đóng cửa ngày 3-giá mở  cửa ngày 3) / giá đóng cửa ngày 3 )* 100 <= ngưỡng";
             string thongkeNen = "Nến 1) có giá thấp nhất của ngày 3 = giá thấp nhất ngày 2 và giá đóng cửa ngày 3>= giá mở cửa ngày 3. \r\nNến 2 ) Giá mở cửa ngày 3<= min ( Giá đóng cửa ngày 2 , giá mở cửa ngày 2) \r\nvà Giá đóng cửa ngày 3 >= max ( giá mở cửa ngày 2 , giá đóng cửa ngày 3 ) và giá đóng cửa ngày 3>= giá mở cửa ngày 3 ";            
             System.Windows.Forms.ToolTip toolTipNgay = new System.Windows.Forms.ToolTip();
@@ -1119,9 +1119,11 @@ namespace LocChungKhoan
                 int i = 1;
                 foreach (var item in list)
                 {
-                    //-Biên độ thu hẹp dần: | Giá cao nhất  tuần 1 - Giá thấp nhất tuần  1 | > | Giá cao nhất tuần 2 - Giá thấp nhất tuần 2 | > = | Giá cao nhất tuần  3 - Giá thấp tuần 3 |
-                    //-Vol giảm dần: Khối lượng tuần 1 > Khối lượng tuần 2 > Khối lượng tuần 3
+                    //1) Vol giảm từ tuần 1 đến tuần 3
+                    //2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 1 đến tuần 3
+                    //3) Biên độ giá theo | giá mở cửa -giá đóng cửa| giảm từ tuần 1 đến tuần 3
                     //- Giá đóng cửa tuần 1 < Giá mở cửa tuần 1
+                    //Có thể lọc 4 điều kiện cùng một lúc , từng cặp 2 điều kiện hoặc từng điều kiện một
                     Boolean tieuChiLoc = true;
                     decimal delta1 = 0;
                     decimal delta2 = 0;
