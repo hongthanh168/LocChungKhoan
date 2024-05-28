@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -68,6 +68,7 @@
             this.kiểmTraDữLiệuHiệnCóToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xemDữLiệuCủa1MãCụThểToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -327,8 +328,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -420,7 +421,8 @@
             this.btnXoaTheoThoiGian,
             this.toolStripSeparator1,
             this.danhMụcChứngKhoánQuanTâmToolStripMenuItem,
-            this.kiểmTraDữLiệuHiệnCóToolStripMenuItem});
+            this.kiểmTraDữLiệuHiệnCóToolStripMenuItem,
+            this.xemDữLiệuCủa1MãCụThểToolStripMenuItem});
             this.quảnLýDữLiệuToolStripMenuItem.Name = "quảnLýDữLiệuToolStripMenuItem";
             this.quảnLýDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(123, 24);
             this.quảnLýDữLiệuToolStripMenuItem.Text = "Quản lý dữ liệu";
@@ -478,6 +480,13 @@
             this.thôngTinToolStripMenuItem.Name = "thôngTinToolStripMenuItem";
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
+            // 
+            // xemDữLiệuCủa1MãCụThểToolStripMenuItem
+            // 
+            this.xemDữLiệuCủa1MãCụThểToolStripMenuItem.Name = "xemDữLiệuCủa1MãCụThểToolStripMenuItem";
+            this.xemDữLiệuCủa1MãCụThểToolStripMenuItem.Size = new System.Drawing.Size(399, 26);
+            this.xemDữLiệuCủa1MãCụThểToolStripMenuItem.Text = "Xem dữ liệu của 1 mã cụ thể";
+            this.xemDữLiệuCủa1MãCụThểToolStripMenuItem.Click += new System.EventHandler(this.xemDữLiệuCủa1MãCụThểToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -549,6 +558,7 @@
         private System.Windows.Forms.Button btnLocNenTuan;
         private System.Windows.Forms.Button btnXietGia3Tuan;
         private System.Windows.Forms.Button btnXietGia2Tuan;
+        private System.Windows.Forms.ToolStripMenuItem xemDữLiệuCủa1MãCụThểToolStripMenuItem;
     }
 }
 

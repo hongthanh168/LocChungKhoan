@@ -98,6 +98,12 @@
     <Compile Include="Controller\DMQuanTamController.cs" />
     <Compile Include="Controller\BieuDoGiaController.cs" />
     <Compile Include="Controller\TABCKController.cs" />
+    <Compile Include="frmChiTietMaCK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChiTietMaCK.Designer.cs">
+      <DependentUpon>frmChiTietMaCK.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDieuKienLoc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     <Compile Include="Model\ThongKe2_Result.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmChiTietMaCK.resx">
+      <DependentUpon>frmChiTietMaCK.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDieuKienLoc.resx">
       <DependentUpon>frmDieuKienLoc.cs</DependentUpon>
     </EmbeddedResource>

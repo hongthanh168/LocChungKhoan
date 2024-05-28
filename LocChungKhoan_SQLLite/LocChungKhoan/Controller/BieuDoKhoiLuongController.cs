@@ -96,6 +96,17 @@ namespace LocChungKhoan
                 
             }
         }
+        public static List<BieuDoKhoiLuong> GetAllByMaCK(DateTime tuNgay, DateTime denNgay, string maCK)
+        {
+            List<BieuDoKhoiLuong> list = new List<BieuDoKhoiLuong>();
+            using (var dbContext = new ChungKhoanEntities())
+            {
+                list = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.MaChungKhoan == maCK && x.Ngay >= tuNgay && x.Ngay <= denNgay)
+                    .ToList();
+            }
+            return list;
+        }
         public static List<ThongKeKhoiLuong> ThongKeTuan(DateTime tuan1_start, DateTime tuan1_end, DateTime tuan2_start, DateTime tuan2_end, DateTime tuan3_start, DateTime tuan3_end)
         {
             using (var dbContext = new ChungKhoanEntities())

@@ -1207,5 +1207,56 @@ namespace LocChungKhoan
             gridKQLoc.DataSource = dt;
             gridKQLoc.Columns[0].Frozen = true;            
         }
+
+        private void xemDữLiệuCủa1MãCụThểToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //hiển thị form frmChiTietMaCK
+            frmChiTietMaCK frm = new frmChiTietMaCK();
+            frm.ShowDialog();
+            //lấy thông tin từ form frmChiTietMaCK
+            //hiển thị thông tin lên gridKQLoc
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                gridKQLoc.DataSource = null;
+                //get data from frmChiTietMaCK
+                DateTime ngayBD = frm.NgayBD;
+                DateTime ngayKT = frm.NgayKT;
+                string maCK = frm.MaCK.ToUpper().Trim ();
+                //display to grid
+                //create datatable
+                System.Data.DataTable dt = new System.Data.DataTable();
+                dt.Columns.Add("Ngay", typeof(string));
+                dt.Columns.Add("GiaMC", typeof(decimal));
+                dt.Columns.Add("GiaDC", typeof(decimal));
+                dt.Columns.Add("GiaMax", typeof(decimal));
+                dt.Columns.Add("GiaMin", typeof(decimal));
+                dt.Columns.Add("KhoiLuong", typeof(decimal));
+                gridKQLoc.DataSource = null;
+                List<BieuDoKhoiLuong> list = BieuDoKhoiLuongController.GetAllByMaCK (ngayBD, ngayKT, maCK);
+                int i = 1;
+                foreach (var item in list)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["Ngay"] = item.Ngay.ToString("dd/MM/yyyy");
+                    dr["GiaMC"] = item.GiaMoCua;
+                    dr["GiaDC"] = item.GiaDongCua;
+                    dr["GiaMax"] = item.GiaCaoNhat;
+                    dr["GiaMin"] = item.GiaThapNhat;
+                    dr["KhoiLuong"] = item.KhoiLuong;
+                    dt.Rows.Add(dr);
+                    i++;
+                }                
+                //order by Ngay
+                DataView dv = dt.DefaultView;
+                dv.Sort = "Ngay";
+                System.Data.DataTable sortedDT = dv.ToTable();
+                // Finally, set the DataSource of the DataGridView to the sorted DataTable
+                gridKQLoc.DataSource = sortedDT;
+                //format column KhoiLuong with 0 decimal
+                gridKQLoc.Columns["KhoiLuong"].DefaultCellStyle.Format = "N0";
+                //get number of rows
+                groupBox2.Text = "Thông tin chi tiết mã: " + maCK;
+            }
+        }
     }
 }
