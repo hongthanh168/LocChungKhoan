@@ -264,7 +264,7 @@ namespace LocChungKhoan
             //AdjustSplitterDistance();
             string xietGia2Tuan = "1) Vol giảm từ tuần 2 đến tuần 3 \r\n2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 2 đến tuần 3 \r\n3) Biên độ giá theo |giá mở cửa - giá đóng cửa| giảm từ tuần 2 đến tuần 3 \r\n4) Giá đóng cửa tuần 2 < Giá mở cửa tuần 2\r\nCó thể lọc 4 điều kiện cùng một lúc , từng cặp 2 điều kiện hoặc từng điều kiện một";
             string xietGia3Tuan = "1) Vol giảm từ tuần 1 đến tuần 3 \r\n2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 1 đến tuần 3 \r\n3) Biên độ giá theo |giá mở cửa - giá đóng cửa| giảm từ tuần 1 đến tuần 3 \r\n4) Giá đóng cửa tuần 1 < Giá mở cửa tuần 1\r\nCó thể lọc 4 điều kiện cùng một lúc , từng cặp 2 điều kiện hoặc từng điều kiện một";
-            string locNen = "- Giá cao nhất tuần 3 > Giá cao nhất tuần 2\r\nGiá thấp nhất tuần 3 > Giá thấp nhất tuần 2\r\nGiá đóng cửa tuần 3 > Giá đóng cửa tuần 2 .";
+            string locNen = "1)  |giá mở cửa tuần 2- giá đóng cửa tuần 2 | > |Giá mở cửa tuần 3 - giá đóng cửa tuần 3 |   \r\n2) Giá đóng cửa tuần 3 > Giá đóng cửa tuần 2    \r\n3) Giá cao nhất tuần 3 > Giá cao nhất tuần 2    \r\n4) Giá thấp nhất tuần 3 > Giá thấp nhất tuần 2 ";
             System.Windows.Forms.ToolTip toolTip2Tuan = new System.Windows.Forms.ToolTip();
             toolTip2Tuan.SetToolTip(btnXietGia2Tuan, xietGia2Tuan );
             System.Windows.Forms.ToolTip toolTip3Tuan = new System.Windows.Forms.ToolTip();
@@ -1104,15 +1104,15 @@ namespace LocChungKhoan
                         dr["MaCK"] = item.MaChungKhoan;
                         if (isLocDieuKienGiaTuan1)
                         {
-                            dr["MC2"] = item.GiaMoCua1;
-                            dr["DC2"] = item.GiaDongCua1;
+                            dr["MC2"] = item.GiaMoCua2;
+                            dr["DC2"] = item.GiaDongCua2;
                         }
                         if (isLocGiaDongCuaMoCua)
                         {
                             if (!isLocDieuKienGiaTuan1)
                             {
-                                dr["MC2"] = item.GiaMoCua1;
-                                dr["DC2"] = item.GiaDongCua1;
+                                dr["MC2"] = item.GiaMoCua2;
+                                dr["DC2"] = item.GiaDongCua2;
                             }
                             dr["MC3"] = item.GiaMoCua3;
                             dr["DC3"] = item.GiaDongCua3;
@@ -1164,24 +1164,28 @@ namespace LocChungKhoan
             //create datatable
             System.Data.DataTable dt = new System.Data.DataTable();
             dt.Columns.Add("MaCK", typeof(string));
-
+            dt.Columns.Add("MC2", typeof(decimal));
+            dt.Columns.Add("MC3", typeof(decimal));
+            dt.Columns.Add("DC2", typeof(decimal));
+            dt.Columns.Add("DC3", typeof(decimal));
             dt.Columns.Add("Max2", typeof(decimal));
             dt.Columns.Add("Max3", typeof(decimal));
             dt.Columns.Add("Min2", typeof(decimal));
             dt.Columns.Add("Min3", typeof(decimal));
-            dt.Columns.Add("DC2", typeof(decimal));
-            dt.Columns.Add("DC3", typeof(decimal));
+            
             
             gridKQLoc.DataSource = null;
             int i = 1;
             foreach (var item in list)
             {
-                //Giá cao nhất tuần 3 > Giá cao nhất tuần 2
-                //Giá thấp nhất tuần 3 > Giá thấp nhất tuần 2
-                //Giá đóng cửa tuần 3 > Giá đóng cửa tuần 2.
-                if (item.GiaCaoNhat3 > item.GiaCaoNhat2 &&
-                    item.GiaThapNhat3 > item.GiaThapNhat2 &&
-                    item.GiaDongCua3 > item.GiaDongCua2 )
+                //1)  | giá mở cửa tuần 2 - giá đóng cửa tuần 2 | > | Giá mở cửa tuần 3 - giá đóng cửa tuần 3 |
+                //2) Giá đóng cửa tuần 3 > Giá đóng cửa tuần 2
+                //3) Giá cao nhất tuần 3 > Giá cao nhất tuần 2
+                //4) Giá thấp nhất tuần 3 > Giá thấp nhất tuần 2
+                if (Math.Abs(item.GiaMoCua2 - item.GiaDongCua2) > Math.Abs(item.GiaMoCua3 - item.GiaDongCua3) &&          item.GiaDongCua3 > item.GiaDongCua2 &&
+                    item.GiaCaoNhat3 > item.GiaCaoNhat2 && 
+                    item.GiaThapNhat3 > item.GiaThapNhat2
+                    )
                 {
                     DataRow dr = dt.NewRow();
                     dr["MaCK"] = item.MaChungKhoan;
@@ -1190,6 +1194,8 @@ namespace LocChungKhoan
                     dr["Max3"] = item.GiaCaoNhat3;
                     dr["Min2"] = item.GiaThapNhat2;
                     dr["Min3"] = item.GiaThapNhat3;
+                    dr["MC2"] = item.GiaMoCua2;
+                    dr["MC3"] = item.GiaMoCua3;
                     dr["DC2"] = item.GiaDongCua2;
                     dr["DC3"] = item.GiaDongCua3;
                     

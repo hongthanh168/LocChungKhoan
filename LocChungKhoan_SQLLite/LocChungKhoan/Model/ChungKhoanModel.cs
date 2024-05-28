@@ -31,14 +31,14 @@ namespace LocChungKhoan
     public partial class BieuDoKhoiLuong
     {
         [Key]
-        public int BieuDoKhoiLuongID { get; set; }
-        public System.DateTime Ngay { get; set; }
-        public string MaChungKhoan { get; set; }
-        public decimal GiaMoCua { get; set; }
-        public decimal GiaDongCua { get; set; }        
-        public decimal KhoiLuong { get; set; }
-        public decimal GiaCaoNhat { get; set; }
-        public decimal GiaThapNhat { get; set; }
+        public int BieuDoKhoiLuongID { get; set; } //ID của mã chứng khoán
+        public System.DateTime Ngay { get; set; } //Ngày giao dịch
+        public string MaChungKhoan { get; set; } //Mã chứng khoán
+        public decimal GiaMoCua { get; set; } //Giá mở cửa
+        public decimal GiaDongCua { get; set; }        //Giá đóng cửa
+        public decimal KhoiLuong { get; set; } //Khối lượng
+        public decimal GiaCaoNhat { get; set; } //Giá cao nhất
+        public decimal GiaThapNhat { get; set; } //
         public BieuDoKhoiLuong()
         {
             GiaCaoNhat = 0;
