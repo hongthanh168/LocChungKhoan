@@ -6,6 +6,21 @@ using System.Threading.Tasks;
 
 namespace LocChungKhoan.Controller
 {
+    public static class Extensions
+    {
+        // Hàm mở rộng để tính độ lệch chuẩn cho danh sách số
+        public static decimal StandardDeviation(this IEnumerable<decimal> values)
+        {
+            if (values == null || !values.Any())
+            {
+                return 0;
+            }
+
+            decimal avg = values.Average();
+            decimal sumOfSquares = values.Select(x => (x - avg) * (x - avg)).Sum();
+            return (decimal)Math.Sqrt((double)sumOfSquares / (values.Count() - 1));
+        }
+    }
     public class StockAnalyzer
     {
         private readonly List<BieuDoKhoiLuong> stockDataList;
@@ -14,12 +29,12 @@ namespace LocChungKhoan.Controller
         {
             this.stockDataList = stockDataList;
         }
-        //phân tích dựa trên đột biến giá và khối lượng
+        //==============================phân tích dựa trên đột biến giá và khối lượng
         private bool IsVolumePriceVolatile(decimal[] volumes, decimal[] prices, int weeks)
         {
             if (volumes.Length < weeks * 5 || prices.Length < weeks * 5)
             {
-                throw new ArgumentException("Độ dài mảng khối lượng và giá phải lớn hơn hoặc bằng 5 tuần");
+                throw new ArgumentException("Độ dài mảng khối lượng và giá phải lớn hơn hoặc bằng 5* số tuần");
             }
 
             decimal[] averageVolumes = CalculateAverage(volumes, weeks);
@@ -37,7 +52,71 @@ namespace LocChungKhoan.Controller
 
             return Math.Abs(volumeChange) >= volumeThreshold && Math.Abs(priceChange) >= priceThreshold;
         }
-        //Tính theo MACD
+        // Hàm tính biên độ dao động tuyệt đối
+        public decimal CalculateAbsoluteVolatility(List<BieuDoKhoiLuong> data)
+        {
+            decimal highestPrice = data.Max(d => d.GiaCaoNhat);
+            decimal lowestPrice = data.Min(d => d.GiaThapNhat);
+            return highestPrice - lowestPrice;
+        }
+
+        // Hàm tính biên độ dao động tương đối
+        public decimal CalculateRelativeVolatility(List<BieuDoKhoiLuong> data)
+        {
+            decimal averagePrice = data.Average(d => d.GiaDongCua);
+            return CalculateAbsoluteVolatility(data) / averagePrice;
+        }
+
+        // Hàm tính độ lệch chuẩn giá đóng cửa
+        public decimal CalculateClosingPriceStandardDeviation(List<BieuDoKhoiLuong> data)
+        {
+            return data.Select(d => d.GiaDongCua).StandardDeviation();
+        }
+
+        // Hàm tính độ lệch chuẩn khối lượng giao dịch
+        public decimal CalculateVolumeStandardDeviation(List<BieuDoKhoiLuong> data)
+        {
+            return data.Select(d => d.KhoiLuong).StandardDeviation();
+        }
+
+        // Hàm kiểm tra biến động giá
+        public bool IsPriceVolatilitySignificant(List<BieuDoKhoiLuong> data, decimal threshold)
+        {
+            decimal relativeVolatility = CalculateRelativeVolatility(data);
+            return relativeVolatility > threshold;
+        }
+
+        // Hàm kiểm tra biến động khối lượng
+        public bool IsVolumeVolatilitySignificant(List<BieuDoKhoiLuong> data, decimal threshold)
+        {
+            decimal volumeStandardDeviation = CalculateVolumeStandardDeviation(data);
+            return volumeStandardDeviation > threshold;
+        }
+
+        // Hàm in ra các cổ phiếu có biến động đáng chú ý
+        public void PrintVolatilityStocks(List<BieuDoKhoiLuong> listCoPhieu, int days, decimal priceThreshold=0.05m, decimal volumeThreshold=0.1m)       
+        {            
+            // Lấy dữ liệu của các cổ phiếu trong 'days' ngày gần nhất
+            var groupedStocks = listCoPhieu.GroupBy(s => s.MaChungKhoan)
+                .Where(g => g.Count() >= days)
+                .Select(g => new { MaChungKhoan = g.Key, Data = g.OrderByDescending(d => d.Ngay).Take(days).ToList() });
+
+            Console.WriteLine("Các cổ phiếu có biến động đáng chú ý:");
+            foreach (var stock in groupedStocks)
+            {
+                bool isPriceVolatilitySignificant = IsPriceVolatilitySignificant(stock.Data, priceThreshold);
+                bool isVolumeVolatilitySignificant = IsVolumeVolatilitySignificant(stock.Data, volumeThreshold);
+
+                if (isPriceVolatilitySignificant || isVolumeVolatilitySignificant)
+                {
+                    Console.WriteLine($"Mã cổ phiếu: {stock.MaChungKhoan}");
+                    Console.WriteLine($"Biến động giá: {(isPriceVolatilitySignificant ? "Có" : "Không")}");
+                    Console.WriteLine($"Biến động khối lượng: {(isVolumeVolatilitySignificant ? "Có" : "Không")}");
+                    Console.WriteLine();
+                }
+            }
+        }
+        //================================================Tính theo MACD
         public List<string> AnalyzePotentialIncreaseWithVolumePriceMACD()
         {
             var groupedData = stockDataList.GroupBy(x => x.MaChungKhoan);

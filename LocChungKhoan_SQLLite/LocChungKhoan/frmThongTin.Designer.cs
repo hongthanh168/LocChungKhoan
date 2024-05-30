@@ -30,6 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnThuNghiem = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -56,14 +57,25 @@
     "hời gian\r\n- Chức năng Lọc dữ liệu thêm điều kiện: Giá 4 > Giá 1\r\n*Ngày 31/01/202" +
     "4:\r\n- Thêm chức năng lọc theo ngày";
             // 
+            // btnThuNghiem
+            // 
+            this.btnThuNghiem.Location = new System.Drawing.Point(372, 118);
+            this.btnThuNghiem.Name = "btnThuNghiem";
+            this.btnThuNghiem.Size = new System.Drawing.Size(137, 32);
+            this.btnThuNghiem.TabIndex = 2;
+            this.btnThuNghiem.Text = "Thử nghiệm";
+            this.btnThuNghiem.UseVisualStyleBackColor = true;
+            this.btnThuNghiem.Click += new System.EventHandler(this.btnThuNghiem_Click);
+            // 
             // frmThongTin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(521, 162);
+            this.Controls.Add(this.btnThuNghiem);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmThongTin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thông tin phiên bản";
@@ -76,5 +88,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnThuNghiem;
     }
 }

@@ -117,13 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Lưu ý: 
-- Nếu không muốn thống kê theo ngày 3 thì không nhập, xóa trắng.
-- Ngày: nhập theo định dạng Ngày/Tháng/Năm (dd/MM/yyyy).
-- Ngưỡng: nhập giá trị theo phần trăm. Ví dụ 5.2% thì nhập vào ô là 5.2
-</value>
-  </data>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

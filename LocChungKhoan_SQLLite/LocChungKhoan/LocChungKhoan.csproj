@@ -122,6 +122,12 @@
     <Compile Include="frmLocTheoNgay.Designer.cs">
       <DependentUpon>frmLocTheoNgay.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPhanTichKyThuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPhanTichKyThuat.Designer.cs">
+      <DependentUpon>frmPhanTichKyThuat.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,12 +145,6 @@
     </Compile>
     <Compile Include="frmVersion1.Designer.cs">
       <DependentUpon>frmVersion1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTuNgayDenNgay.cs">
       <SubType>Form</SubType>
@@ -183,6 +183,9 @@
     <EmbeddedResource Include="frmLocTheoNgay.resx">
       <DependentUpon>frmLocTheoNgay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmPhanTichKyThuat.resx">
+      <DependentUpon>frmPhanTichKyThuat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -191,9 +194,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmVersion1.resx">
       <DependentUpon>frmVersion1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTuNgayDenNgay.resx">
       <DependentUpon>frmTuNgayDenNgay.cs</DependentUpon>

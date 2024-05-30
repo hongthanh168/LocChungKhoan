@@ -16,5 +16,11 @@ namespace LocChungKhoan
         {
             InitializeComponent();
         }
+
+        private void btnThuNghiem_Click(object sender, EventArgs e)
+        {
+            frmPhanTichKyThuat frm = new frmPhanTichKyThuat();
+            frm.Show();
+        }
     }
 }

@@ -1258,5 +1258,11 @@ namespace LocChungKhoan
                 groupBox2.Text = "Thông tin chi tiết mã: " + maCK;
             }
         }
+
+        private void thôngTinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmThongTin frm = new frmThongTin();
+            frm.ShowDialog();
+        }
     }
 }
