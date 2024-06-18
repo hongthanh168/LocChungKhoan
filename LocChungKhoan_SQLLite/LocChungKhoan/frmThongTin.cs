@@ -19,8 +19,11 @@ namespace LocChungKhoan
 
         private void btnThuNghiem_Click(object sender, EventArgs e)
         {
-            frmPhanTichKyThuat frm = new frmPhanTichKyThuat();
-            frm.Show();
+            //gọi form frmPhanTichKyThuat và đóng form hiện tại
+            this.Hide();
+            frmPhanTichKyThuat form2 = new frmPhanTichKyThuat();
+            form2.Closed += (s, args) => this.Close();
+            form2.ShowDialog ();
         }
     }
 }

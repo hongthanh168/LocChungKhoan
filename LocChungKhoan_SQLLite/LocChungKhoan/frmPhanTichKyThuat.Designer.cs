@@ -28,28 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkRSI = new System.Windows.Forms.CheckBox();
-            this.chkSO = new System.Windows.Forms.CheckBox();
-            this.chkMACD = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.txtMaCK = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.btnLoc = new System.Windows.Forms.Button();
-            this.txtNguongKhoiLuong = new System.Windows.Forms.TextBox();
-            this.txtDenNgay = new System.Windows.Forms.TextBox();
-            this.txtNguongGia = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtTuNgay = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gridKQLoc = new System.Windows.Forms.DataGridView();
@@ -57,6 +40,25 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.button2 = new System.Windows.Forms.Button();
             this.btnMoThuMuc = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkRSI = new System.Windows.Forms.CheckBox();
+            this.chkBienDongKhoiLuong = new System.Windows.Forms.CheckBox();
+            this.chkKietCung = new System.Windows.Forms.CheckBox();
+            this.chkMorningStar = new System.Windows.Forms.CheckBox();
+            this.chkNen_PiercingPartern = new System.Windows.Forms.CheckBox();
+            this.chkNen_Hammer = new System.Windows.Forms.CheckBox();
+            this.chkNen_BullishEngulfing = new System.Windows.Forms.CheckBox();
+            this.chkSO = new System.Windows.Forms.CheckBox();
+            this.chkMACD = new System.Windows.Forms.CheckBox();
+            this.txtMaCK = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnLoc = new System.Windows.Forms.Button();
+            this.txtNguongKhoiLuong = new System.Windows.Forms.TextBox();
+            this.txtSoNgay = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtTuNgay = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.quảnLýDữLiệuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnXoaToanBo = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +70,6 @@
             this.xemDữLiệuCủa1MãCụThểToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
             this.panel1.SuspendLayout();
@@ -76,6 +77,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,184 +118,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Tiến trình load file:";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.chkRSI);
-            this.groupBox1.Controls.Add(this.chkSO);
-            this.groupBox1.Controls.Add(this.chkMACD);
-            this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Controls.Add(this.txtMaCK);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.btnLoc);
-            this.groupBox1.Controls.Add(this.txtNguongKhoiLuong);
-            this.groupBox1.Controls.Add(this.txtDenNgay);
-            this.groupBox1.Controls.Add(this.txtNguongGia);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtTuNgay);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(17, 92);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1085, 153);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tham số:";
-            // 
-            // chkRSI
-            // 
-            this.chkRSI.AutoSize = true;
-            this.chkRSI.Location = new System.Drawing.Point(858, 22);
-            this.chkRSI.Name = "chkRSI";
-            this.chkRSI.Size = new System.Drawing.Size(51, 20);
-            this.chkRSI.TabIndex = 16;
-            this.chkRSI.Text = "RSI";
-            this.chkRSI.UseVisualStyleBackColor = true;
-            // 
-            // chkSO
-            // 
-            this.chkSO.AutoSize = true;
-            this.chkSO.Location = new System.Drawing.Point(858, 74);
-            this.chkSO.Name = "chkSO";
-            this.chkSO.Size = new System.Drawing.Size(147, 20);
-            this.chkSO.TabIndex = 15;
-            this.chkSO.Text = "StochasticOscillator";
-            this.chkSO.UseVisualStyleBackColor = true;
-            // 
-            // chkMACD
-            // 
-            this.chkMACD.AutoSize = true;
-            this.chkMACD.Location = new System.Drawing.Point(858, 48);
-            this.chkMACD.Name = "chkMACD";
-            this.chkMACD.Size = new System.Drawing.Size(68, 20);
-            this.chkMACD.TabIndex = 15;
-            this.chkMACD.Text = "MACD";
-            this.chkMACD.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(657, 54);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(178, 20);
-            this.checkBox2.TabIndex = 14;
-            this.checkBox2.Text = "Lọc biến động khối lượng";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(657, 23);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(136, 20);
-            this.checkBox1.TabIndex = 13;
-            this.checkBox1.Text = "Lọc biến động giá";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // txtMaCK
-            // 
-            this.txtMaCK.Location = new System.Drawing.Point(442, 93);
-            this.txtMaCK.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMaCK.Name = "txtMaCK";
-            this.txtMaCK.Size = new System.Drawing.Size(140, 22);
-            this.txtMaCK.TabIndex = 12;
-            this.txtMaCK.TextChanged += new System.EventHandler(this.txtMaCK_TextChanged);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(361, 97);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(75, 16);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "Tìm mã CK:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(294, 59);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(142, 16);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Ngưỡng khối lượng (%)";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(372, 29);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(64, 16);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Đến ngày";
-            // 
-            // btnLoc
-            // 
-            this.btnLoc.Location = new System.Drawing.Point(135, 93);
-            this.btnLoc.Margin = new System.Windows.Forms.Padding(4);
-            this.btnLoc.Name = "btnLoc";
-            this.btnLoc.Size = new System.Drawing.Size(135, 28);
-            this.btnLoc.TabIndex = 10;
-            this.btnLoc.Text = "Lọc cổ phiếu";
-            this.btnLoc.UseVisualStyleBackColor = true;
-            // 
-            // txtNguongKhoiLuong
-            // 
-            this.txtNguongKhoiLuong.Location = new System.Drawing.Point(442, 56);
-            this.txtNguongKhoiLuong.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNguongKhoiLuong.Name = "txtNguongKhoiLuong";
-            this.txtNguongKhoiLuong.Size = new System.Drawing.Size(140, 22);
-            this.txtNguongKhoiLuong.TabIndex = 3;
-            this.txtNguongKhoiLuong.Text = "20";
-            // 
-            // txtDenNgay
-            // 
-            this.txtDenNgay.Location = new System.Drawing.Point(442, 26);
-            this.txtDenNgay.Margin = new System.Windows.Forms.Padding(4);
-            this.txtDenNgay.Name = "txtDenNgay";
-            this.txtDenNgay.Size = new System.Drawing.Size(140, 22);
-            this.txtDenNgay.TabIndex = 1;
-            // 
-            // txtNguongGia
-            // 
-            this.txtNguongGia.Location = new System.Drawing.Point(135, 56);
-            this.txtNguongGia.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNguongGia.Name = "txtNguongGia";
-            this.txtNguongGia.Size = new System.Drawing.Size(140, 22);
-            this.txtNguongGia.TabIndex = 2;
-            this.txtNguongGia.Text = "5";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 59);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 16);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Ngưỡng giá (%)";
-            // 
-            // txtTuNgay
-            // 
-            this.txtTuNgay.Location = new System.Drawing.Point(135, 26);
-            this.txtTuNgay.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTuNgay.Name = "txtTuNgay";
-            this.txtTuNgay.Size = new System.Drawing.Size(140, 22);
-            this.txtTuNgay.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 29);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 16);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Từ ngày";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -319,8 +143,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -390,6 +214,210 @@
             this.btnMoThuMuc.Text = "Thư mục...";
             this.btnMoThuMuc.UseVisualStyleBackColor = true;
             this.btnMoThuMuc.Click += new System.EventHandler(this.btnMoThuMuc_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chkRSI);
+            this.groupBox1.Controls.Add(this.chkBienDongKhoiLuong);
+            this.groupBox1.Controls.Add(this.chkKietCung);
+            this.groupBox1.Controls.Add(this.chkMorningStar);
+            this.groupBox1.Controls.Add(this.chkNen_PiercingPartern);
+            this.groupBox1.Controls.Add(this.chkNen_Hammer);
+            this.groupBox1.Controls.Add(this.chkNen_BullishEngulfing);
+            this.groupBox1.Controls.Add(this.chkSO);
+            this.groupBox1.Controls.Add(this.chkMACD);
+            this.groupBox1.Controls.Add(this.txtMaCK);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.btnLoc);
+            this.groupBox1.Controls.Add(this.txtNguongKhoiLuong);
+            this.groupBox1.Controls.Add(this.txtSoNgay);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.txtTuNgay);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Location = new System.Drawing.Point(17, 92);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(1085, 153);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tham số:";
+            // 
+            // chkRSI
+            // 
+            this.chkRSI.AutoSize = true;
+            this.chkRSI.Location = new System.Drawing.Point(634, 67);
+            this.chkRSI.Name = "chkRSI";
+            this.chkRSI.Size = new System.Drawing.Size(51, 20);
+            this.chkRSI.TabIndex = 16;
+            this.chkRSI.Text = "RSI";
+            this.chkRSI.UseVisualStyleBackColor = true;
+            // 
+            // chkBienDongKhoiLuong
+            // 
+            this.chkBienDongKhoiLuong.AutoSize = true;
+            this.chkBienDongKhoiLuong.Location = new System.Drawing.Point(634, 41);
+            this.chkBienDongKhoiLuong.Name = "chkBienDongKhoiLuong";
+            this.chkBienDongKhoiLuong.Size = new System.Drawing.Size(175, 20);
+            this.chkBienDongKhoiLuong.TabIndex = 16;
+            this.chkBienDongKhoiLuong.Text = "Biến động khối lượng lớn";
+            this.chkBienDongKhoiLuong.UseVisualStyleBackColor = true;
+            // 
+            // chkKietCung
+            // 
+            this.chkKietCung.AutoSize = true;
+            this.chkKietCung.Location = new System.Drawing.Point(634, 15);
+            this.chkKietCung.Name = "chkKietCung";
+            this.chkKietCung.Size = new System.Drawing.Size(141, 20);
+            this.chkKietCung.TabIndex = 16;
+            this.chkKietCung.Text = "Tìm điểm kiệt cung";
+            this.chkKietCung.UseVisualStyleBackColor = true;
+            // 
+            // chkMorningStar
+            // 
+            this.chkMorningStar.AutoSize = true;
+            this.chkMorningStar.Location = new System.Drawing.Point(835, 67);
+            this.chkMorningStar.Name = "chkMorningStar";
+            this.chkMorningStar.Size = new System.Drawing.Size(185, 20);
+            this.chkMorningStar.TabIndex = 15;
+            this.chkMorningStar.Text = "Nến Sao mai Morning Star";
+            this.chkMorningStar.UseVisualStyleBackColor = true;
+            // 
+            // chkNen_PiercingPartern
+            // 
+            this.chkNen_PiercingPartern.AutoSize = true;
+            this.chkNen_PiercingPartern.Location = new System.Drawing.Point(835, 95);
+            this.chkNen_PiercingPartern.Name = "chkNen_PiercingPartern";
+            this.chkNen_PiercingPartern.Size = new System.Drawing.Size(151, 20);
+            this.chkNen_PiercingPartern.TabIndex = 15;
+            this.chkNen_PiercingPartern.Text = "Nến Piercing Pattern";
+            this.chkNen_PiercingPartern.UseVisualStyleBackColor = true;
+            // 
+            // chkNen_Hammer
+            // 
+            this.chkNen_Hammer.AutoSize = true;
+            this.chkNen_Hammer.Location = new System.Drawing.Point(835, 41);
+            this.chkNen_Hammer.Name = "chkNen_Hammer";
+            this.chkNen_Hammer.Size = new System.Drawing.Size(109, 20);
+            this.chkNen_Hammer.TabIndex = 15;
+            this.chkNen_Hammer.Text = "Nến Hammer";
+            this.chkNen_Hammer.UseVisualStyleBackColor = true;
+            // 
+            // chkNen_BullishEngulfing
+            // 
+            this.chkNen_BullishEngulfing.AutoSize = true;
+            this.chkNen_BullishEngulfing.Location = new System.Drawing.Point(835, 15);
+            this.chkNen_BullishEngulfing.Name = "chkNen_BullishEngulfing";
+            this.chkNen_BullishEngulfing.Size = new System.Drawing.Size(157, 20);
+            this.chkNen_BullishEngulfing.TabIndex = 15;
+            this.chkNen_BullishEngulfing.Text = "Nến Bullish Engulfing ";
+            this.chkNen_BullishEngulfing.UseVisualStyleBackColor = true;
+            // 
+            // chkSO
+            // 
+            this.chkSO.AutoSize = true;
+            this.chkSO.Location = new System.Drawing.Point(634, 119);
+            this.chkSO.Name = "chkSO";
+            this.chkSO.Size = new System.Drawing.Size(147, 20);
+            this.chkSO.TabIndex = 15;
+            this.chkSO.Text = "StochasticOscillator";
+            this.chkSO.UseVisualStyleBackColor = true;
+            // 
+            // chkMACD
+            // 
+            this.chkMACD.AutoSize = true;
+            this.chkMACD.Location = new System.Drawing.Point(634, 93);
+            this.chkMACD.Name = "chkMACD";
+            this.chkMACD.Size = new System.Drawing.Size(68, 20);
+            this.chkMACD.TabIndex = 15;
+            this.chkMACD.Text = "MACD";
+            this.chkMACD.UseVisualStyleBackColor = true;
+            // 
+            // txtMaCK
+            // 
+            this.txtMaCK.Location = new System.Drawing.Point(386, 55);
+            this.txtMaCK.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMaCK.Name = "txtMaCK";
+            this.txtMaCK.Size = new System.Drawing.Size(140, 22);
+            this.txtMaCK.TabIndex = 12;
+            this.txtMaCK.TextChanged += new System.EventHandler(this.txtMaCK_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(305, 58);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(75, 16);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "Tìm mã CK:";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(15, 56);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(116, 54);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Ngưỡng khối lượng tăng đột biến (%)";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // btnLoc
+            // 
+            this.btnLoc.Location = new System.Drawing.Point(260, 111);
+            this.btnLoc.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLoc.Name = "btnLoc";
+            this.btnLoc.Size = new System.Drawing.Size(140, 28);
+            this.btnLoc.TabIndex = 10;
+            this.btnLoc.Text = "Lọc cổ phiếu";
+            this.btnLoc.UseVisualStyleBackColor = true;
+            this.btnLoc.Click += new System.EventHandler(this.btnLoc_Click);
+            // 
+            // txtNguongKhoiLuong
+            // 
+            this.txtNguongKhoiLuong.Location = new System.Drawing.Point(135, 56);
+            this.txtNguongKhoiLuong.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNguongKhoiLuong.Name = "txtNguongKhoiLuong";
+            this.txtNguongKhoiLuong.Size = new System.Drawing.Size(140, 22);
+            this.txtNguongKhoiLuong.TabIndex = 3;
+            this.txtNguongKhoiLuong.Text = "200";
+            // 
+            // txtSoNgay
+            // 
+            this.txtSoNgay.Location = new System.Drawing.Point(386, 23);
+            this.txtSoNgay.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSoNgay.Name = "txtSoNgay";
+            this.txtSoNgay.Size = new System.Drawing.Size(140, 22);
+            this.txtSoNgay.TabIndex = 0;
+            this.txtSoNgay.Text = "28";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(305, 26);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 16);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Số ngày xét";
+            // 
+            // txtTuNgay
+            // 
+            this.txtTuNgay.Location = new System.Drawing.Point(135, 26);
+            this.txtTuNgay.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTuNgay.Name = "txtTuNgay";
+            this.txtTuNgay.Size = new System.Drawing.Size(140, 22);
+            this.txtTuNgay.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(55, 29);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 16);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Ngày tối đa";
             // 
             // menuStrip1
             // 
@@ -491,8 +519,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lọc chứng khoán theo khối lượng";
             this.Load += new System.EventHandler(this.frmMainKhoiLuong_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -501,6 +527,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -514,10 +542,6 @@
         private System.Windows.Forms.TextBox txtDuongDan;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtTuNgay;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtDenNgay;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView gridKQLoc;
@@ -530,25 +554,31 @@
         private System.Windows.Forms.ToolStripMenuItem thôngTinToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem btnXoaTheoThoiGian;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtNguongKhoiLuong;
-        private System.Windows.Forms.TextBox txtNguongGia;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnMoThuMuc;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox txtMaCK;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem danhMụcChứngKhoánQuanTâmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kiểmTraDữLiệuHiệnCóToolStripMenuItem;
-        private System.Windows.Forms.Button btnLoc;
         private System.Windows.Forms.ToolStripMenuItem xemDữLiệuCủa1MãCụThểToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox chkRSI;
+        private System.Windows.Forms.CheckBox chkBienDongKhoiLuong;
+        private System.Windows.Forms.CheckBox chkKietCung;
+        private System.Windows.Forms.CheckBox chkNen_BullishEngulfing;
         private System.Windows.Forms.CheckBox chkSO;
         private System.Windows.Forms.CheckBox chkMACD;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox txtMaCK;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnLoc;
+        private System.Windows.Forms.TextBox txtNguongKhoiLuong;
+        private System.Windows.Forms.TextBox txtTuNgay;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtSoNgay;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox chkMorningStar;
+        private System.Windows.Forms.CheckBox chkNen_PiercingPartern;
+        private System.Windows.Forms.CheckBox chkNen_Hammer;
     }
 }
 

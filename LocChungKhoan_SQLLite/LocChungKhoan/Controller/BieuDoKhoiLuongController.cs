@@ -10,12 +10,81 @@ using System.Threading.Tasks;
 namespace LocChungKhoan
 {    
     public static class BieuDoKhoiLuongController
-    {        
+    {
+        //lấy ra danh sách các mã chứng khoán quan tâm
+        public static List<string> GetListMaCK()
+        {
+            using (var dbContext = new ChungKhoanEntities())
+            {
+                var list = dbContext.DMQuanTams
+                    .Select(x => x.MaChungKhoan)
+                    .ToList();
+                return list;
+            }
+        }
+        //lấy mã chứng khoán theo tiêu chí riêng của Thanh
+        public static List<string> GetListMaCKThanh()
+        {            
+            //lấy những cố phiếu có giá trung bình trong 5 ngày gần nhất 
+            var ds =GetAllByDays (5, DateTime.Now);
+            var dmChungKhoan = GetListMaCK();
+            //get BieuDoKhoiLuong where MaChungKhoan in DMQuanTam
+            var list = ds.Where(x => x.GiaDongCua > 10.0m && x.KhoiLuong>500000 && dmChungKhoan.Contains(x.MaChungKhoan ))
+                .Select(x => x.MaChungKhoan)
+                .Distinct()
+                .ToList();
+            return list;
+        }
+        public static decimal LayKhoiLuongTrungBinh(string maCK, DateTime ngayTinh, int days=100)
+        {
+            decimal avg = 0;
+            //select all distinct date from BieuDoKhoiLuong
+            using (var dbContext = new ChungKhoanEntities())
+            {
+                //lấy ra danh sách ngày
+                var listNgay = GetAllNgay().Where(x => x <= ngayTinh).OrderByDescending(x => x).ToList().Take(days).ToList();
+                DateTime ngayNhoNhat = listNgay.Min();
+
+                avg = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= ngayNhoNhat && x.Ngay <= ngayTinh && x.MaChungKhoan==maCK)
+                    .Average(x => x.KhoiLuong);
+            }
+            return avg;
+        }
+        //lấy toàn bộ dữ liệu từ BieuDoKhoiLuong khoảng bao nhiêu ngày trước
+        public static List<BieuDoKhoiLuong> GetAllByDays(int days, DateTime ngayTinh)
+        {
+            //select all distinct date from BieuDoKhoiLuong
+            using (var dbContext = new ChungKhoanEntities())
+            {
+                //lấy ra danh sách ngày
+                var listNgay = GetAllNgay().Where (x => x<=ngayTinh).OrderByDescending(x => x).ToList().Take (days).ToList();
+                DateTime ngayNhoNhat = listNgay.Min();
+
+                var list = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= ngayNhoNhat && x.Ngay <= ngayTinh)
+                    .ToList();
+                return list;
+            }
+        }
+        public static List<BieuDoKhoiLuong> GetFilter(List<BieuDoKhoiLuong> listIn, List<string> listMa)
+        {
+            //return list BieuDoKhoiLuong where MaChungKhoan in listMa
+            var list = listIn.Where(x => listMa.Contains(x.MaChungKhoan)).ToList();
+            return list;
+        }
         public static List<BieuDoKhoiLuong> GetAll(DateTime ngay)
         {
             ChungKhoanEntities db = new ChungKhoanEntities();            
             var list = (from t in db.BieuDoKhoiLuongs
                         where t.Ngay == ngay
+                        select t).ToList();
+            return list;
+        }
+        public static List<BieuDoKhoiLuong> GetAll()
+        {
+            ChungKhoanEntities db = new ChungKhoanEntities();
+            var list = (from t in db.BieuDoKhoiLuongs
                         select t).ToList();
             return list;
         }

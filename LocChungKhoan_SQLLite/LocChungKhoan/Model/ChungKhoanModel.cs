@@ -51,5 +51,28 @@ namespace LocChungKhoan
             BieuDoKhoiLuongID = 0;
         }
     }
+    public partial class CoPhieuCanQuanTam
+    {
+        public string MaChungKhoan { get; set; }
+        public List<string> GhiChu { get; set; }
+        public CoPhieuCanQuanTam()
+        {
+            MaChungKhoan = "";
+            GhiChu = new List<string>();
+        }
+        public string InGhiChu()
+        {
+            string result = "";
+            foreach (string item in GhiChu)
+            {
+                result += item + "; ";
+            }
+            if (result.Length > 0)
+            {
+                result = result.Substring(0, result.Length - 2);
+            }   
+            return result;
+        }
+    }
 
 }

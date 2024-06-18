@@ -263,14 +263,17 @@ namespace LocChungKhoan
         {
             //AdjustSplitterDistance();
             string xietGia2Tuan = "1) Vol giảm từ tuần 2 đến tuần 3 \r\n2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 2 đến tuần 3 \r\n3) Biên độ giá theo |giá mở cửa - giá đóng cửa| giảm từ tuần 2 đến tuần 3 \r\n4) Giá đóng cửa tuần 2 < Giá mở cửa tuần 2\r\nCó thể lọc 4 điều kiện cùng một lúc , từng cặp 2 điều kiện hoặc từng điều kiện một";
-            string xietGia3Tuan = "1) Vol giảm từ tuần 1 đến tuần 3 \r\n2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 1 đến tuần 3 \r\n3) Biên độ giá theo |giá mở cửa - giá đóng cửa| giảm từ tuần 1 đến tuần 3 \r\n4) Giá đóng cửa tuần 1 < Giá mở cửa tuần 1\r\nCó thể lọc 4 điều kiện cùng một lúc , từng cặp 2 điều kiện hoặc từng điều kiện một";
-            string locNen = "1)  |giá mở cửa tuần 2- giá đóng cửa tuần 2 | > |Giá mở cửa tuần 3 - giá đóng cửa tuần 3 |   \r\n2) Giá đóng cửa tuần 3 > Giá đóng cửa tuần 2    \r\n3) Giá cao nhất tuần 3 > Giá cao nhất tuần 2    \r\n4) Giá thấp nhất tuần 3 > Giá thấp nhất tuần 2 ";
+            string xietGia3Tuan = "1) Vol giảm từ tuần 2 đến tuần 3 \r\n2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 1 đến tuần 3 \r\n3) Biên độ giá theo |giá mở cửa - giá đóng cửa| giảm từ tuần 1 đến tuần 3 \r\n4) Giá đóng cửa tuần 1 < Giá mở cửa tuần 1\r\nCó thể lọc 4 điều kiện cùng một lúc , từng cặp 2 điều kiện hoặc từng điều kiện một";
+            string locNenDang1 = "Giá đóng cửa tuần 3 > Giá đóng cửa tuần 2 >= Giá đóng cửa tuần 1";
+            string locNenDang2 = "1) Giá đóng cửa tuần 1< Giá đóng cửa tuần 2 < Giá đóng cửa tuần 3 \r\n2) Giá đóng cửa tuần 1 = Giá thấp nhất tuần 3";
             System.Windows.Forms.ToolTip toolTip2Tuan = new System.Windows.Forms.ToolTip();
             toolTip2Tuan.SetToolTip(btnXietGia2Tuan, xietGia2Tuan );
             System.Windows.Forms.ToolTip toolTip3Tuan = new System.Windows.Forms.ToolTip();
             toolTip3Tuan.SetToolTip(btnXietGia3Tuan, xietGia3Tuan);
             System.Windows.Forms.ToolTip toolTipLocNen = new System.Windows.Forms.ToolTip();
-            toolTipLocNen .SetToolTip(btnLocNenTuan , locNen);
+            toolTipLocNen .SetToolTip(btnLocNenTuanDang1 , locNenDang1);
+            System.Windows.Forms.ToolTip toolTipLocNen2 = new System.Windows.Forms.ToolTip();
+            toolTipLocNen2.SetToolTip(btnLocNenTuanDang2, locNenDang2);
         }
         private void AdjustSplitterDistance()
         {
@@ -498,9 +501,7 @@ namespace LocChungKhoan
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
-            //xóa hết danh mục cũ
-            DMQuanTamController.DeleteAll();
+        {           
             if (MessageBox.Show("Dữ liệu chỉ có 1 cột là Mã chứng khoán và bắt đầu từ dòng thứ 1 (Không có tiêu đề). Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -519,7 +520,12 @@ namespace LocChungKhoan
                         progressBar1.Visible = true;
                         progressBar1.Maximum = soDong;
                         progressBar1.Step = 1;
-
+                        if (lastRowIndex > 0)
+                        {
+                            //xóa hết danh mục cũ
+                            DMQuanTamController.DeleteAll();
+                        }
+                        else { MessageBox.Show("Không có dữ liệu"); return;}
                         // Lặp qua từng hàng trong SheetData
                         for (int i = 1; i <= lastRowIndex; i++)
                         {
@@ -901,7 +907,7 @@ namespace LocChungKhoan
                 int i = 1;
                 foreach (var item in list)
                 {
-                    //1) Vol giảm từ tuần 1 đến tuần 3
+                    //1) Vol giảm từ tuần 2 đến tuần 3
                     //2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 1 đến tuần 3
                     //3) Biên độ giá theo | giá mở cửa -giá đóng cửa| giảm từ tuần 1 đến tuần 3
                     //- Giá đóng cửa tuần 1 < Giá mở cửa tuần 1
@@ -939,7 +945,7 @@ namespace LocChungKhoan
                     } 
                     if (tieuChiLoc && isLocKhoiLuong)
                     {
-                        if (item.KhoiLuong1 > item.KhoiLuong2 && item.KhoiLuong2 > item.KhoiLuong3 )
+                        if (item.KhoiLuong2 > item.KhoiLuong3 )
                             tieuChiLoc = true;
                         else
                             tieuChiLoc = false;
@@ -1148,64 +1154,46 @@ namespace LocChungKhoan
         private void btnLocNenTuan_Click(object sender, EventArgs e)
         {
             //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
-            if (txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
+            if (txtTuan1DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
             {
                 MessageBox.Show("Vui lòng nhập đủ thông tin");
                 return;
             }
             gridKQLoc.DataSource = null;
-
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe2Tuan(tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
             //display to grid
             //create datatable
             System.Data.DataTable dt = new System.Data.DataTable();
             dt.Columns.Add("MaCK", typeof(string));
-            dt.Columns.Add("MC2", typeof(decimal));
-            dt.Columns.Add("MC3", typeof(decimal));
+            dt.Columns.Add("DC1", typeof(decimal));
             dt.Columns.Add("DC2", typeof(decimal));
             dt.Columns.Add("DC3", typeof(decimal));
-            dt.Columns.Add("Max2", typeof(decimal));
-            dt.Columns.Add("Max3", typeof(decimal));
-            dt.Columns.Add("Min2", typeof(decimal));
-            dt.Columns.Add("Min3", typeof(decimal));
-            
-            
+
             gridKQLoc.DataSource = null;
             int i = 1;
             foreach (var item in list)
             {
-                //1)  | giá mở cửa tuần 2 - giá đóng cửa tuần 2 | > | Giá mở cửa tuần 3 - giá đóng cửa tuần 3 |
-                //2) Giá đóng cửa tuần 3 > Giá đóng cửa tuần 2
-                //3) Giá cao nhất tuần 3 > Giá cao nhất tuần 2
-                //4) Giá thấp nhất tuần 3 > Giá thấp nhất tuần 2
-                if (Math.Abs(item.GiaMoCua2 - item.GiaDongCua2) > Math.Abs(item.GiaMoCua3 - item.GiaDongCua3) &&          item.GiaDongCua3 > item.GiaDongCua2 &&
-                    item.GiaCaoNhat3 > item.GiaCaoNhat2 && 
-                    item.GiaThapNhat3 > item.GiaThapNhat2
-                    )
+                //giá đóng cửa tuần 3 > Giá đóng cửa tuần 2 >= Giá đóng cửa tuần 1 
+                if (item.GiaDongCua3 > item.GiaDongCua2 && item.GiaDongCua2 >= item.GiaDongCua1)
                 {
                     DataRow dr = dt.NewRow();
                     dr["MaCK"] = item.MaChungKhoan;
-                   
-                    dr["Max2"] = item.GiaCaoNhat2;
-                    dr["Max3"] = item.GiaCaoNhat3;
-                    dr["Min2"] = item.GiaThapNhat2;
-                    dr["Min3"] = item.GiaThapNhat3;
-                    dr["MC2"] = item.GiaMoCua2;
-                    dr["MC3"] = item.GiaMoCua3;
+                    dr["DC1"] = item.GiaDongCua1;
                     dr["DC2"] = item.GiaDongCua2;
                     dr["DC3"] = item.GiaDongCua3;
-                    
                     dt.Rows.Add(dr);
                     i++;
                 }
             }
             groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
             gridKQLoc.DataSource = dt;
-            gridKQLoc.Columns[0].Frozen = true;            
+            gridKQLoc.Columns[0].Frozen = true;
         }
 
         private void xemDữLiệuCủa1MãCụThểToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1263,6 +1251,56 @@ namespace LocChungKhoan
         {
             frmThongTin frm = new frmThongTin();
             frm.ShowDialog();
+        }
+
+        private void btnLocNenTuanDang2_Click(object sender, EventArgs e)
+        {
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text =="" || txtTuan1CuoiTuan.Text =="" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            gridKQLoc.DataSource = null;
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            //display to grid
+            //create datatable
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            dt.Columns.Add("DC1", typeof(decimal));
+            dt.Columns.Add("DC2", typeof(decimal));
+            dt.Columns.Add("DC3", typeof(decimal));
+            dt.Columns.Add("TN3", typeof(decimal));
+
+            gridKQLoc.DataSource = null;
+            int i = 1;
+            foreach (var item in list)
+            {
+                //- Giá đóng cửa tuần 1< Giá đóng cửa tuần 2 < Giá đóng cửa tuần 3 
+                //-Giá đóng cửa tuần 1 = Giá thấp nhất tuần 3
+                if (item.GiaDongCua3 > item.GiaDongCua2 && item.GiaDongCua2 > item.GiaDongCua1 &&
+                    item.GiaDongCua1 == item.GiaThapNhat3
+                    )
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["MaCK"] = item.MaChungKhoan;
+                    dr["DC1"] = item.GiaDongCua1;
+                    dr["DC2"] = item.GiaDongCua2;
+                    dr["DC3"] = item.GiaDongCua3;
+                    dr["TN3"] = item.GiaThapNhat3;
+                    dt.Rows.Add(dr);
+                    i++;
+                }
+            }
+            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
+            gridKQLoc.DataSource = dt;
+            gridKQLoc.Columns[0].Frozen = true;
         }
     }
 }

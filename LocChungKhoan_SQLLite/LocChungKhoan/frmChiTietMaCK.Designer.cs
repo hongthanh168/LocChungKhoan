@@ -127,6 +127,7 @@
             this.Controls.Add(this.label9);
             this.Name = "frmChiTietMaCK";
             this.Text = "Xem dữ liệu chi tiết của 1 mã chứng khoán";
+            this.Load += new System.EventHandler(this.frmChiTietMaCK_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

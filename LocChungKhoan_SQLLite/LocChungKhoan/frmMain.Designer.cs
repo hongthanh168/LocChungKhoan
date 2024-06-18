@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -39,7 +39,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnLocNenTuan = new System.Windows.Forms.Button();
+            this.btnLocNenTuanDang2 = new System.Windows.Forms.Button();
+            this.btnLocNenTuanDang1 = new System.Windows.Forms.Button();
             this.btnXietGia3Tuan = new System.Windows.Forms.Button();
             this.btnXietGia2Tuan = new System.Windows.Forms.Button();
             this.txtTuan3CuoiTuan = new System.Windows.Forms.TextBox();
@@ -124,7 +125,8 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.btnLocNenTuan);
+            this.groupBox1.Controls.Add(this.btnLocNenTuanDang2);
+            this.groupBox1.Controls.Add(this.btnLocNenTuanDang1);
             this.groupBox1.Controls.Add(this.btnXietGia3Tuan);
             this.groupBox1.Controls.Add(this.btnXietGia2Tuan);
             this.groupBox1.Controls.Add(this.txtTuan3CuoiTuan);
@@ -191,20 +193,31 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "Ngày cuối tuần: ";
             // 
-            // btnLocNenTuan
+            // btnLocNenTuanDang2
             // 
-            this.btnLocNenTuan.Location = new System.Drawing.Point(596, 127);
-            this.btnLocNenTuan.Margin = new System.Windows.Forms.Padding(4);
-            this.btnLocNenTuan.Name = "btnLocNenTuan";
-            this.btnLocNenTuan.Size = new System.Drawing.Size(135, 28);
-            this.btnLocNenTuan.TabIndex = 10;
-            this.btnLocNenTuan.Text = "Lọc nến tuần";
-            this.btnLocNenTuan.UseVisualStyleBackColor = true;
-            this.btnLocNenTuan.Click += new System.EventHandler(this.btnLocNenTuan_Click);
+            this.btnLocNenTuanDang2.Location = new System.Drawing.Point(606, 126);
+            this.btnLocNenTuanDang2.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLocNenTuanDang2.Name = "btnLocNenTuanDang2";
+            this.btnLocNenTuanDang2.Size = new System.Drawing.Size(135, 28);
+            this.btnLocNenTuanDang2.TabIndex = 10;
+            this.btnLocNenTuanDang2.Text = "Lọc nến tuần K2";
+            this.btnLocNenTuanDang2.UseVisualStyleBackColor = true;
+            this.btnLocNenTuanDang2.Click += new System.EventHandler(this.btnLocNenTuanDang2_Click);
+            // 
+            // btnLocNenTuanDang1
+            // 
+            this.btnLocNenTuanDang1.Location = new System.Drawing.Point(463, 126);
+            this.btnLocNenTuanDang1.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLocNenTuanDang1.Name = "btnLocNenTuanDang1";
+            this.btnLocNenTuanDang1.Size = new System.Drawing.Size(135, 28);
+            this.btnLocNenTuanDang1.TabIndex = 10;
+            this.btnLocNenTuanDang1.Text = "Lọc nến tuần K1";
+            this.btnLocNenTuanDang1.UseVisualStyleBackColor = true;
+            this.btnLocNenTuanDang1.Click += new System.EventHandler(this.btnLocNenTuan_Click);
             // 
             // btnXietGia3Tuan
             // 
-            this.btnXietGia3Tuan.Location = new System.Drawing.Point(449, 128);
+            this.btnXietGia3Tuan.Location = new System.Drawing.Point(316, 126);
             this.btnXietGia3Tuan.Margin = new System.Windows.Forms.Padding(4);
             this.btnXietGia3Tuan.Name = "btnXietGia3Tuan";
             this.btnXietGia3Tuan.Size = new System.Drawing.Size(135, 28);
@@ -215,7 +228,7 @@
             // 
             // btnXietGia2Tuan
             // 
-            this.btnXietGia2Tuan.Location = new System.Drawing.Point(306, 127);
+            this.btnXietGia2Tuan.Location = new System.Drawing.Point(173, 126);
             this.btnXietGia2Tuan.Margin = new System.Windows.Forms.Padding(4);
             this.btnXietGia2Tuan.Name = "btnXietGia2Tuan";
             this.btnXietGia2Tuan.Size = new System.Drawing.Size(135, 28);
@@ -328,8 +341,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -485,7 +498,7 @@
             // thôngTinToolStripMenuItem
             // 
             this.thôngTinToolStripMenuItem.Name = "thôngTinToolStripMenuItem";
-            this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             this.thôngTinToolStripMenuItem.Click += new System.EventHandler(this.thôngTinToolStripMenuItem_Click);
             // 
@@ -556,10 +569,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem danhMụcChứngKhoánQuanTâmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kiểmTraDữLiệuHiệnCóToolStripMenuItem;
-        private System.Windows.Forms.Button btnLocNenTuan;
+        private System.Windows.Forms.Button btnLocNenTuanDang1;
         private System.Windows.Forms.Button btnXietGia3Tuan;
         private System.Windows.Forms.Button btnXietGia2Tuan;
         private System.Windows.Forms.ToolStripMenuItem xemDữLiệuCủa1MãCụThểToolStripMenuItem;
+        private System.Windows.Forms.Button btnLocNenTuanDang2;
     }
 }
 

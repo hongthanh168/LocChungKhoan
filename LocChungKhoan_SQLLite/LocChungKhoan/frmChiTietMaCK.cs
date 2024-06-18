@@ -14,7 +14,7 @@ namespace LocChungKhoan
     public partial class frmChiTietMaCK : Form
     {
         public string MaCK = "";
-        public DateTime NgayBD = DateTime.Now;
+        public DateTime NgayBD = new DateTime(2024,1,1);
         public DateTime NgayKT = DateTime.Now;
         public frmChiTietMaCK()
         {
@@ -36,9 +36,12 @@ namespace LocChungKhoan
             }
             catch
             {
-                MessageBox.Show("Ngày bắt đầu không hợp lệ");
-                txtTuNgay.Focus();
-                return;
+                if (txtTuNgay.Text != "")
+                {
+                    MessageBox.Show("Ngày bắt đầu không hợp lệ");
+                    txtTuNgay.Focus();
+                    return;
+                }
             }
             //ngayKT
             try
@@ -47,9 +50,12 @@ namespace LocChungKhoan
             }
             catch
             {
-                MessageBox.Show("Ngày kết thúc không hợp lệ");
-                txtDenNgay.Focus();
-                return;
+                if (txtDenNgay.Text != "")
+                {
+                    MessageBox.Show("Ngày kết thúc không hợp lệ");
+                    txtDenNgay.Focus();
+                    return;
+                }
             }
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -58,6 +64,12 @@ namespace LocChungKhoan
         private void btnHuy_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmChiTietMaCK_Load(object sender, EventArgs e)
+        {
+            txtDenNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            txtTuNgay.Text = "01/01/2024";
         }
     }
 }

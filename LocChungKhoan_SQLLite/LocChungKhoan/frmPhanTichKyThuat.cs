@@ -23,10 +23,6 @@ namespace LocChungKhoan
 {
     public partial class frmPhanTichKyThuat : Form
     {
-        public bool isLocKhoiLuong = true;
-        public bool isLocGiaCaoNhatThapNhat = true;
-        public bool isLocGiaDongCuaMoCua = false;
-        public bool isLocDieuKienGiaTuan1 = false;
         public frmPhanTichKyThuat()
         {
             InitializeComponent();
@@ -261,15 +257,9 @@ namespace LocChungKhoan
 
         private void frmMainKhoiLuong_Load(object sender, EventArgs e)
         {
-           
+            txtTuNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
         }
-        private void AdjustSplitterDistance()
-        {
-            float scaleFactorX = CurrentDpiScalingFactorX();
-
-            // Adjust SplitContainer's SplitterDistance based on DPI scaling factor
-            splitContainer1.SplitterDistance = (int)Math.Round(splitContainer1.Panel1.Height*scaleFactorX);
-        }
+     
 
         private float CurrentDpiScalingFactorX()
         {
@@ -614,6 +604,98 @@ namespace LocChungKhoan
                 //get number of rows
                 groupBox2.Text = "Thông tin chi tiết mã: " + maCK;
             }
+        }
+
+        private void btnLoc_Click(object sender, EventArgs e)
+        {
+            gridKQLoc.DataSource = null;
+            //lấy ra ngày bắt đầu
+            DateTime ngayBD = DateTime.ParseExact(txtTuNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            int soNgay = Convert.ToInt32(txtSoNgay.Text);
+            if (soNgay < 17 && chkSO.Checked)
+            {
+                MessageBox.Show("Số ngày phải lớn hơn 17 mới dùng được chức năng lọc theo SO");
+                return;
+            }
+            if (soNgay < 14 && chkRSI.Checked)
+            {
+                MessageBox.Show("Số ngày phải lớn hơn 14 mới dùng được chức năng lọc theo RSI");
+                return;
+            }
+            if (chkMACD.Checked && soNgay<28)
+            {
+                MessageBox.Show("Nếu bạn muốn kiểm tra xu hướng dựa trên MACD, bạn cần ít nhất 2 dữ liệu nữa để so sánh giữa hai ngày cuối cùng (để xác định sự cắt nhau giữa đường MACD và đường tín hiệu). Như vậy, tổng cộng, bạn sẽ cần ít nhất 28 (26 là chu kỳ dài + 2 ngày) dữ liệu giá đóng cửa để thực hiện phân tích xu hướng dựa trên MACD.");
+                return;
+            }
+            decimal nguongKhoiLuong = Convert.ToDecimal(txtNguongKhoiLuong.Text)/100.0m;
+            //lấy ra danh sách các cổ phiếu
+            List<BieuDoKhoiLuong> duLieu = BieuDoKhoiLuongController.GetAllByDays(soNgay, ngayBD);
+            List<string> coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCKThanh();           
+            duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+            //lọc dữ liệu
+            StockAnalyzer stockAnalyzer = new StockAnalyzer();
+            //bắt đầu lọc theo các yêu cầu
+            if (chkKietCung.Checked)
+            {
+                coPhieuDaLoc = stockAnalyzer.TimDiemKietCung (duLieu );
+            }
+            if (coPhieuDaLoc.Count>0 && chkBienDongKhoiLuong.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuBienDongKhoiLuong(duLieu, ngayBD, nguongKhoiLuong);
+            }
+            if (chkMACD.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTangTheoMACD(duLieu);
+            }
+            if (chkRSI.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTangTheoRSI (duLieu, soNgay);
+            }
+            if (chkSO .Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTangTheoStochasticOscillator(duLieu);
+            }
+            if (chkNen_BullishEngulfing.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.BullishEngulfing);
+            }
+            if (chkNen_Hammer.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.Hammer);
+            }
+            if (chkNen_PiercingPartern.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.PiercingLine);
+            }
+            if (chkMorningStar.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.MorningStar);
+            }
+            //hiển thị danh sách coPhieuDaLoc lên gridKQLoc
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Columns.Add("MaCK", typeof(string));
+            foreach (var item in coPhieuDaLoc)
+            {
+                DataRow dr = dt.NewRow();
+                dr["MaCK"] = item;
+                dt.Rows.Add(dr);
+            }
+            //order by MaCK
+            DataView dv = dt.DefaultView;
+            dv.Sort = "MaCK";
+            System.Data.DataTable sortedDT = dv.ToTable();
+            // Finally, set the DataSource of the DataGridView to the sorted DataTable
+            gridKQLoc.DataSource = sortedDT;
+            //hiển thi số lượng mã chứng khoán đã lọc
+            groupBox2.Text = "Số mã chứng khoán đã lọc: " + coPhieuDaLoc.Count.ToString();
         }
     }
 }
