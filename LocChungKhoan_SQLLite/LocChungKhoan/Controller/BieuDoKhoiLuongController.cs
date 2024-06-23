@@ -23,13 +23,13 @@ namespace LocChungKhoan
             }
         }
         //lấy mã chứng khoán theo tiêu chí riêng của Thanh
-        public static List<string> GetListMaCKThanh()
+        public static List<string> GetListMaCKThanh(decimal volMin = 500000m)
         {            
             //lấy những cố phiếu có giá trung bình trong 5 ngày gần nhất 
             var ds =GetAllByDays (5, DateTime.Now);
             var dmChungKhoan = GetListMaCK();
             //get BieuDoKhoiLuong where MaChungKhoan in DMQuanTam
-            var list = ds.Where(x => x.GiaDongCua > 10.0m && x.KhoiLuong>500000 && dmChungKhoan.Contains(x.MaChungKhoan ))
+            var list = ds.Where(x => x.GiaDongCua > 10.0m && x.KhoiLuong>=volMin && dmChungKhoan.Contains(x.MaChungKhoan ))
                 .Select(x => x.MaChungKhoan)
                 .Distinct()
                 .ToList();
@@ -51,6 +51,31 @@ namespace LocChungKhoan
             }
             return avg;
         }
+        //lấy khối lượng trung bình của tất cả các cổ phiếu trong khoảng days ngày trước ngày ngàyTinh
+        public static List<BieuDoKhoiLuongTB  > LayKhoiLuongTrungBinh(DateTime ngayTinh, int days = 100)
+        {
+            List<BieuDoKhoiLuongTB> list = new List<BieuDoKhoiLuongTB>();
+            //select all distinct date from BieuDoKhoiLuong
+            using (var dbContext = new ChungKhoanEntities())
+            {
+                //lấy ra danh sách ngày
+                var listNgay = GetAllNgay().Where(x => x <= ngayTinh).OrderByDescending(x => x).ToList().Take(days).ToList();
+                DateTime ngayNhoNhat = listNgay.Min();
+
+                //lấy khối lượng trung bình của tất cả các cổ phiếu trong khoảng days ngày trước ngày ngàyTinh
+                list = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= ngayNhoNhat && x.Ngay <= ngayTinh)
+                    .GroupBy(x => x.MaChungKhoan)
+                    .Select(x => new BieuDoKhoiLuongTB
+                    {
+                        MaChungKhoan = x.Key,
+                        KhoiLuongTB = x.Average(y => y.KhoiLuong)
+                    })
+                    .ToList();
+            }
+            return list;
+        }
+
         //lấy toàn bộ dữ liệu từ BieuDoKhoiLuong khoảng bao nhiêu ngày trước
         public static List<BieuDoKhoiLuong> GetAllByDays(int days, DateTime ngayTinh)
         {

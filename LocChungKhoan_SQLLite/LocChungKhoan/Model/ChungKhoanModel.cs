@@ -51,6 +51,11 @@ namespace LocChungKhoan
             BieuDoKhoiLuongID = 0;
         }
     }
+    public class BieuDoKhoiLuongTB
+    {
+        public string MaChungKhoan { get; set; }
+        public decimal KhoiLuongTB { get; set; }
+    }
     public partial class CoPhieuCanQuanTam
     {
         public string MaChungKhoan { get; set; }

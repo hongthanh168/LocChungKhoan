@@ -73,23 +73,7 @@ namespace LocChungKhoan
         }
         #endregion
         
-        #region "Tìm biến động khối lượng"
-        //Tìm cổ phiếu có khối lượng tăng đột biến theo ý tưởng tìm 1 ngày có khối lượng gấp n lần khối lượng trung bình 100 ngày trước đó
-        public bool TimCoPhieuBienDongKhoiLuong(List<BieuDoKhoiLuong> data, decimal avgKhoiLuong, decimal nguongKhoiLuong = 2.0m)
-        {
-            //ý tưởng là: Tìm cổ phiếu có khối lượng tăng đột biến theo ý tưởng tìm 1 ngày có khối lượng gấp n lần khối lượng trung bình 100 phiên trước đó và ngày đó là nến xanh
-            data = data.OrderByDescending(d => d.Ngay).ToList();
-            decimal temp = avgKhoiLuong * nguongKhoiLuong;
-            for (int i = 0; i < data.Count - 1; i++)
-            {
-                //kiểm tra có gấp đôi ngày trước đó hay không?
-                if (data[i].KhoiLuong > temp && data[i].GiaMoCua < data[i].GiaDongCua)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        #region "Tìm biến động khối lượng"        
         public bool KhoiLuongTangKyLuc(List<BieuDoKhoiLuong > data, decimal nguongKhoiLuong = 2.0m, int soLuong=3)
         {
             //ý tưởng là: tìm 1 ngày có khối lượng đạt tỷ lệ nguongKhoiLuong so với ngày trước đó
@@ -115,17 +99,29 @@ namespace LocChungKhoan
         public List<string> LayCoPhieuBienDongKhoiLuong(List<BieuDoKhoiLuong> listCoPhieu, DateTime ngayTinh, decimal volumeThreshold = 2.0m, int soLuong = 3)
         {
             List<string> result = new List<string>();
-            // Lấy dữ liệu của các cổ phiếu trong 'days' ngày gần nhất
-            var groupedStocks = listCoPhieu.GroupBy(s => s.MaChungKhoan)
-                .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() });
-            foreach (var stock in groupedStocks)
+            var listKhoiLuong = BieuDoKhoiLuongController.LayKhoiLuongTrungBinh(ngayTinh, 100);
+            //join listKhoiLuong với listCoPhieu để lấy thông tin khối lượng
+            var temp = from khoiLuong in listKhoiLuong
+                       join coPhieu in listCoPhieu on khoiLuong.MaChungKhoan equals coPhieu.MaChungKhoan
+                       select new {khoiLuong.MaChungKhoan,khoiLuong.KhoiLuongTB,  coPhieu.Ngay, coPhieu.KhoiLuong, coPhieu.GiaDongCua, coPhieu.GiaMoCua  };
+            //group by mã chứng khoán
+            var list = temp.GroupBy(s => s.MaChungKhoan)
+                .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() }); 
+            foreach (var stock in list)
             {
-                //tìm khối lượng trung bình trong 100 ngày gần nhất
-                decimal avgVolume = BieuDoKhoiLuongController.LayKhoiLuongTrungBinh(stock.MaChungKhoan, ngayTinh, 100);
-                bool tangKhoiLuongDotBien = TimCoPhieuBienDongKhoiLuong(stock.Data, avgVolume, volumeThreshold);
-                if (tangKhoiLuongDotBien)
+                //order by date
+                var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
+                int i = 0;
+                bool kq = false;
+                while (i < data.Count - 1 && !kq)
                 {
-                    result.Add(stock.MaChungKhoan);
+                    //kiểm tra có gấp đôi ngày trước đó hay không?
+                    if (data[i].KhoiLuong > data[i].KhoiLuongTB * volumeThreshold && data[i].GiaMoCua < data[i].GiaDongCua)
+                    {
+                        result.Add(stock.MaChungKhoan);
+                        kq = true;
+                    }
+                    i++;
                 }
             }
             return result;
@@ -260,7 +256,7 @@ namespace LocChungKhoan
         #endregion
 
         #region Tính theo RSI --đã test ổn
-        public List<string> LayCoPhieuTangTheoRSI(List<BieuDoKhoiLuong> duLieu, int soNgay = 14)
+        public List<string> LayCoPhieuTheoRSI(List<BieuDoKhoiLuong> duLieu, int rsi_Min, int rsi_Max, int soNgay = 14)
         {
             List<string> danhSachCoPhieu = new List<string>();
             //phải sắp xếp dữ liệu theo ngày tăng dần trước khi nhóm
@@ -273,7 +269,7 @@ namespace LocChungKhoan
 
                 decimal rsi = CalculateRsi(prices, soNgay); // Chu kỳ RSI 14
                 //XuHuong isBullish = IsRSIBullish(rsi);
-                if (rsi>80)
+                if (rsi>=rsi_Min && rsi<=rsi_Max)
                 {
                     danhSachCoPhieu.Add(stockCode);
                 }
@@ -650,6 +646,80 @@ namespace LocChungKhoan
                    ;
         }
         #endregion
-    
+
+        #region "VSA"
+        //VSA: Volume Spread Analysis
+        public List<string> LayCoPhieuTheoPivotPocket(List<BieuDoKhoiLuong> duLieu, decimal priceIncrease)
+        {
+            List<string> danhSachCoPhieu = new List<string>();
+
+            //group by mã chứng khoán
+            var list = duLieu.GroupBy(s => s.MaChungKhoan)
+                .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() });
+            foreach (var stock in list)
+            {
+                //order by date
+                var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
+                decimal maxVolume = decimal.MaxValue; 
+                try
+                {
+                    maxVolume = data.Where(x => x.GiaDongCua < x.GiaMoCua).Max(x => x.KhoiLuong);
+                }
+                catch
+                {
+
+                }
+                    
+                int i = 0;
+                bool kq = false;
+                while (i <= data.Count - 1 && !kq)
+                {
+                    //kiểm tra có gấp đôi ngày trước đó hay không?
+                    if (data[i].KhoiLuong > maxVolume && data[i].GiaDongCua > data[i].GiaMoCua * priceIncrease/100m)
+                    {
+                        danhSachCoPhieu.Add(stock.MaChungKhoan);
+                        kq = true;
+                    }
+                    i++;
+                }
+            }
+            return danhSachCoPhieu;
+        }
+        public List<string> LayCoPhieuTheoNoSupplyBar(List<BieuDoKhoiLuong> duLieu, decimal priceDifferent)
+        {
+            // Hàm kiểm tra nến No Supply, xuất hiện sau 1 phiên điều chỉnh
+            //+ thân nến nhỏ (chênh lệch < 1% so với giá mở cửa)
+            //+ volume nhỏ hơn 2 cây nến trước đó.
+            //+ Râu nến hướng xuống dưới và không quá dài
+            //Các nến trước đó vol không cao và là giảm cũng ko quá sâu
+            //tính ra râu nến trên và râu nến dưới
+            List<string> danhSachCoPhieu = new List<string>();
+
+            //group by mã chứng khoán
+            var list = duLieu.GroupBy(s => s.MaChungKhoan)
+                .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() });
+            foreach (var stock in list)
+            {
+                //order by date
+                var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
+                int i = 0;
+                bool kq = false;
+                while (i < data.Count - 2 && !kq)
+                {
+                    decimal rauNenTren = data[i].GiaCaoNhat - Math.Max(data[i].GiaDongCua, data[i].GiaMoCua);
+                    decimal rauNenDuoi = Math.Min(data[i].GiaDongCua, data[i].GiaMoCua) - data[i].GiaThapNhat;
+                    decimal thanNen = Math.Abs(data[i].GiaDongCua - data[i].GiaMoCua);
+                    if (data[i].KhoiLuong < data[i+1].KhoiLuong && data[i].KhoiLuong< data[i+1].KhoiLuong && rauNenDuoi> rauNenTren && thanNen < priceDifferent * data[i].GiaMoCua)
+                    {
+                        danhSachCoPhieu.Add(stock.MaChungKhoan);
+                        kq = true;
+                    }
+                    i++;
+                }
+            }
+            return danhSachCoPhieu;
+        }
+        #endregion
+
     }
 }

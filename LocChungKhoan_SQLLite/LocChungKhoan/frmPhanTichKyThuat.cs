@@ -18,6 +18,7 @@ using LocChungKhoan.Controller;
 using static System.Net.WebRequestMethods;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using System.Security.Policy;
+using DocumentFormat.OpenXml;
 
 namespace LocChungKhoan
 {
@@ -627,17 +628,32 @@ namespace LocChungKhoan
                 MessageBox.Show("Nếu bạn muốn kiểm tra xu hướng dựa trên MACD, bạn cần ít nhất 2 dữ liệu nữa để so sánh giữa hai ngày cuối cùng (để xác định sự cắt nhau giữa đường MACD và đường tín hiệu). Như vậy, tổng cộng, bạn sẽ cần ít nhất 28 (26 là chu kỳ dài + 2 ngày) dữ liệu giá đóng cửa để thực hiện phân tích xu hướng dựa trên MACD.");
                 return;
             }
+            if (soNgay < 10 && chkRSI.Checked)
+            {
+                MessageBox.Show("Số ngày phải lớn hơn 10 mới dùng được chức năng lọc Pivot");
+                return;
+            }
             decimal nguongKhoiLuong = Convert.ToDecimal(txtNguongKhoiLuong.Text)/100.0m;
             //lấy ra danh sách các cổ phiếu
             List<BieuDoKhoiLuong> duLieu = BieuDoKhoiLuongController.GetAllByDays(soNgay, ngayBD);
-            List<string> coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCKThanh();           
+            List<string> coPhieuDaLoc = new List<string>();  
+            if (chkDanhMucChuMinh.Checked)
+            {
+                coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCK();
+            }
+            else
+            {
+                decimal volMin= Convert.ToDecimal(txtKLGDMin.Text);
+                coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCKThanh(volMin);
+            }
             duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
             //lọc dữ liệu
             StockAnalyzer stockAnalyzer = new StockAnalyzer();
             //bắt đầu lọc theo các yêu cầu
             if (chkKietCung.Checked)
             {
-                coPhieuDaLoc = stockAnalyzer.TimDiemKietCung (duLieu );
+                decimal nguongKietCung = Convert.ToDecimal(txtNguongKietCung.Text);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNoSupplyBar (duLieu,nguongKietCung );
             }
             if (coPhieuDaLoc.Count>0 && chkBienDongKhoiLuong.Checked)
             {
@@ -652,7 +668,9 @@ namespace LocChungKhoan
             if (chkRSI.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
-                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTangTheoRSI (duLieu, soNgay);
+                int rsiMin = Convert.ToInt32(txtRSI_from.Text);
+                int rsiMax = Convert.ToInt32(txtRSI_To.Text);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoRSI (duLieu, rsiMin, rsiMax, soNgay);
             }
             if (chkSO .Checked)
             {
@@ -679,6 +697,12 @@ namespace LocChungKhoan
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.MorningStar);
             }
+            if (chkPivot.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                decimal nguongPivot = Convert.ToDecimal(txtNguongPivot.Text);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoPivotPocket(duLieu, nguongPivot);
+            }
             //hiển thị danh sách coPhieuDaLoc lên gridKQLoc
             System.Data.DataTable dt = new System.Data.DataTable();
             dt.Columns.Add("MaCK", typeof(string));
@@ -696,6 +720,71 @@ namespace LocChungKhoan
             gridKQLoc.DataSource = sortedDT;
             //hiển thi số lượng mã chứng khoán đã lọc
             groupBox2.Text = "Số mã chứng khoán đã lọc: " + coPhieuDaLoc.Count.ToString();
+        }
+
+        private void btnXuatRaExcel_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = sfd.FileName;
+                    ExportDataGridViewToExcel(gridKQLoc, filePath);
+                    MessageBox.Show("Xuất file excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+        private void ExportDataGridViewToExcel(DataGridView dgv, string filePath)
+        {
+            using (SpreadsheetDocument document = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook))
+            {
+                WorkbookPart workbookPart = document.AddWorkbookPart();
+                workbookPart.Workbook = new Workbook();
+                WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+                worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+                Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
+                Sheet sheet = new Sheet()
+                {
+                    Id = workbookPart.GetIdOfPart(worksheetPart),
+                    SheetId = 1,
+                    Name = "Sheet1"
+                };
+                sheets.Append(sheet);
+
+                SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+
+                // Tạo hàng tiêu đề
+                Row headerRow = new Row();
+                foreach (DataGridViewColumn column in dgv.Columns)
+                {
+                    Cell cell = new Cell
+                    {
+                        DataType = CellValues.String,
+                        CellValue = new CellValue(column.HeaderText)
+                    };
+                    headerRow.AppendChild(cell);
+                }
+                sheetData.AppendChild(headerRow);
+
+                // Tạo các hàng dữ liệu
+                foreach (DataGridViewRow dgvRow in dgv.Rows)
+                {
+                    Row newRow = new Row();
+                    foreach (DataGridViewCell dgvCell in dgvRow.Cells)
+                    {
+                        Cell cell = new Cell
+                        {
+                            DataType = CellValues.String,
+                            CellValue = new CellValue(dgvCell.Value?.ToString())
+                        };
+                        newRow.AppendChild(cell);
+                    }
+                    sheetData.AppendChild(newRow);
+                }
+
+                workbookPart.Workbook.Save();
+            }
         }
     }
 }

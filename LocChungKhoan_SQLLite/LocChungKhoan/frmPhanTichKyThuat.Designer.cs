@@ -41,8 +41,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnMoThuMuc = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkPivot = new System.Windows.Forms.CheckBox();
             this.chkRSI = new System.Windows.Forms.CheckBox();
             this.chkBienDongKhoiLuong = new System.Windows.Forms.CheckBox();
+            this.chkDanhMucChuMinh = new System.Windows.Forms.CheckBox();
             this.chkKietCung = new System.Windows.Forms.CheckBox();
             this.chkMorningStar = new System.Windows.Forms.CheckBox();
             this.chkNen_PiercingPartern = new System.Windows.Forms.CheckBox();
@@ -55,7 +57,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnLoc = new System.Windows.Forms.Button();
             this.txtNguongKhoiLuong = new System.Windows.Forms.TextBox();
+            this.txtRSI_To = new System.Windows.Forms.TextBox();
+            this.txtRSI_from = new System.Windows.Forms.TextBox();
+            this.txtNguongKietCung = new System.Windows.Forms.TextBox();
+            this.txtNguongPivot = new System.Windows.Forms.TextBox();
+            this.txtKLGDMin = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtSoNgay = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtTuNgay = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -70,6 +82,7 @@
             this.xemDữLiệuCủa1MãCụThểToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnXuatRaExcel = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
             this.panel1.SuspendLayout();
@@ -136,7 +149,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1127, 547);
+            this.groupBox2.Size = new System.Drawing.Size(1469, 547);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kết quả lọc";
@@ -152,7 +165,7 @@
             this.gridKQLoc.Margin = new System.Windows.Forms.Padding(4);
             this.gridKQLoc.Name = "gridKQLoc";
             this.gridKQLoc.RowHeadersWidth = 51;
-            this.gridKQLoc.Size = new System.Drawing.Size(1119, 524);
+            this.gridKQLoc.Size = new System.Drawing.Size(1461, 524);
             this.gridKQLoc.TabIndex = 0;
             // 
             // panel1
@@ -162,7 +175,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1131, 818);
+            this.panel1.Size = new System.Drawing.Size(1473, 818);
             this.panel1.TabIndex = 6;
             // 
             // splitContainer1
@@ -188,7 +201,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(1131, 818);
+            this.splitContainer1.Size = new System.Drawing.Size(1473, 818);
             this.splitContainer1.SplitterDistance = 262;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 6;
@@ -217,8 +230,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkPivot);
             this.groupBox1.Controls.Add(this.chkRSI);
             this.groupBox1.Controls.Add(this.chkBienDongKhoiLuong);
+            this.groupBox1.Controls.Add(this.chkDanhMucChuMinh);
             this.groupBox1.Controls.Add(this.chkKietCung);
             this.groupBox1.Controls.Add(this.chkMorningStar);
             this.groupBox1.Controls.Add(this.chkNen_PiercingPartern);
@@ -229,9 +244,20 @@
             this.groupBox1.Controls.Add(this.txtMaCK);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.btnXuatRaExcel);
             this.groupBox1.Controls.Add(this.btnLoc);
             this.groupBox1.Controls.Add(this.txtNguongKhoiLuong);
+            this.groupBox1.Controls.Add(this.txtRSI_To);
+            this.groupBox1.Controls.Add(this.txtRSI_from);
+            this.groupBox1.Controls.Add(this.txtNguongKietCung);
+            this.groupBox1.Controls.Add(this.txtNguongPivot);
+            this.groupBox1.Controls.Add(this.txtKLGDMin);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtSoNgay);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtTuNgay);
             this.groupBox1.Controls.Add(this.label2);
@@ -239,15 +265,25 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1085, 153);
+            this.groupBox1.Size = new System.Drawing.Size(1441, 153);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tham số:";
             // 
+            // chkPivot
+            // 
+            this.chkPivot.AutoSize = true;
+            this.chkPivot.Location = new System.Drawing.Point(1042, 66);
+            this.chkPivot.Name = "chkPivot";
+            this.chkPivot.Size = new System.Drawing.Size(160, 20);
+            this.chkPivot.TabIndex = 16;
+            this.chkPivot.Text = "Xuất hiện Pivot pocket";
+            this.chkPivot.UseVisualStyleBackColor = true;
+            // 
             // chkRSI
             // 
             this.chkRSI.AutoSize = true;
-            this.chkRSI.Location = new System.Drawing.Point(634, 67);
+            this.chkRSI.Location = new System.Drawing.Point(1042, 94);
             this.chkRSI.Name = "chkRSI";
             this.chkRSI.Size = new System.Drawing.Size(51, 20);
             this.chkRSI.TabIndex = 16;
@@ -257,27 +293,37 @@
             // chkBienDongKhoiLuong
             // 
             this.chkBienDongKhoiLuong.AutoSize = true;
-            this.chkBienDongKhoiLuong.Location = new System.Drawing.Point(634, 41);
+            this.chkBienDongKhoiLuong.Location = new System.Drawing.Point(1042, 40);
             this.chkBienDongKhoiLuong.Name = "chkBienDongKhoiLuong";
             this.chkBienDongKhoiLuong.Size = new System.Drawing.Size(175, 20);
             this.chkBienDongKhoiLuong.TabIndex = 16;
             this.chkBienDongKhoiLuong.Text = "Biến động khối lượng lớn";
             this.chkBienDongKhoiLuong.UseVisualStyleBackColor = true;
             // 
+            // chkDanhMucChuMinh
+            // 
+            this.chkDanhMucChuMinh.AutoSize = true;
+            this.chkDanhMucChuMinh.Location = new System.Drawing.Point(807, 14);
+            this.chkDanhMucChuMinh.Name = "chkDanhMucChuMinh";
+            this.chkDanhMucChuMinh.Size = new System.Drawing.Size(189, 20);
+            this.chkDanhMucChuMinh.TabIndex = 16;
+            this.chkDanhMucChuMinh.Text = "Lấy mã từ DM chứng khoán";
+            this.chkDanhMucChuMinh.UseVisualStyleBackColor = true;
+            // 
             // chkKietCung
             // 
             this.chkKietCung.AutoSize = true;
-            this.chkKietCung.Location = new System.Drawing.Point(634, 15);
+            this.chkKietCung.Location = new System.Drawing.Point(1042, 14);
             this.chkKietCung.Name = "chkKietCung";
-            this.chkKietCung.Size = new System.Drawing.Size(141, 20);
+            this.chkKietCung.Size = new System.Drawing.Size(170, 20);
             this.chkKietCung.TabIndex = 16;
-            this.chkKietCung.Text = "Tìm điểm kiệt cung";
+            this.chkKietCung.Text = "Xuất hiện No supply bar";
             this.chkKietCung.UseVisualStyleBackColor = true;
             // 
             // chkMorningStar
             // 
             this.chkMorningStar.AutoSize = true;
-            this.chkMorningStar.Location = new System.Drawing.Point(835, 67);
+            this.chkMorningStar.Location = new System.Drawing.Point(1244, 66);
             this.chkMorningStar.Name = "chkMorningStar";
             this.chkMorningStar.Size = new System.Drawing.Size(185, 20);
             this.chkMorningStar.TabIndex = 15;
@@ -287,7 +333,7 @@
             // chkNen_PiercingPartern
             // 
             this.chkNen_PiercingPartern.AutoSize = true;
-            this.chkNen_PiercingPartern.Location = new System.Drawing.Point(835, 95);
+            this.chkNen_PiercingPartern.Location = new System.Drawing.Point(1244, 94);
             this.chkNen_PiercingPartern.Name = "chkNen_PiercingPartern";
             this.chkNen_PiercingPartern.Size = new System.Drawing.Size(151, 20);
             this.chkNen_PiercingPartern.TabIndex = 15;
@@ -297,7 +343,7 @@
             // chkNen_Hammer
             // 
             this.chkNen_Hammer.AutoSize = true;
-            this.chkNen_Hammer.Location = new System.Drawing.Point(835, 41);
+            this.chkNen_Hammer.Location = new System.Drawing.Point(1244, 40);
             this.chkNen_Hammer.Name = "chkNen_Hammer";
             this.chkNen_Hammer.Size = new System.Drawing.Size(109, 20);
             this.chkNen_Hammer.TabIndex = 15;
@@ -307,7 +353,7 @@
             // chkNen_BullishEngulfing
             // 
             this.chkNen_BullishEngulfing.AutoSize = true;
-            this.chkNen_BullishEngulfing.Location = new System.Drawing.Point(835, 15);
+            this.chkNen_BullishEngulfing.Location = new System.Drawing.Point(1244, 14);
             this.chkNen_BullishEngulfing.Name = "chkNen_BullishEngulfing";
             this.chkNen_BullishEngulfing.Size = new System.Drawing.Size(157, 20);
             this.chkNen_BullishEngulfing.TabIndex = 15;
@@ -317,7 +363,7 @@
             // chkSO
             // 
             this.chkSO.AutoSize = true;
-            this.chkSO.Location = new System.Drawing.Point(634, 119);
+            this.chkSO.Location = new System.Drawing.Point(1244, 119);
             this.chkSO.Name = "chkSO";
             this.chkSO.Size = new System.Drawing.Size(147, 20);
             this.chkSO.TabIndex = 15;
@@ -327,7 +373,7 @@
             // chkMACD
             // 
             this.chkMACD.AutoSize = true;
-            this.chkMACD.Location = new System.Drawing.Point(634, 93);
+            this.chkMACD.Location = new System.Drawing.Point(1042, 120);
             this.chkMACD.Name = "chkMACD";
             this.chkMACD.Size = new System.Drawing.Size(68, 20);
             this.chkMACD.TabIndex = 15;
@@ -336,7 +382,7 @@
             // 
             // txtMaCK
             // 
-            this.txtMaCK.Location = new System.Drawing.Point(386, 55);
+            this.txtMaCK.Location = new System.Drawing.Point(498, 114);
             this.txtMaCK.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaCK.Name = "txtMaCK";
             this.txtMaCK.Size = new System.Drawing.Size(140, 22);
@@ -346,7 +392,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(305, 58);
+            this.label9.Location = new System.Drawing.Point(417, 117);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 16);
@@ -380,16 +426,111 @@
             this.txtNguongKhoiLuong.Name = "txtNguongKhoiLuong";
             this.txtNguongKhoiLuong.Size = new System.Drawing.Size(140, 22);
             this.txtNguongKhoiLuong.TabIndex = 3;
-            this.txtNguongKhoiLuong.Text = "200";
+            this.txtNguongKhoiLuong.Text = "350";
+            // 
+            // txtRSI_To
+            // 
+            this.txtRSI_To.Location = new System.Drawing.Point(682, 20);
+            this.txtRSI_To.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRSI_To.Name = "txtRSI_To";
+            this.txtRSI_To.Size = new System.Drawing.Size(58, 22);
+            this.txtRSI_To.TabIndex = 0;
+            this.txtRSI_To.Text = "100";
+            // 
+            // txtRSI_from
+            // 
+            this.txtRSI_from.Location = new System.Drawing.Point(580, 20);
+            this.txtRSI_from.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRSI_from.Name = "txtRSI_from";
+            this.txtRSI_from.Size = new System.Drawing.Size(58, 22);
+            this.txtRSI_from.TabIndex = 0;
+            this.txtRSI_from.Text = "70";
+            // 
+            // txtNguongKietCung
+            // 
+            this.txtNguongKietCung.Location = new System.Drawing.Point(635, 81);
+            this.txtNguongKietCung.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNguongKietCung.Name = "txtNguongKietCung";
+            this.txtNguongKietCung.Size = new System.Drawing.Size(43, 22);
+            this.txtNguongKietCung.TabIndex = 0;
+            this.txtNguongKietCung.Text = "1";
+            // 
+            // txtNguongPivot
+            // 
+            this.txtNguongPivot.Location = new System.Drawing.Point(635, 53);
+            this.txtNguongPivot.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNguongPivot.Name = "txtNguongPivot";
+            this.txtNguongPivot.Size = new System.Drawing.Size(43, 22);
+            this.txtNguongPivot.TabIndex = 0;
+            this.txtNguongPivot.Text = "2";
+            // 
+            // txtKLGDMin
+            // 
+            this.txtKLGDMin.Location = new System.Drawing.Point(386, 53);
+            this.txtKLGDMin.Margin = new System.Windows.Forms.Padding(4);
+            this.txtKLGDMin.Name = "txtKLGDMin";
+            this.txtKLGDMin.Size = new System.Drawing.Size(133, 22);
+            this.txtKLGDMin.TabIndex = 0;
+            this.txtKLGDMin.Text = "500000";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(645, 23);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(33, 16);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "đến:";
             // 
             // txtSoNgay
             // 
             this.txtSoNgay.Location = new System.Drawing.Point(386, 23);
             this.txtSoNgay.Margin = new System.Windows.Forms.Padding(4);
             this.txtSoNgay.Name = "txtSoNgay";
-            this.txtSoNgay.Size = new System.Drawing.Size(140, 22);
+            this.txtSoNgay.Size = new System.Drawing.Size(133, 22);
             this.txtSoNgay.TabIndex = 0;
             this.txtSoNgay.Text = "28";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(512, 84);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(118, 16);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "% thân nến supply:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(524, 56);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(106, 16);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "% tăng giá Pivot:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(527, 23);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 16);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "RSI từ:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(292, 56);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 16);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "KLGD tối thiểu";
             // 
             // label5
             // 
@@ -428,7 +569,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1131, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1473, 28);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "Xóa dữ liệu";
             // 
@@ -507,11 +648,22 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
+            // btnXuatRaExcel
+            // 
+            this.btnXuatRaExcel.Location = new System.Drawing.Point(648, 111);
+            this.btnXuatRaExcel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnXuatRaExcel.Name = "btnXuatRaExcel";
+            this.btnXuatRaExcel.Size = new System.Drawing.Size(200, 28);
+            this.btnXuatRaExcel.TabIndex = 10;
+            this.btnXuatRaExcel.Text = "Xuất bảng ra Excel";
+            this.btnXuatRaExcel.UseVisualStyleBackColor = true;
+            this.btnXuatRaExcel.Click += new System.EventHandler(this.btnXuatRaExcel_Click);
+            // 
             // frmPhanTichKyThuat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1131, 846);
+            this.ClientSize = new System.Drawing.Size(1473, 846);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -579,6 +731,19 @@
         private System.Windows.Forms.CheckBox chkMorningStar;
         private System.Windows.Forms.CheckBox chkNen_PiercingPartern;
         private System.Windows.Forms.CheckBox chkNen_Hammer;
+        private System.Windows.Forms.CheckBox chkDanhMucChuMinh;
+        private System.Windows.Forms.CheckBox chkPivot;
+        private System.Windows.Forms.TextBox txtKLGDMin;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtRSI_To;
+        private System.Windows.Forms.TextBox txtRSI_from;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtNguongPivot;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtNguongKietCung;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnXuatRaExcel;
     }
 }
 
