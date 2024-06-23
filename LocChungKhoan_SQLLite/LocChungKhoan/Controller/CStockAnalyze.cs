@@ -654,28 +654,34 @@ namespace LocChungKhoan
             List<string> danhSachCoPhieu = new List<string>();
 
             //group by mã chứng khoán
+            //Lọc ở đây lỏng hơn lọc trên TradingView do bỏ điều kiện về các đường MA
             var list = duLieu.GroupBy(s => s.MaChungKhoan)
                 .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() });
             foreach (var stock in list)
-            {
-                //order by date
-                var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
-                decimal maxVolume = decimal.MaxValue; 
-                try
-                {
-                    maxVolume = data.Where(x => x.GiaDongCua < x.GiaMoCua).Max(x => x.KhoiLuong);
-                }
-                catch
-                {
-
-                }
-                    
+            {  
+                //với mỗi 1 ngày, ta xét giá trị trong 10 ngày trước đó
+                //do đó ta lấy sẵn dữ liệu của ngày nhỏ nhất + 10 ngày trước đó
+                var maxDate = stock.Data.Max(x => x.Ngay);
+                var data = BieuDoKhoiLuongController.GetAllByDaysAndMaCK(stock.Data.Count + 10, maxDate, stock.MaChungKhoan);
+                data = data.OrderByDescending(x => x.Ngay).ToList ();
                 int i = 0;
                 bool kq = false;
-                while (i <= data.Count - 1 && !kq)
+                while (i <= data.Count - 11 && !kq)
                 {
-                    //kiểm tra có gấp đôi ngày trước đó hay không?
-                    if (data[i].KhoiLuong > maxVolume && data[i].GiaDongCua > data[i].GiaMoCua * priceIncrease/100m)
+                    //lấy giá trị max volume của các nến đỏ trước nến hiện thời 10 nến
+                    var temp = data.Skip (i+1).Take(10).ToList ();
+                    decimal maxVolume = Decimal.MaxValue;
+                    try
+                    {
+                        maxVolume = temp.Where(x => x.GiaMoCua > x.GiaDongCua).Max(x => x.KhoiLuong);
+                    }
+                    catch
+                    {
+
+                    }
+                        
+                    //kiểm tra khối lượng có tăng mạnh và giá đóng cửa tăng mạnh?
+                    if (data[i].KhoiLuong > maxVolume && data[i].GiaDongCua > data[i].GiaMoCua * priceIncrease/100.0m)
                     {
                         danhSachCoPhieu.Add(stock.MaChungKhoan);
                         kq = true;
@@ -709,7 +715,7 @@ namespace LocChungKhoan
                     decimal rauNenTren = data[i].GiaCaoNhat - Math.Max(data[i].GiaDongCua, data[i].GiaMoCua);
                     decimal rauNenDuoi = Math.Min(data[i].GiaDongCua, data[i].GiaMoCua) - data[i].GiaThapNhat;
                     decimal thanNen = Math.Abs(data[i].GiaDongCua - data[i].GiaMoCua);
-                    if (data[i].KhoiLuong < data[i+1].KhoiLuong && data[i].KhoiLuong< data[i+1].KhoiLuong && rauNenDuoi> rauNenTren && thanNen < priceDifferent * data[i].GiaMoCua)
+                    if (data[i].KhoiLuong < data[i+1].KhoiLuong && data[i].KhoiLuong< data[i+2].KhoiLuong && rauNenDuoi> rauNenTren && thanNen < priceDifferent/100.0m * data[i].GiaMoCua && rauNenDuoi < 2*thanNen)
                     {
                         danhSachCoPhieu.Add(stock.MaChungKhoan);
                         kq = true;

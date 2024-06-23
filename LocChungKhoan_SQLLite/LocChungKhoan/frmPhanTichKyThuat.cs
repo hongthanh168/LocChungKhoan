@@ -628,11 +628,6 @@ namespace LocChungKhoan
                 MessageBox.Show("Nếu bạn muốn kiểm tra xu hướng dựa trên MACD, bạn cần ít nhất 2 dữ liệu nữa để so sánh giữa hai ngày cuối cùng (để xác định sự cắt nhau giữa đường MACD và đường tín hiệu). Như vậy, tổng cộng, bạn sẽ cần ít nhất 28 (26 là chu kỳ dài + 2 ngày) dữ liệu giá đóng cửa để thực hiện phân tích xu hướng dựa trên MACD.");
                 return;
             }
-            if (soNgay < 10 && chkRSI.Checked)
-            {
-                MessageBox.Show("Số ngày phải lớn hơn 10 mới dùng được chức năng lọc Pivot");
-                return;
-            }
             decimal nguongKhoiLuong = Convert.ToDecimal(txtNguongKhoiLuong.Text)/100.0m;
             //lấy ra danh sách các cổ phiếu
             List<BieuDoKhoiLuong> duLieu = BieuDoKhoiLuongController.GetAllByDays(soNgay, ngayBD);
@@ -644,7 +639,7 @@ namespace LocChungKhoan
             else
             {
                 decimal volMin= Convert.ToDecimal(txtKLGDMin.Text);
-                coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCKThanh(volMin);
+                coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCKThanh(10.0m,volMin);
             }
             duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
             //lọc dữ liệu

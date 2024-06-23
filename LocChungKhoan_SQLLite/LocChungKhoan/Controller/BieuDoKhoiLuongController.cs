@@ -23,13 +23,12 @@ namespace LocChungKhoan
             }
         }
         //lấy mã chứng khoán theo tiêu chí riêng của Thanh
-        public static List<string> GetListMaCKThanh(decimal volMin = 500000m)
+        public static List<string> GetListMaCKThanh(decimal priceMin = 10.0m, decimal volMin = 500000m)
         {            
             //lấy những cố phiếu có giá trung bình trong 5 ngày gần nhất 
-            var ds =GetAllByDays (5, DateTime.Now);
-            var dmChungKhoan = GetListMaCK();
+            var ds =GetAllByDays (1, DateTime.Now);
             //get BieuDoKhoiLuong where MaChungKhoan in DMQuanTam
-            var list = ds.Where(x => x.GiaDongCua > 10.0m && x.KhoiLuong>=volMin && dmChungKhoan.Contains(x.MaChungKhoan ))
+            var list = ds.Where(x => x.GiaDongCua >= priceMin && x.KhoiLuong>=volMin)
                 .Select(x => x.MaChungKhoan)
                 .Distinct()
                 .ToList();
@@ -50,7 +49,7 @@ namespace LocChungKhoan
                     .Average(x => x.KhoiLuong);
             }
             return avg;
-        }
+        }       
         //lấy khối lượng trung bình của tất cả các cổ phiếu trong khoảng days ngày trước ngày ngàyTinh
         public static List<BieuDoKhoiLuongTB  > LayKhoiLuongTrungBinh(DateTime ngayTinh, int days = 100)
         {
@@ -88,6 +87,22 @@ namespace LocChungKhoan
 
                 var list = dbContext.BieuDoKhoiLuongs
                     .Where(x => x.Ngay >= ngayNhoNhat && x.Ngay <= ngayTinh)
+                    .ToList();
+                return list;
+            }
+        }
+        //lấy toàn bộ dữ liệu từ BieuDoKhoiLuong khoảng bao nhiêu ngày trước
+        public static List<BieuDoKhoiLuong> GetAllByDaysAndMaCK(int days, DateTime ngayTinh, string maChungKhoan)
+        {
+            //select all distinct date from BieuDoKhoiLuong
+            using (var dbContext = new ChungKhoanEntities())
+            {
+                //lấy ra danh sách ngày
+                var listNgay = GetAllNgay().Where(x => x <= ngayTinh).OrderByDescending(x => x).ToList().Take(days).ToList();
+                DateTime ngayNhoNhat = listNgay.Min();
+
+                var list = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= ngayNhoNhat && x.Ngay <= ngayTinh && x.MaChungKhoan == maChungKhoan)
                     .ToList();
                 return list;
             }
