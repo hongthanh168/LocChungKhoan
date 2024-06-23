@@ -649,7 +649,7 @@ namespace LocChungKhoan
 
         #region "VSA"
         //VSA: Volume Spread Analysis
-        public List<string> LayCoPhieuTheoPivotPocket(List<BieuDoKhoiLuong> duLieu, decimal priceIncrease)
+        public List<string> LayCoPhieuTheoPivotPocket(List<BieuDoKhoiLuong> duLieu, decimal priceIncrease, int soNgayXet = 3)
         {
             List<string> danhSachCoPhieu = new List<string>();
 
@@ -662,11 +662,11 @@ namespace LocChungKhoan
                 //với mỗi 1 ngày, ta xét giá trị trong 10 ngày trước đó
                 //do đó ta lấy sẵn dữ liệu của ngày nhỏ nhất + 10 ngày trước đó
                 var maxDate = stock.Data.Max(x => x.Ngay);
-                var data = BieuDoKhoiLuongController.GetAllByDaysAndMaCK(stock.Data.Count + 10, maxDate, stock.MaChungKhoan);
+                var data = BieuDoKhoiLuongController.GetAllByDaysAndMaCK(soNgayXet + 10, maxDate, stock.MaChungKhoan);
                 data = data.OrderByDescending(x => x.Ngay).ToList ();
                 int i = 0;
                 bool kq = false;
-                while (i <= data.Count - 11 && !kq)
+                while (i <= soNgayXet && !kq)
                 {
                     //lấy giá trị max volume của các nến đỏ trước nến hiện thời 10 nến
                     var temp = data.Skip (i+1).Take(10).ToList ();
@@ -691,7 +691,7 @@ namespace LocChungKhoan
             }
             return danhSachCoPhieu;
         }
-        public List<string> LayCoPhieuTheoNoSupplyBar(List<BieuDoKhoiLuong> duLieu, decimal priceDifferent)
+        public List<string> LayCoPhieuTheoNoSupplyBar(List<BieuDoKhoiLuong> duLieu, decimal priceDifferent, int soNgayXet =5)
         {
             // Hàm kiểm tra nến No Supply, xuất hiện sau 1 phiên điều chỉnh
             //+ thân nến nhỏ (chênh lệch < 1% so với giá mở cửa)
@@ -710,7 +710,7 @@ namespace LocChungKhoan
                 var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
                 int i = 0;
                 bool kq = false;
-                while (i < data.Count - 2 && !kq)
+                while (i < soNgayXet && !kq)
                 {
                     decimal rauNenTren = data[i].GiaCaoNhat - Math.Max(data[i].GiaDongCua, data[i].GiaMoCua);
                     decimal rauNenDuoi = Math.Min(data[i].GiaDongCua, data[i].GiaMoCua) - data[i].GiaThapNhat;
