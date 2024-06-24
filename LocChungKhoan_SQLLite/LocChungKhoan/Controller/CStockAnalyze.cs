@@ -648,13 +648,25 @@ namespace LocChungKhoan
         #endregion
 
         #region "VSA"
+        public static decimal SMA(List<BieuDoKhoiLuong> duLieu, int viTri, int heSo)
+        {
+            if (duLieu.Count < heSo)
+            {
+                return 0;
+            }
+            //dữ liệu đã đc sắp xếp giảm dần theo ngày
+            //lấy số lượng dữ liệu cần tính
+            var data = duLieu.Skip(viTri).Take(heSo).ToList();
+            decimal sma = data.Average(x => x.GiaDongCua);
+            return sma;
+        }
         //VSA: Volume Spread Analysis
         public List<string> LayCoPhieuTheoPivotPocket(List<BieuDoKhoiLuong> duLieu, decimal priceIncrease, int soNgayXet = 3)
         {
             List<string> danhSachCoPhieu = new List<string>();
 
             //group by mã chứng khoán
-            //Lọc ở đây lỏng hơn lọc trên TradingView do bỏ điều kiện về các đường MA
+            //lỏng hơn trên TradingView do chưa xét các đường MA50, MA200
             var list = duLieu.GroupBy(s => s.MaChungKhoan)
                 .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() });
             foreach (var stock in list)
@@ -668,6 +680,8 @@ namespace LocChungKhoan
                 bool kq = false;
                 while (i <= soNgayXet && !kq)
                 {
+                    //tính MA10
+                    decimal ma10 = SMA(data, i, 10);
                     //lấy giá trị max volume của các nến đỏ trước nến hiện thời 10 nến
                     var temp = data.Skip (i+1).Take(10).ToList ();
                     decimal maxVolume = Decimal.MaxValue;
@@ -681,7 +695,7 @@ namespace LocChungKhoan
                     }
                         
                     //kiểm tra khối lượng có tăng mạnh và giá đóng cửa tăng mạnh?
-                    if (data[i].KhoiLuong > maxVolume && data[i].GiaDongCua > data[i].GiaMoCua * priceIncrease/100.0m)
+                    if (data[i].GiaDongCua > ma10 &&  data[i].KhoiLuong > maxVolume && data[i].GiaDongCua > data[i].GiaMoCua * priceIncrease/100.0m)
                     {
                         danhSachCoPhieu.Add(stock.MaChungKhoan);
                         kq = true;

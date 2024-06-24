@@ -55,6 +55,7 @@
             this.txtMaCK = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnXuatRaExcel = new System.Windows.Forms.Button();
             this.btnLoc = new System.Windows.Forms.Button();
             this.txtNguongKhoiLuong = new System.Windows.Forms.TextBox();
             this.txtRSI_To = new System.Windows.Forms.TextBox();
@@ -82,7 +83,10 @@
             this.xemDữLiệuCủa1MãCụThểToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnXuatRaExcel = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtNgayPivot = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtNgaySupply = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
             this.panel1.SuspendLayout();
@@ -247,11 +251,15 @@
             this.groupBox1.Controls.Add(this.btnXuatRaExcel);
             this.groupBox1.Controls.Add(this.btnLoc);
             this.groupBox1.Controls.Add(this.txtNguongKhoiLuong);
+            this.groupBox1.Controls.Add(this.txtNgaySupply);
+            this.groupBox1.Controls.Add(this.txtNgayPivot);
             this.groupBox1.Controls.Add(this.txtRSI_To);
             this.groupBox1.Controls.Add(this.txtRSI_from);
             this.groupBox1.Controls.Add(this.txtNguongKietCung);
             this.groupBox1.Controls.Add(this.txtNguongPivot);
             this.groupBox1.Controls.Add(this.txtKLGDMin);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtSoNgay);
             this.groupBox1.Controls.Add(this.label11);
@@ -303,7 +311,7 @@
             // chkDanhMucChuMinh
             // 
             this.chkDanhMucChuMinh.AutoSize = true;
-            this.chkDanhMucChuMinh.Location = new System.Drawing.Point(807, 14);
+            this.chkDanhMucChuMinh.Location = new System.Drawing.Point(814, 14);
             this.chkDanhMucChuMinh.Name = "chkDanhMucChuMinh";
             this.chkDanhMucChuMinh.Size = new System.Drawing.Size(189, 20);
             this.chkDanhMucChuMinh.TabIndex = 16;
@@ -401,12 +409,23 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(15, 56);
+            this.label4.Location = new System.Drawing.Point(11, 56);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 54);
             this.label4.TabIndex = 8;
             this.label4.Text = "Ngưỡng khối lượng tăng đột biến (%)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // btnXuatRaExcel
+            // 
+            this.btnXuatRaExcel.Location = new System.Drawing.Point(648, 111);
+            this.btnXuatRaExcel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnXuatRaExcel.Name = "btnXuatRaExcel";
+            this.btnXuatRaExcel.Size = new System.Drawing.Size(200, 28);
+            this.btnXuatRaExcel.TabIndex = 10;
+            this.btnXuatRaExcel.Text = "Xuất bảng ra Excel";
+            this.btnXuatRaExcel.UseVisualStyleBackColor = true;
+            this.btnXuatRaExcel.Click += new System.EventHandler(this.btnXuatRaExcel_Click);
             // 
             // btnLoc
             // 
@@ -421,34 +440,34 @@
             // 
             // txtNguongKhoiLuong
             // 
-            this.txtNguongKhoiLuong.Location = new System.Drawing.Point(135, 56);
+            this.txtNguongKhoiLuong.Location = new System.Drawing.Point(131, 56);
             this.txtNguongKhoiLuong.Margin = new System.Windows.Forms.Padding(4);
             this.txtNguongKhoiLuong.Name = "txtNguongKhoiLuong";
-            this.txtNguongKhoiLuong.Size = new System.Drawing.Size(140, 22);
+            this.txtNguongKhoiLuong.Size = new System.Drawing.Size(107, 22);
             this.txtNguongKhoiLuong.TabIndex = 3;
             this.txtNguongKhoiLuong.Text = "350";
             // 
             // txtRSI_To
             // 
-            this.txtRSI_To.Location = new System.Drawing.Point(682, 20);
+            this.txtRSI_To.Location = new System.Drawing.Point(745, 20);
             this.txtRSI_To.Margin = new System.Windows.Forms.Padding(4);
             this.txtRSI_To.Name = "txtRSI_To";
-            this.txtRSI_To.Size = new System.Drawing.Size(58, 22);
+            this.txtRSI_To.Size = new System.Drawing.Size(38, 22);
             this.txtRSI_To.TabIndex = 0;
             this.txtRSI_To.Text = "100";
             // 
             // txtRSI_from
             // 
-            this.txtRSI_from.Location = new System.Drawing.Point(580, 20);
+            this.txtRSI_from.Location = new System.Drawing.Point(600, 20);
             this.txtRSI_from.Margin = new System.Windows.Forms.Padding(4);
             this.txtRSI_from.Name = "txtRSI_from";
-            this.txtRSI_from.Size = new System.Drawing.Size(58, 22);
+            this.txtRSI_from.Size = new System.Drawing.Size(43, 22);
             this.txtRSI_from.TabIndex = 0;
             this.txtRSI_from.Text = "70";
             // 
             // txtNguongKietCung
             // 
-            this.txtNguongKietCung.Location = new System.Drawing.Point(635, 81);
+            this.txtNguongKietCung.Location = new System.Drawing.Point(600, 81);
             this.txtNguongKietCung.Margin = new System.Windows.Forms.Padding(4);
             this.txtNguongKietCung.Name = "txtNguongKietCung";
             this.txtNguongKietCung.Size = new System.Drawing.Size(43, 22);
@@ -457,7 +476,7 @@
             // 
             // txtNguongPivot
             // 
-            this.txtNguongPivot.Location = new System.Drawing.Point(635, 53);
+            this.txtNguongPivot.Location = new System.Drawing.Point(600, 53);
             this.txtNguongPivot.Margin = new System.Windows.Forms.Padding(4);
             this.txtNguongPivot.Name = "txtNguongPivot";
             this.txtNguongPivot.Size = new System.Drawing.Size(43, 22);
@@ -466,17 +485,17 @@
             // 
             // txtKLGDMin
             // 
-            this.txtKLGDMin.Location = new System.Drawing.Point(386, 53);
+            this.txtKLGDMin.Location = new System.Drawing.Point(380, 53);
             this.txtKLGDMin.Margin = new System.Windows.Forms.Padding(4);
             this.txtKLGDMin.Name = "txtKLGDMin";
-            this.txtKLGDMin.Size = new System.Drawing.Size(133, 22);
+            this.txtKLGDMin.Size = new System.Drawing.Size(83, 22);
             this.txtKLGDMin.TabIndex = 0;
             this.txtKLGDMin.Text = "500000";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(645, 23);
+            this.label8.Location = new System.Drawing.Point(704, 23);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(33, 16);
@@ -485,17 +504,17 @@
             // 
             // txtSoNgay
             // 
-            this.txtSoNgay.Location = new System.Drawing.Point(386, 23);
+            this.txtSoNgay.Location = new System.Drawing.Point(380, 23);
             this.txtSoNgay.Margin = new System.Windows.Forms.Padding(4);
             this.txtSoNgay.Name = "txtSoNgay";
-            this.txtSoNgay.Size = new System.Drawing.Size(133, 22);
+            this.txtSoNgay.Size = new System.Drawing.Size(83, 22);
             this.txtSoNgay.TabIndex = 0;
-            this.txtSoNgay.Text = "28";
+            this.txtSoNgay.Text = "10";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(512, 84);
+            this.label11.Location = new System.Drawing.Point(477, 84);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(118, 16);
@@ -505,7 +524,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(524, 56);
+            this.label10.Location = new System.Drawing.Point(489, 56);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(106, 16);
@@ -515,7 +534,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(527, 23);
+            this.label6.Location = new System.Drawing.Point(547, 23);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 16);
@@ -525,7 +544,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(292, 56);
+            this.label3.Location = new System.Drawing.Point(282, 56);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 16);
@@ -535,25 +554,25 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(305, 26);
+            this.label5.Location = new System.Drawing.Point(252, 26);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 16);
+            this.label5.Size = new System.Drawing.Size(120, 16);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Số ngày xét";
+            this.label5.Text = "Số ngày lấy dữ liệu";
             // 
             // txtTuNgay
             // 
-            this.txtTuNgay.Location = new System.Drawing.Point(135, 26);
+            this.txtTuNgay.Location = new System.Drawing.Point(131, 26);
             this.txtTuNgay.Margin = new System.Windows.Forms.Padding(4);
             this.txtTuNgay.Name = "txtTuNgay";
-            this.txtTuNgay.Size = new System.Drawing.Size(140, 22);
+            this.txtTuNgay.Size = new System.Drawing.Size(107, 22);
             this.txtTuNgay.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 29);
+            this.label2.Location = new System.Drawing.Point(51, 29);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 16);
@@ -648,16 +667,43 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
-            // btnXuatRaExcel
+            // label12
             // 
-            this.btnXuatRaExcel.Location = new System.Drawing.Point(648, 111);
-            this.btnXuatRaExcel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnXuatRaExcel.Name = "btnXuatRaExcel";
-            this.btnXuatRaExcel.Size = new System.Drawing.Size(200, 28);
-            this.btnXuatRaExcel.TabIndex = 10;
-            this.btnXuatRaExcel.Text = "Xuất bảng ra Excel";
-            this.btnXuatRaExcel.UseVisualStyleBackColor = true;
-            this.btnXuatRaExcel.Click += new System.EventHandler(this.btnXuatRaExcel_Click);
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(664, 53);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(73, 16);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Ngày Pivot";
+            // 
+            // txtNgayPivot
+            // 
+            this.txtNgayPivot.Location = new System.Drawing.Point(745, 50);
+            this.txtNgayPivot.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNgayPivot.Name = "txtNgayPivot";
+            this.txtNgayPivot.Size = new System.Drawing.Size(38, 22);
+            this.txtNgayPivot.TabIndex = 0;
+            this.txtNgayPivot.Text = "1";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(656, 84);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(83, 16);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Ngày supply";
+            // 
+            // txtNgaySupply
+            // 
+            this.txtNgaySupply.Location = new System.Drawing.Point(745, 81);
+            this.txtNgaySupply.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNgaySupply.Name = "txtNgaySupply";
+            this.txtNgaySupply.Size = new System.Drawing.Size(38, 22);
+            this.txtNgaySupply.TabIndex = 0;
+            this.txtNgaySupply.Text = "3";
             // 
             // frmPhanTichKyThuat
             // 
@@ -744,6 +790,10 @@
         private System.Windows.Forms.TextBox txtNguongKietCung;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnXuatRaExcel;
+        private System.Windows.Forms.TextBox txtNgaySupply;
+        private System.Windows.Forms.TextBox txtNgayPivot;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
     }
 }
 

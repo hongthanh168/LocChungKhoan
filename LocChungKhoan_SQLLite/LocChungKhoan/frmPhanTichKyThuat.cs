@@ -648,7 +648,8 @@ namespace LocChungKhoan
             if (chkKietCung.Checked)
             {
                 decimal nguongKietCung = Convert.ToDecimal(txtNguongKietCung.Text);
-                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNoSupplyBar (duLieu,nguongKietCung );
+                int soNgayXet = Convert.ToInt32(txtNgaySupply.Text);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNoSupplyBar (duLieu,nguongKietCung,soNgayXet );
             }
             if (coPhieuDaLoc.Count>0 && chkBienDongKhoiLuong.Checked)
             {
@@ -696,7 +697,8 @@ namespace LocChungKhoan
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 decimal nguongPivot = Convert.ToDecimal(txtNguongPivot.Text);
-                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoPivotPocket(duLieu, nguongPivot);
+                int soNgayXet = Convert.ToInt32(txtNgayPivot.Text);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoPivotPocket(duLieu, nguongPivot,soNgayXet);
             }
             //hiển thị danh sách coPhieuDaLoc lên gridKQLoc
             System.Data.DataTable dt = new System.Data.DataTable();
