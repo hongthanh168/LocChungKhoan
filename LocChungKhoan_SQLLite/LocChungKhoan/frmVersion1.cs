@@ -28,7 +28,7 @@ namespace LocChungKhoan
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Dữ liệu bắt đầu từ dòng thứ 2 (Dòng đầu là tiêu đề cột). Dữ liệu có cấu trúc cột theo thứ tự: Mã chứng khoán|Ngày (dd/MM/yyyy)|Giá đóng cửa (Số). Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Dữ liệu bắt đầu từ dòng thứ 2 (Dòng đầu là tiêu đề cột). Dữ liệu có cấu trúc cột theo thứ tự: Mã chứng khoán|Ngày (d/M/yyyy)|Giá đóng cửa (Số). Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
             { 
                 OpenFileDialog openFileDialog1 = new OpenFileDialog();
                 //mở file excel
@@ -61,7 +61,7 @@ namespace LocChungKhoan
                             //ngày
                             Cell cellB = row.Elements<Cell>().ElementAtOrDefault(1);
                             string myString = GetCellValue(cellB, workbookPart);
-                            obj.Ngay = DateTime.ParseExact(myString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            obj.Ngay = DateTime.ParseExact(myString, "d/M/yyyy", CultureInfo.InvariantCulture);
                             //giá
                             Cell cellC = row.Elements<Cell>().ElementAtOrDefault(2);
                             myString = GetCellValue(cellC, workbookPart);
@@ -142,9 +142,9 @@ namespace LocChungKhoan
                 MessageBox.Show("Bạn chưa nhập ngày");
                 return;
             }            
-            DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             ngay1 = new DateTime(ngay1.Year, ngay1.Month, ngay1.Day, 0, 0, 0);
             ngay2 = new DateTime(ngay2.Year, ngay2.Month, ngay2.Day, 0, 0, 0);
             ngay3 = new DateTime(ngay3.Year, ngay3.Month, ngay3.Day, 0, 0, 0);
@@ -240,9 +240,9 @@ namespace LocChungKhoan
                 MessageBox.Show("Bạn chưa nhập ngày");
                 return;
             }
-            DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             ngay1 = new DateTime(ngay1.Year, ngay1.Month, ngay1.Day, 0, 0, 0);
             ngay2 = new DateTime(ngay2.Year, ngay2.Month, ngay2.Day, 0, 0, 0);
             ngay3 = new DateTime(ngay3.Year, ngay3.Month, ngay3.Day, 0, 0, 0);
@@ -312,7 +312,7 @@ namespace LocChungKhoan
             {
                 DataRow dr = dt.NewRow();
                 dr["STT"] = i;
-                dr["Ngay"] = item.ToString("dd/MM/yyyy");
+                dr["Ngay"] = item.ToString("d/M/yyyy");
                 dt.Rows.Add(dr);
                 i++;
             }
@@ -339,10 +339,10 @@ namespace LocChungKhoan
                 txtNguongTren.Focus();
                 return;
             }              
-            DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay4 = DateTime.ParseExact(txtNgay4.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay4 = DateTime.ParseExact(txtNgay4.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             ngay1 = new DateTime(ngay1.Year, ngay1.Month, ngay1.Day, 0, 0, 0);
             ngay2 = new DateTime(ngay2.Year, ngay2.Month, ngay2.Day, 0, 0, 0);
             ngay3 = new DateTime(ngay3.Year, ngay3.Month, ngay3.Day, 0, 0, 0);
@@ -416,9 +416,9 @@ namespace LocChungKhoan
             {                
                 List<CToanTuSoSanh > listToanTu = frm.listToanTu;
                 List<CSoSanhNguong > listNguong = frm.listNguong;
-                DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime ngay1 = DateTime.ParseExact(txtNgay1.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+                DateTime ngay2 = DateTime.ParseExact(txtNgay2.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+                DateTime ngay3 = DateTime.ParseExact(txtNgay3.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
                 ngay1 = new DateTime(ngay1.Year, ngay1.Month, ngay1.Day, 0, 0, 0);
                 ngay2 = new DateTime(ngay2.Year, ngay2.Month, ngay2.Day, 0, 0, 0);
                 ngay3 = new DateTime(ngay3.Year, ngay3.Month, ngay3.Day, 0, 0, 0);                
@@ -434,7 +434,7 @@ namespace LocChungKhoan
                         dt.Columns.Add("Gia3", typeof(decimal));
                         dt.Columns.Add("Gia4", typeof(decimal));
                         int i = 1;
-                        DateTime ngay4 = DateTime.ParseExact(txtNgay4.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture); 
+                        DateTime ngay4 = DateTime.ParseExact(txtNgay4.Text, "d/M/yyyy", CultureInfo.InvariantCulture); 
                         ngay4 = new DateTime(ngay4.Year, ngay4.Month, ngay4.Day, 0, 0, 0);
                         var list = BieuDoGiaController.ThongKe4(ngay1, ngay2, ngay3, ngay4 ).OrderBy(x => x.MaChungKhoan);
                         

@@ -217,7 +217,7 @@ namespace LocChungKhoan
             {
                 DataRow dr = dt.NewRow();
                 dr["STT"] = i;
-                dr["Ngay"] = item.ToString("dd/MM/yyyy");
+                dr["Ngay"] = item.ToString("d/M/yyyy");
                 dt.Rows.Add(dr);
                 i++;
             }
@@ -384,14 +384,14 @@ namespace LocChungKhoan
             //    MessageBox.Show("Vui lòng nhập đủ thông tin");
             //    return;
             //}
-            //DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime tuan4DauTuan = DateTime.ParseExact(txtTuan4DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime tuan4CuoiTuan = DateTime.ParseExact(txtTuan4CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            //DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            //DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            //DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            //DateTime tuan4DauTuan = DateTime.ParseExact(txtTuan4DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            //DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            //DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            //DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            //DateTime tuan4CuoiTuan = DateTime.ParseExact(txtTuan4CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             //List<ThongKeKhoiLuong4Tuan> list = BieuDoKhoiLuongController.ThongKe4(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan, tuan4DauTuan, tuan4CuoiTuan );
             ////display to grid
             ////create datatable
@@ -454,16 +454,16 @@ namespace LocChungKhoan
         {
             //check if text is Date
             DateTime dt;
-            if (DateTime.TryParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+            if (DateTime.TryParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
             {
                 //update txtTuan1CuoiTuan
-                txtTuan1CuoiTuan.Text = dt.AddDays(4).ToString("dd/MM/yyyy");
-                txtTuan2DauTuan .Text = dt.AddDays(7).ToString("dd/MM/yyyy");
-                txtTuan2CuoiTuan.Text = dt.AddDays(11).ToString("dd/MM/yyyy");
-                txtTuan3DauTuan.Text = dt.AddDays(14).ToString("dd/MM/yyyy");
-                txtTuan3CuoiTuan.Text = dt.AddDays(18).ToString("dd/MM/yyyy");
-                //txtTuan4DauTuan.Text = dt.AddDays(21).ToString("dd/MM/yyyy");
-                //txtTuan4CuoiTuan.Text = dt.AddDays(25).ToString("dd/MM/yyyy");
+                txtTuan1CuoiTuan.Text = dt.AddDays(4).ToString("d/M/yyyy");
+                txtTuan2DauTuan .Text = dt.AddDays(7).ToString("d/M/yyyy");
+                txtTuan2CuoiTuan.Text = dt.AddDays(11).ToString("d/M/yyyy");
+                txtTuan3DauTuan.Text = dt.AddDays(14).ToString("d/M/yyyy");
+                txtTuan3CuoiTuan.Text = dt.AddDays(18).ToString("d/M/yyyy");
+                //txtTuan4DauTuan.Text = dt.AddDays(21).ToString("d/M/yyyy");
+                //txtTuan4CuoiTuan.Text = dt.AddDays(25).ToString("d/M/yyyy");
             }
 
         }
@@ -495,12 +495,12 @@ namespace LocChungKhoan
                 MessageBox.Show("Vui lòng nhập đủ thông tin");
                 return;
             }
-            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);            
-            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);            
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
             //display to grid
             //create datatable
@@ -639,9 +639,9 @@ namespace LocChungKhoan
                 MessageBox.Show("Vui lòng nhập đủ thông tin");
                 return;
             }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
             //display to grid
             //create datatable
@@ -692,9 +692,9 @@ namespace LocChungKhoan
                 MessageBox.Show("Vui lòng nhập đủ thông tin");
                 return;
             }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
             //display to grid
             //create datatable
@@ -753,9 +753,9 @@ namespace LocChungKhoan
                 MessageBox.Show("Vui lòng nhập đủ thông tin");
                 return;
             }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
             //display to grid
             //create datatable
@@ -808,9 +808,9 @@ namespace LocChungKhoan
                 MessageBox.Show("Vui lòng nhập đủ thông tin");
                 return;
             }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
             //display to grid
             //create datatable
@@ -878,9 +878,9 @@ namespace LocChungKhoan
                 MessageBox.Show("Vui lòng nhập đủ thông tin");
                 return;
             }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
             //display to grid
             //create datatable

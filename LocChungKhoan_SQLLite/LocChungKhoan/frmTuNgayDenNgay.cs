@@ -24,8 +24,8 @@ namespace LocChungKhoan
         {            
             try
             {
-                TuNgay = DateTime.ParseExact(txtTuNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                DenNgay = DateTime.ParseExact(txtDenNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                TuNgay = DateTime.ParseExact(txtTuNgay.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+                DenNgay = DateTime.ParseExact(txtDenNgay.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }   

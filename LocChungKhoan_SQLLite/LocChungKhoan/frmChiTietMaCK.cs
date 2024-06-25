@@ -32,7 +32,7 @@ namespace LocChungKhoan
             MaCK = txtMaCK.Text;
             try
             {
-                NgayBD = DateTime.ParseExact(txtTuNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                NgayBD = DateTime.ParseExact(txtTuNgay.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             }
             catch
             {
@@ -46,7 +46,7 @@ namespace LocChungKhoan
             //ngayKT
             try
             {
-                NgayKT = DateTime.ParseExact(txtDenNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                NgayKT = DateTime.ParseExact(txtDenNgay.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             }
             catch
             {
@@ -68,7 +68,7 @@ namespace LocChungKhoan
 
         private void frmChiTietMaCK_Load(object sender, EventArgs e)
         {
-            txtDenNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            txtDenNgay.Text = DateTime.Now.ToString("d/M/yyyy");
             txtTuNgay.Text = "01/01/2024";
         }
     }

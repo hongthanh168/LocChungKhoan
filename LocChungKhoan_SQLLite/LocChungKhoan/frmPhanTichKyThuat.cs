@@ -258,7 +258,7 @@ namespace LocChungKhoan
 
         private void frmMainKhoiLuong_Load(object sender, EventArgs e)
         {
-            txtTuNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            txtTuNgay.Text = DateTime.Now.ToString("d/M/yyyy");
         }
      
 
@@ -546,7 +546,7 @@ namespace LocChungKhoan
             {
                 DataRow dr = dt.NewRow();
                 dr["STT"] = i;
-                dr["Ngay"] = item.ToString("dd/MM/yyyy");
+                dr["Ngay"] = item.ToString("d/M/yyyy");
                 dt.Rows.Add(dr);
                 i++;
             }
@@ -585,7 +585,7 @@ namespace LocChungKhoan
                 foreach (var item in list)
                 {
                     DataRow dr = dt.NewRow();
-                    dr["Ngay"] = item.Ngay.ToString("dd/MM/yyyy");
+                    dr["Ngay"] = item.Ngay.ToString("d/M/yyyy");
                     dr["GiaMC"] = item.GiaMoCua;
                     dr["GiaDC"] = item.GiaDongCua;
                     dr["GiaMax"] = item.GiaCaoNhat;
@@ -611,7 +611,7 @@ namespace LocChungKhoan
         {
             gridKQLoc.DataSource = null;
             //lấy ra ngày bắt đầu
-            DateTime ngayBD = DateTime.ParseExact(txtTuNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime ngayBD = DateTime.ParseExact(txtTuNgay.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             int soNgay = Convert.ToInt32(txtSoNgay.Text);
             if (soNgay < 17 && chkSO.Checked)
             {
@@ -726,62 +726,10 @@ namespace LocChungKhoan
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = sfd.FileName;
-                    ExportDataGridViewToExcel(gridKQLoc, filePath);
+                    CExcelController.ExportDataGridViewToExcel(gridKQLoc, filePath);
                     MessageBox.Show("Xuất file excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-        }
-        private void ExportDataGridViewToExcel(DataGridView dgv, string filePath)
-        {
-            using (SpreadsheetDocument document = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook))
-            {
-                WorkbookPart workbookPart = document.AddWorkbookPart();
-                workbookPart.Workbook = new Workbook();
-                WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-                worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-                Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
-                Sheet sheet = new Sheet()
-                {
-                    Id = workbookPart.GetIdOfPart(worksheetPart),
-                    SheetId = 1,
-                    Name = "Sheet1"
-                };
-                sheets.Append(sheet);
-
-                SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
-
-                // Tạo hàng tiêu đề
-                Row headerRow = new Row();
-                foreach (DataGridViewColumn column in dgv.Columns)
-                {
-                    Cell cell = new Cell
-                    {
-                        DataType = CellValues.String,
-                        CellValue = new CellValue(column.HeaderText)
-                    };
-                    headerRow.AppendChild(cell);
-                }
-                sheetData.AppendChild(headerRow);
-
-                // Tạo các hàng dữ liệu
-                foreach (DataGridViewRow dgvRow in dgv.Rows)
-                {
-                    Row newRow = new Row();
-                    foreach (DataGridViewCell dgvCell in dgvRow.Cells)
-                    {
-                        Cell cell = new Cell
-                        {
-                            DataType = CellValues.String,
-                            CellValue = new CellValue(dgvCell.Value?.ToString())
-                        };
-                        newRow.AppendChild(cell);
-                    }
-                    sheetData.AppendChild(newRow);
-                }
-
-                workbookPart.Workbook.Save();
-            }
-        }
+        }        
     }
 }

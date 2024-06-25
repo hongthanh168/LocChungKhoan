@@ -348,6 +348,96 @@ namespace LocChungKhoan
                 return results;
             }
         }
+        public static List<ThongKeKhoiLuong> ThongKeNgayVaTuan(DateTime tuan3_start, DateTime tuan3_end, DateTime ngayXet)
+        {
+            using (var dbContext = new ChungKhoanEntities())
+            {
+                DateTime  tuan31, tuan32;
+                //tìm ra ngày bắt đầu và kết thúc của tuần 3
+                //ngày bắt đầu của tuần là ngày nhỏ nhất trong khoảng thời gian từ tuần 1_start đến tuần 1_end
+                //select min ngay from BieuDoKhoiLuong where ngay >= tuan1_start and ngay <= tuan1_end                
+                tuan31 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan3_start && x.Ngay <= tuan3_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan3_start)
+                    .Min();
+                tuan32 = dbContext.BieuDoKhoiLuongs
+                    .Where(x => x.Ngay >= tuan3_start && x.Ngay <= tuan3_end)
+                    .Select(x => x.Ngay)
+                    .DefaultIfEmpty(tuan3_end)
+                    .Max();
+
+                var results = (from t1 in dbContext.BieuDoKhoiLuongs
+                                   //where MaChungKhoan in DMQuanTam
+                               where t1.Ngay == ngayXet
+                               select new ThongKeKhoiLuong
+                               {
+                                   MaChungKhoan = t1.MaChungKhoan,
+                                   GiaDongCua1 = t1.GiaDongCua,
+                                   GiaDongCua2 = 0,
+                                   GiaDongCua3 = 0,
+                                   GiaMoCua1 = t1.GiaMoCua,
+                                   GiaMoCua2 = 0,
+                                   GiaMoCua3 = 0,
+                                   KhoiLuong1 = t1.KhoiLuong,
+                                   KhoiLuong2 = 0,
+                                   KhoiLuong3 = 0,
+                                   GiaCaoNhat1 = t1.GiaCaoNhat,
+                                   GiaCaoNhat2 = decimal.MinValue,
+                                   GiaCaoNhat3 = decimal.MinValue,
+                                   GiaThapNhat1 = t1.GiaThapNhat,
+                                   GiaThapNhat2 = decimal.MaxValue,
+                                   GiaThapNhat3 = decimal.MaxValue
+                               })                               
+                               .Union(
+                               from t3 in dbContext.BieuDoKhoiLuongs
+                               where t3.Ngay >= tuan3_start && t3.Ngay <= tuan3_end
+                               select new ThongKeKhoiLuong
+                               {
+                                   MaChungKhoan = t3.MaChungKhoan,
+                                   GiaDongCua1 = 0,
+                                   GiaDongCua2 = 0,
+                                   GiaDongCua3 = (t3.Ngay == tuan32) ? t3.GiaDongCua : 0,
+                                   GiaMoCua1 = 0,
+                                   GiaMoCua2 = 0,
+                                   GiaMoCua3 = (t3.Ngay == tuan31) ? t3.GiaMoCua : 0,
+                                   KhoiLuong1 = 0,
+                                   KhoiLuong2 = 0,
+                                   KhoiLuong3 = t3.KhoiLuong,
+                                   GiaCaoNhat1 = decimal.MinValue,
+                                   GiaCaoNhat2 = decimal.MinValue,
+                                   GiaCaoNhat3 = t3.GiaCaoNhat,
+                                   GiaThapNhat1 = decimal.MaxValue,
+                                   GiaThapNhat2 = decimal.MaxValue,
+                                   GiaThapNhat3 = t3.GiaThapNhat
+                               })
+                               .Join(dbContext.DMQuanTams, t => t.MaChungKhoan, d => d.MaChungKhoan, (t, d) => t)
+                               .GroupBy(x => x.MaChungKhoan)
+                               .Select(g => new ThongKeKhoiLuong
+                               {
+                                   MaChungKhoan = g.Key,
+                                   GiaDongCua1 = g.Sum(x => x.GiaDongCua1),
+                                   GiaDongCua2 = g.Sum(x => x.GiaDongCua2),
+                                   GiaDongCua3 = g.Sum(x => x.GiaDongCua3),
+                                   GiaMoCua1 = g.Sum(x => x.GiaMoCua1),
+                                   GiaMoCua2 = g.Sum(x => x.GiaMoCua2),
+                                   GiaMoCua3 = g.Sum(x => x.GiaMoCua3),
+                                   KhoiLuong1 = g.Sum(x => x.KhoiLuong1),
+                                   KhoiLuong2 = g.Sum(x => x.KhoiLuong2),
+                                   KhoiLuong3 = g.Sum(x => x.KhoiLuong3),
+                                   GiaCaoNhat1 = g.Max(x => x.GiaCaoNhat1),
+                                   GiaCaoNhat2 = g.Max(x => x.GiaCaoNhat2),
+                                   GiaCaoNhat3 = g.Max(x => x.GiaCaoNhat3),
+                                   GiaThapNhat1 = g.Min(x => x.GiaThapNhat1),
+                                   GiaThapNhat2 = g.Min(x => x.GiaThapNhat2),
+                                   GiaThapNhat3 = g.Min(x => x.GiaThapNhat3)
+                               })
+                               .Where(x => x.GiaDongCua1 != 0 && x.GiaDongCua3 != 0)
+                               .ToList();
+
+                return results;
+            }
+        }
         public static List<ThongKeKhoiLuong> ThongKe2Tuan(DateTime tuan2_start, DateTime tuan2_end, DateTime tuan3_start, DateTime tuan3_end)
         {
             using (var dbContext = new ChungKhoanEntities())

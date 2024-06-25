@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\BieuDoKhoiLuongController.cs" />
+    <Compile Include="Controller\CExcelController.cs" />
     <Compile Include="Controller\CNguong.cs" />
     <Compile Include="Controller\CStockAnalyze.cs" />
     <Compile Include="Controller\CToanTu.cs" />

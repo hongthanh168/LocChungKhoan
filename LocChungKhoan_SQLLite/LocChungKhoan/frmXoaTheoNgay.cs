@@ -32,8 +32,8 @@ namespace LocChungKhoan
             {
                 try
                 {
-                    DateTime ngayBatDau = DateTime.ParseExact(txtTuNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    DateTime ngayKetThuc = DateTime.ParseExact(txtDenNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    DateTime ngayBatDau = DateTime.ParseExact(txtTuNgay.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+                    DateTime ngayKetThuc = DateTime.ParseExact(txtDenNgay.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
                     //delete all data in BieuDoGias
                     ngayBatDau = new DateTime(ngayBatDau.Year, ngayBatDau.Month, ngayBatDau.Day, 0, 0, 0);
                     ngayKetThuc = new DateTime(ngayKetThuc.Year, ngayKetThuc.Month, ngayKetThuc.Day, 23, 59, 59);
@@ -45,7 +45,7 @@ namespace LocChungKhoan
                     {
                         BieuDoKhoiLuongController.DeleteFromTo(ngayBatDau, ngayKetThuc);
                     }                    
-                    MessageBox.Show("Đã xóa dữ liệu từ ngày " + ngayBatDau.ToString("dd/MM/yyyy") + " đến ngày " + ngayKetThuc.ToString("dd/MM/yyyy"));
+                    MessageBox.Show("Đã xóa dữ liệu từ ngày " + ngayBatDau.ToString("d/M/yyyy") + " đến ngày " + ngayKetThuc.ToString("d/M/yyyy"));
                     this.Close();
                 }   
                 catch
@@ -57,7 +57,7 @@ namespace LocChungKhoan
             {
                 try
                 {
-                    DateTime ngay = DateTime.ParseExact(txtNgay.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    DateTime ngay = DateTime.ParseExact(txtNgay.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
                     ngay = new DateTime(ngay.Year, ngay.Month, ngay.Day, 0, 0, 0);
                     if (iFormGoi == 0)
                     {
@@ -67,7 +67,7 @@ namespace LocChungKhoan
                     {
                         BieuDoKhoiLuongController.DeleteTheoNgay(ngay);
                     }                    
-                    MessageBox.Show("Đã xóa dữ liệu ngày " + ngay.ToString("dd/MM/yyyy"));
+                    MessageBox.Show("Đã xóa dữ liệu ngày " + ngay.ToString("d/M/yyyy"));
                     this.Close();
                 }
                 catch
