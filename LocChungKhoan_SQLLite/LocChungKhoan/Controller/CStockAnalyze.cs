@@ -661,7 +661,7 @@ namespace LocChungKhoan
             return sma;
         }
         //VSA: Volume Spread Analysis
-        public List<string> LayCoPhieuTheoPivotPocket(List<BieuDoKhoiLuong> duLieu, decimal priceIncrease, int soNgayXet = 3)
+        public List<string> LayCoPhieuTheoPivotPocket(List<BieuDoKhoiLuong> duLieu, decimal priceIncrease, int soNgayXet = 1)
         {
             List<string> danhSachCoPhieu = new List<string>();
 
@@ -678,7 +678,7 @@ namespace LocChungKhoan
                 data = data.OrderByDescending(x => x.Ngay).ToList ();
                 int i = 0;
                 bool kq = false;
-                while (i <= soNgayXet && !kq)
+                while (i < soNgayXet && !kq)
                 {
                     //tính MA10
                     decimal ma10 = SMA(data, i, 10);
@@ -695,7 +695,7 @@ namespace LocChungKhoan
                     }
                         
                     //kiểm tra khối lượng có tăng mạnh và giá đóng cửa tăng mạnh?
-                    if (data[i].GiaDongCua > ma10 &&  data[i].KhoiLuong > maxVolume && data[i].GiaDongCua > data[i].GiaMoCua * priceIncrease/100.0m)
+                    if (data[i].GiaDongCua > ma10 &&  data[i].KhoiLuong > maxVolume && data[i].GiaDongCua > data[i].GiaMoCua * (1+priceIncrease/100.0m))
                     {
                         danhSachCoPhieu.Add(stock.MaChungKhoan);
                         kq = true;
@@ -724,7 +724,7 @@ namespace LocChungKhoan
                 var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
                 int i = 0;
                 bool kq = false;
-                while (i < soNgayXet && !kq)
+                while (i < soNgayXet && i <data.Count-2 && !kq)
                 {
                     decimal rauNenTren = data[i].GiaCaoNhat - Math.Max(data[i].GiaDongCua, data[i].GiaMoCua);
                     decimal rauNenDuoi = Math.Min(data[i].GiaDongCua, data[i].GiaMoCua) - data[i].GiaThapNhat;
@@ -741,5 +741,34 @@ namespace LocChungKhoan
         }
         #endregion
 
+        #region "Hàm tự chế"
+        public List<string> LayCoPhieuManh(List<BieuDoKhoiLuong> duLieu, int soNgayXet = 5)
+        {
+            //ý tưởng là tìm cổ phiếu mà ngày vnindex giảm nhưng nó vẫn xanh, mà xanh quyết liệt
+            //giá đóng cửa > giá mở cửa và đóng cửa ở nửa thân trên của nến
+            //chưa hoàn thiện
+            List<string> danhSachCoPhieu = new List<string>();
+            //group by mã chứng khoán
+            var list = duLieu.GroupBy(s => s.MaChungKhoan)
+                .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() });
+            foreach (var stock in list)
+            {
+                //order by date
+                var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
+                int i = 0;
+                bool kq = false;
+                while (i < soNgayXet && !kq)
+                {
+                    if (data[i].GiaDongCua > data[i + 1].GiaDongCua)
+                    {
+                        danhSachCoPhieu.Add(stock.MaChungKhoan);
+                        kq = true;
+                    }
+                    i++;
+                }
+            }
+            return danhSachCoPhieu;
+        }
+        #endregion
     }
 }

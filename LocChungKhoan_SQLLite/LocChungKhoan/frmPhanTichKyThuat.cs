@@ -631,16 +631,28 @@ namespace LocChungKhoan
             decimal nguongKhoiLuong = Convert.ToDecimal(txtNguongKhoiLuong.Text)/100.0m;
             //lấy ra danh sách các cổ phiếu
             List<BieuDoKhoiLuong> duLieu = BieuDoKhoiLuongController.GetAllByDays(soNgay, ngayBD);
-            List<string> coPhieuDaLoc = new List<string>();  
-            if (chkDanhMucChuMinh.Checked)
+            List<string> coPhieuDaLoc = new List<string>(); 
+            if (txtMaQuanTam.Text != "")
             {
-                coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCK();
+                //lấy danh sách từ textbox
+                string[] maCKs = txtMaQuanTam.Text.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var item in maCKs)
+                {
+                    coPhieuDaLoc.Add(item.Trim().ToUpper());
+                }
             }
             else
             {
-                decimal volMin= Convert.ToDecimal(txtKLGDMin.Text);
-                coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCKThanh(10.0m,volMin);
-            }
+                if (chkDanhMucChuMinh.Checked)
+                {
+                    coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCK();
+                }
+                else
+                {
+                    decimal volMin = Convert.ToDecimal(txtKLGDMin.Text);
+                    coPhieuDaLoc = BieuDoKhoiLuongController.GetListMaCKThanh(10.0m, volMin);
+                }
+            }            
             duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
             //lọc dữ liệu
             StockAnalyzer stockAnalyzer = new StockAnalyzer();
@@ -656,44 +668,44 @@ namespace LocChungKhoan
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuBienDongKhoiLuong(duLieu, ngayBD, nguongKhoiLuong);
             }
-            if (chkMACD.Checked)
+            if (coPhieuDaLoc.Count > 0 && chkMACD.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuTangTheoMACD(duLieu);
             }
-            if (chkRSI.Checked)
+            if (coPhieuDaLoc.Count > 0 && chkRSI.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 int rsiMin = Convert.ToInt32(txtRSI_from.Text);
                 int rsiMax = Convert.ToInt32(txtRSI_To.Text);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoRSI (duLieu, rsiMin, rsiMax, soNgay);
             }
-            if (chkSO .Checked)
+            if (coPhieuDaLoc.Count > 0 && chkSO .Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuTangTheoStochasticOscillator(duLieu);
             }
-            if (chkNen_BullishEngulfing.Checked)
+            if (coPhieuDaLoc.Count > 0 && chkNen_BullishEngulfing.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.BullishEngulfing);
             }
-            if (chkNen_Hammer.Checked)
+            if (coPhieuDaLoc.Count > 0 && chkNen_Hammer.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.Hammer);
             }
-            if (chkNen_PiercingPartern.Checked)
+            if (coPhieuDaLoc.Count > 0 && chkNen_PiercingPartern.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.PiercingLine);
             }
-            if (chkMorningStar.Checked)
+            if (coPhieuDaLoc.Count > 0 && chkMorningStar.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 coPhieuDaLoc = stockAnalyzer.LayCoPhieuTheoNenNhat(duLieu, StockAnalyzer.MauHinhNen.MorningStar);
             }
-            if (chkPivot.Checked)
+            if (coPhieuDaLoc.Count > 0 && chkPivot.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
                 decimal nguongPivot = Convert.ToDecimal(txtNguongPivot.Text);

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -44,6 +44,7 @@
             this.chkPivot = new System.Windows.Forms.CheckBox();
             this.chkRSI = new System.Windows.Forms.CheckBox();
             this.chkBienDongKhoiLuong = new System.Windows.Forms.CheckBox();
+            this.chkCoPhieuManh = new System.Windows.Forms.CheckBox();
             this.chkDanhMucChuMinh = new System.Windows.Forms.CheckBox();
             this.chkKietCung = new System.Windows.Forms.CheckBox();
             this.chkMorningStar = new System.Windows.Forms.CheckBox();
@@ -58,11 +59,15 @@
             this.btnXuatRaExcel = new System.Windows.Forms.Button();
             this.btnLoc = new System.Windows.Forms.Button();
             this.txtNguongKhoiLuong = new System.Windows.Forms.TextBox();
+            this.txtNgaySupply = new System.Windows.Forms.TextBox();
+            this.txtNgayPivot = new System.Windows.Forms.TextBox();
             this.txtRSI_To = new System.Windows.Forms.TextBox();
             this.txtRSI_from = new System.Windows.Forms.TextBox();
             this.txtNguongKietCung = new System.Windows.Forms.TextBox();
             this.txtNguongPivot = new System.Windows.Forms.TextBox();
             this.txtKLGDMin = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtSoNgay = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -83,10 +88,8 @@
             this.xemDữLiệuCủa1MãCụThểToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtNgayPivot = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtNgaySupply = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtMaQuanTam = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
             this.panel1.SuspendLayout();
@@ -153,15 +156,15 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1469, 547);
+            this.groupBox2.Size = new System.Drawing.Size(1523, 466);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kết quả lọc";
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -169,7 +172,7 @@
             this.gridKQLoc.Margin = new System.Windows.Forms.Padding(4);
             this.gridKQLoc.Name = "gridKQLoc";
             this.gridKQLoc.RowHeadersWidth = 51;
-            this.gridKQLoc.Size = new System.Drawing.Size(1461, 524);
+            this.gridKQLoc.Size = new System.Drawing.Size(1515, 443);
             this.gridKQLoc.TabIndex = 0;
             // 
             // panel1
@@ -179,7 +182,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1473, 818);
+            this.panel1.Size = new System.Drawing.Size(1527, 818);
             this.panel1.TabIndex = 6;
             // 
             // splitContainer1
@@ -205,8 +208,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(1473, 818);
-            this.splitContainer1.SplitterDistance = 262;
+            this.splitContainer1.Size = new System.Drawing.Size(1527, 818);
+            this.splitContainer1.SplitterDistance = 343;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -237,6 +240,7 @@
             this.groupBox1.Controls.Add(this.chkPivot);
             this.groupBox1.Controls.Add(this.chkRSI);
             this.groupBox1.Controls.Add(this.chkBienDongKhoiLuong);
+            this.groupBox1.Controls.Add(this.chkCoPhieuManh);
             this.groupBox1.Controls.Add(this.chkDanhMucChuMinh);
             this.groupBox1.Controls.Add(this.chkKietCung);
             this.groupBox1.Controls.Add(this.chkMorningStar);
@@ -245,7 +249,9 @@
             this.groupBox1.Controls.Add(this.chkNen_BullishEngulfing);
             this.groupBox1.Controls.Add(this.chkSO);
             this.groupBox1.Controls.Add(this.chkMACD);
+            this.groupBox1.Controls.Add(this.txtMaQuanTam);
             this.groupBox1.Controls.Add(this.txtMaCK);
+            this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnXuatRaExcel);
@@ -273,7 +279,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1441, 153);
+            this.groupBox1.Size = new System.Drawing.Size(1495, 226);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tham số:";
@@ -281,7 +287,7 @@
             // chkPivot
             // 
             this.chkPivot.AutoSize = true;
-            this.chkPivot.Location = new System.Drawing.Point(1042, 66);
+            this.chkPivot.Location = new System.Drawing.Point(1042, 119);
             this.chkPivot.Name = "chkPivot";
             this.chkPivot.Size = new System.Drawing.Size(160, 20);
             this.chkPivot.TabIndex = 16;
@@ -291,7 +297,7 @@
             // chkRSI
             // 
             this.chkRSI.AutoSize = true;
-            this.chkRSI.Location = new System.Drawing.Point(1042, 94);
+            this.chkRSI.Location = new System.Drawing.Point(1042, 147);
             this.chkRSI.Name = "chkRSI";
             this.chkRSI.Size = new System.Drawing.Size(51, 20);
             this.chkRSI.TabIndex = 16;
@@ -301,17 +307,27 @@
             // chkBienDongKhoiLuong
             // 
             this.chkBienDongKhoiLuong.AutoSize = true;
-            this.chkBienDongKhoiLuong.Location = new System.Drawing.Point(1042, 40);
+            this.chkBienDongKhoiLuong.Location = new System.Drawing.Point(1042, 93);
             this.chkBienDongKhoiLuong.Name = "chkBienDongKhoiLuong";
             this.chkBienDongKhoiLuong.Size = new System.Drawing.Size(175, 20);
             this.chkBienDongKhoiLuong.TabIndex = 16;
             this.chkBienDongKhoiLuong.Text = "Biến động khối lượng lớn";
             this.chkBienDongKhoiLuong.UseVisualStyleBackColor = true;
             // 
+            // chkCoPhieuManh
+            // 
+            this.chkCoPhieuManh.AutoSize = true;
+            this.chkCoPhieuManh.Location = new System.Drawing.Point(814, 93);
+            this.chkCoPhieuManh.Name = "chkCoPhieuManh";
+            this.chkCoPhieuManh.Size = new System.Drawing.Size(141, 20);
+            this.chkCoPhieuManh.TabIndex = 16;
+            this.chkCoPhieuManh.Text = "Lấy cổ phiếu mạnh";
+            this.chkCoPhieuManh.UseVisualStyleBackColor = true;
+            // 
             // chkDanhMucChuMinh
             // 
             this.chkDanhMucChuMinh.AutoSize = true;
-            this.chkDanhMucChuMinh.Location = new System.Drawing.Point(814, 14);
+            this.chkDanhMucChuMinh.Location = new System.Drawing.Point(814, 67);
             this.chkDanhMucChuMinh.Name = "chkDanhMucChuMinh";
             this.chkDanhMucChuMinh.Size = new System.Drawing.Size(189, 20);
             this.chkDanhMucChuMinh.TabIndex = 16;
@@ -321,7 +337,7 @@
             // chkKietCung
             // 
             this.chkKietCung.AutoSize = true;
-            this.chkKietCung.Location = new System.Drawing.Point(1042, 14);
+            this.chkKietCung.Location = new System.Drawing.Point(1042, 67);
             this.chkKietCung.Name = "chkKietCung";
             this.chkKietCung.Size = new System.Drawing.Size(170, 20);
             this.chkKietCung.TabIndex = 16;
@@ -331,7 +347,7 @@
             // chkMorningStar
             // 
             this.chkMorningStar.AutoSize = true;
-            this.chkMorningStar.Location = new System.Drawing.Point(1244, 66);
+            this.chkMorningStar.Location = new System.Drawing.Point(1244, 119);
             this.chkMorningStar.Name = "chkMorningStar";
             this.chkMorningStar.Size = new System.Drawing.Size(185, 20);
             this.chkMorningStar.TabIndex = 15;
@@ -341,7 +357,7 @@
             // chkNen_PiercingPartern
             // 
             this.chkNen_PiercingPartern.AutoSize = true;
-            this.chkNen_PiercingPartern.Location = new System.Drawing.Point(1244, 94);
+            this.chkNen_PiercingPartern.Location = new System.Drawing.Point(1244, 147);
             this.chkNen_PiercingPartern.Name = "chkNen_PiercingPartern";
             this.chkNen_PiercingPartern.Size = new System.Drawing.Size(151, 20);
             this.chkNen_PiercingPartern.TabIndex = 15;
@@ -351,7 +367,7 @@
             // chkNen_Hammer
             // 
             this.chkNen_Hammer.AutoSize = true;
-            this.chkNen_Hammer.Location = new System.Drawing.Point(1244, 40);
+            this.chkNen_Hammer.Location = new System.Drawing.Point(1244, 93);
             this.chkNen_Hammer.Name = "chkNen_Hammer";
             this.chkNen_Hammer.Size = new System.Drawing.Size(109, 20);
             this.chkNen_Hammer.TabIndex = 15;
@@ -361,7 +377,7 @@
             // chkNen_BullishEngulfing
             // 
             this.chkNen_BullishEngulfing.AutoSize = true;
-            this.chkNen_BullishEngulfing.Location = new System.Drawing.Point(1244, 14);
+            this.chkNen_BullishEngulfing.Location = new System.Drawing.Point(1244, 67);
             this.chkNen_BullishEngulfing.Name = "chkNen_BullishEngulfing";
             this.chkNen_BullishEngulfing.Size = new System.Drawing.Size(157, 20);
             this.chkNen_BullishEngulfing.TabIndex = 15;
@@ -371,7 +387,7 @@
             // chkSO
             // 
             this.chkSO.AutoSize = true;
-            this.chkSO.Location = new System.Drawing.Point(1244, 119);
+            this.chkSO.Location = new System.Drawing.Point(1244, 172);
             this.chkSO.Name = "chkSO";
             this.chkSO.Size = new System.Drawing.Size(147, 20);
             this.chkSO.TabIndex = 15;
@@ -381,7 +397,7 @@
             // chkMACD
             // 
             this.chkMACD.AutoSize = true;
-            this.chkMACD.Location = new System.Drawing.Point(1042, 120);
+            this.chkMACD.Location = new System.Drawing.Point(1042, 173);
             this.chkMACD.Name = "chkMACD";
             this.chkMACD.Size = new System.Drawing.Size(68, 20);
             this.chkMACD.TabIndex = 15;
@@ -390,7 +406,7 @@
             // 
             // txtMaCK
             // 
-            this.txtMaCK.Location = new System.Drawing.Point(498, 114);
+            this.txtMaCK.Location = new System.Drawing.Point(366, 182);
             this.txtMaCK.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaCK.Name = "txtMaCK";
             this.txtMaCK.Size = new System.Drawing.Size(140, 22);
@@ -400,7 +416,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(417, 117);
+            this.label9.Location = new System.Drawing.Point(285, 185);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 16);
@@ -409,7 +425,7 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(11, 56);
+            this.label4.Location = new System.Drawing.Point(11, 109);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 54);
             this.label4.TabIndex = 8;
@@ -418,7 +434,7 @@
             // 
             // btnXuatRaExcel
             // 
-            this.btnXuatRaExcel.Location = new System.Drawing.Point(648, 111);
+            this.btnXuatRaExcel.Location = new System.Drawing.Point(516, 179);
             this.btnXuatRaExcel.Margin = new System.Windows.Forms.Padding(4);
             this.btnXuatRaExcel.Name = "btnXuatRaExcel";
             this.btnXuatRaExcel.Size = new System.Drawing.Size(200, 28);
@@ -429,7 +445,7 @@
             // 
             // btnLoc
             // 
-            this.btnLoc.Location = new System.Drawing.Point(260, 111);
+            this.btnLoc.Location = new System.Drawing.Point(128, 179);
             this.btnLoc.Margin = new System.Windows.Forms.Padding(4);
             this.btnLoc.Name = "btnLoc";
             this.btnLoc.Size = new System.Drawing.Size(140, 28);
@@ -440,16 +456,34 @@
             // 
             // txtNguongKhoiLuong
             // 
-            this.txtNguongKhoiLuong.Location = new System.Drawing.Point(131, 56);
+            this.txtNguongKhoiLuong.Location = new System.Drawing.Point(131, 109);
             this.txtNguongKhoiLuong.Margin = new System.Windows.Forms.Padding(4);
             this.txtNguongKhoiLuong.Name = "txtNguongKhoiLuong";
             this.txtNguongKhoiLuong.Size = new System.Drawing.Size(107, 22);
             this.txtNguongKhoiLuong.TabIndex = 3;
             this.txtNguongKhoiLuong.Text = "350";
             // 
+            // txtNgaySupply
+            // 
+            this.txtNgaySupply.Location = new System.Drawing.Point(745, 134);
+            this.txtNgaySupply.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNgaySupply.Name = "txtNgaySupply";
+            this.txtNgaySupply.Size = new System.Drawing.Size(38, 22);
+            this.txtNgaySupply.TabIndex = 0;
+            this.txtNgaySupply.Text = "3";
+            // 
+            // txtNgayPivot
+            // 
+            this.txtNgayPivot.Location = new System.Drawing.Point(745, 103);
+            this.txtNgayPivot.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNgayPivot.Name = "txtNgayPivot";
+            this.txtNgayPivot.Size = new System.Drawing.Size(38, 22);
+            this.txtNgayPivot.TabIndex = 0;
+            this.txtNgayPivot.Text = "1";
+            // 
             // txtRSI_To
             // 
-            this.txtRSI_To.Location = new System.Drawing.Point(745, 20);
+            this.txtRSI_To.Location = new System.Drawing.Point(745, 73);
             this.txtRSI_To.Margin = new System.Windows.Forms.Padding(4);
             this.txtRSI_To.Name = "txtRSI_To";
             this.txtRSI_To.Size = new System.Drawing.Size(38, 22);
@@ -458,7 +492,7 @@
             // 
             // txtRSI_from
             // 
-            this.txtRSI_from.Location = new System.Drawing.Point(600, 20);
+            this.txtRSI_from.Location = new System.Drawing.Point(600, 73);
             this.txtRSI_from.Margin = new System.Windows.Forms.Padding(4);
             this.txtRSI_from.Name = "txtRSI_from";
             this.txtRSI_from.Size = new System.Drawing.Size(43, 22);
@@ -467,7 +501,7 @@
             // 
             // txtNguongKietCung
             // 
-            this.txtNguongKietCung.Location = new System.Drawing.Point(600, 81);
+            this.txtNguongKietCung.Location = new System.Drawing.Point(600, 134);
             this.txtNguongKietCung.Margin = new System.Windows.Forms.Padding(4);
             this.txtNguongKietCung.Name = "txtNguongKietCung";
             this.txtNguongKietCung.Size = new System.Drawing.Size(43, 22);
@@ -476,7 +510,7 @@
             // 
             // txtNguongPivot
             // 
-            this.txtNguongPivot.Location = new System.Drawing.Point(600, 53);
+            this.txtNguongPivot.Location = new System.Drawing.Point(600, 106);
             this.txtNguongPivot.Margin = new System.Windows.Forms.Padding(4);
             this.txtNguongPivot.Name = "txtNguongPivot";
             this.txtNguongPivot.Size = new System.Drawing.Size(43, 22);
@@ -485,17 +519,37 @@
             // 
             // txtKLGDMin
             // 
-            this.txtKLGDMin.Location = new System.Drawing.Point(380, 53);
+            this.txtKLGDMin.Location = new System.Drawing.Point(380, 106);
             this.txtKLGDMin.Margin = new System.Windows.Forms.Padding(4);
             this.txtKLGDMin.Name = "txtKLGDMin";
             this.txtKLGDMin.Size = new System.Drawing.Size(83, 22);
             this.txtKLGDMin.TabIndex = 0;
             this.txtKLGDMin.Text = "500000";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(656, 137);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(83, 16);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Ngày supply";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(664, 106);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(73, 16);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Ngày Pivot";
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(704, 23);
+            this.label8.Location = new System.Drawing.Point(704, 76);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(33, 16);
@@ -504,7 +558,7 @@
             // 
             // txtSoNgay
             // 
-            this.txtSoNgay.Location = new System.Drawing.Point(380, 23);
+            this.txtSoNgay.Location = new System.Drawing.Point(380, 76);
             this.txtSoNgay.Margin = new System.Windows.Forms.Padding(4);
             this.txtSoNgay.Name = "txtSoNgay";
             this.txtSoNgay.Size = new System.Drawing.Size(83, 22);
@@ -514,7 +568,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(477, 84);
+            this.label11.Location = new System.Drawing.Point(477, 137);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(118, 16);
@@ -524,7 +578,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(489, 56);
+            this.label10.Location = new System.Drawing.Point(489, 109);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(106, 16);
@@ -534,7 +588,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(547, 23);
+            this.label6.Location = new System.Drawing.Point(547, 76);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 16);
@@ -544,7 +598,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(282, 56);
+            this.label3.Location = new System.Drawing.Point(282, 109);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 16);
@@ -554,7 +608,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(252, 26);
+            this.label5.Location = new System.Drawing.Point(252, 79);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(120, 16);
@@ -563,7 +617,7 @@
             // 
             // txtTuNgay
             // 
-            this.txtTuNgay.Location = new System.Drawing.Point(131, 26);
+            this.txtTuNgay.Location = new System.Drawing.Point(131, 79);
             this.txtTuNgay.Margin = new System.Windows.Forms.Padding(4);
             this.txtTuNgay.Name = "txtTuNgay";
             this.txtTuNgay.Size = new System.Drawing.Size(107, 22);
@@ -572,7 +626,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 29);
+            this.label2.Location = new System.Drawing.Point(51, 82);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 16);
@@ -588,7 +642,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1473, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1527, 28);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "Xóa dữ liệu";
             // 
@@ -667,55 +721,36 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
-            // label12
+            // label14
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(664, 53);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(73, 16);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "Ngày Pivot";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(18, 29);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(104, 16);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "Mã CK quan tâm";
             // 
-            // txtNgayPivot
+            // txtMaQuanTam
             // 
-            this.txtNgayPivot.Location = new System.Drawing.Point(745, 50);
-            this.txtNgayPivot.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNgayPivot.Name = "txtNgayPivot";
-            this.txtNgayPivot.Size = new System.Drawing.Size(38, 22);
-            this.txtNgayPivot.TabIndex = 0;
-            this.txtNgayPivot.Text = "1";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(656, 84);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(83, 16);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Ngày supply";
-            // 
-            // txtNgaySupply
-            // 
-            this.txtNgaySupply.Location = new System.Drawing.Point(745, 81);
-            this.txtNgaySupply.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNgaySupply.Name = "txtNgaySupply";
-            this.txtNgaySupply.Size = new System.Drawing.Size(38, 22);
-            this.txtNgaySupply.TabIndex = 0;
-            this.txtNgaySupply.Text = "3";
+            this.txtMaQuanTam.Location = new System.Drawing.Point(135, 26);
+            this.txtMaQuanTam.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMaQuanTam.Name = "txtMaQuanTam";
+            this.txtMaQuanTam.Size = new System.Drawing.Size(1281, 22);
+            this.txtMaQuanTam.TabIndex = 12;
             // 
             // frmPhanTichKyThuat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1473, 846);
+            this.ClientSize = new System.Drawing.Size(1527, 846);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmPhanTichKyThuat";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lọc chứng khoán theo khối lượng";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMainKhoiLuong_Load);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).EndInit();
@@ -794,6 +829,9 @@
         private System.Windows.Forms.TextBox txtNgayPivot;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox chkCoPhieuManh;
+        private System.Windows.Forms.TextBox txtMaQuanTam;
+        private System.Windows.Forms.Label label14;
     }
 }
 
