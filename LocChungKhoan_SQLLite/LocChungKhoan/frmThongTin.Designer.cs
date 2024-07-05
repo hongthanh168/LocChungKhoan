@@ -65,6 +65,7 @@
             this.btnThuNghiem.TabIndex = 2;
             this.btnThuNghiem.Text = "Thử nghiệm";
             this.btnThuNghiem.UseVisualStyleBackColor = true;
+            this.btnThuNghiem.Visible = false;
             this.btnThuNghiem.Click += new System.EventHandler(this.btnThuNghiem_Click);
             // 
             // frmThongTin
@@ -79,6 +80,7 @@
             this.Name = "frmThongTin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thông tin phiên bản";
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmThongTin_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 

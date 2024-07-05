@@ -135,18 +135,6 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMainKhoiLuong.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMainKhoiLuong.Designer.cs">
-      <DependentUpon>frmMainKhoiLuong.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmVersion1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmVersion1.Designer.cs">
-      <DependentUpon>frmVersion1.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmTuNgayDenNgay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,12 +177,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMainKhoiLuong.resx">
-      <DependentUpon>frmMainKhoiLuong.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmVersion1.resx">
-      <DependentUpon>frmVersion1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTuNgayDenNgay.resx">
       <DependentUpon>frmTuNgayDenNgay.cs</DependentUpon>

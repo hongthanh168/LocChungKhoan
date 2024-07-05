@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -44,7 +44,6 @@
             this.chkPivot = new System.Windows.Forms.CheckBox();
             this.chkRSI = new System.Windows.Forms.CheckBox();
             this.chkBienDongKhoiLuong = new System.Windows.Forms.CheckBox();
-            this.chkCoPhieuManh = new System.Windows.Forms.CheckBox();
             this.chkDanhMucChuMinh = new System.Windows.Forms.CheckBox();
             this.chkKietCung = new System.Windows.Forms.CheckBox();
             this.chkMorningStar = new System.Windows.Forms.CheckBox();
@@ -53,9 +52,11 @@
             this.chkNen_BullishEngulfing = new System.Windows.Forms.CheckBox();
             this.chkSO = new System.Windows.Forms.CheckBox();
             this.chkMACD = new System.Windows.Forms.CheckBox();
+            this.txtMaQuanTam = new System.Windows.Forms.TextBox();
             this.txtMaCK = new System.Windows.Forms.TextBox();
+            this.lblMaCKQuanTam = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblNguongKhoiLuong = new System.Windows.Forms.Label();
             this.btnXuatRaExcel = new System.Windows.Forms.Button();
             this.btnLoc = new System.Windows.Forms.Button();
             this.txtNguongKhoiLuong = new System.Windows.Forms.TextBox();
@@ -70,8 +71,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtSoNgay = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblThanNenSupply = new System.Windows.Forms.Label();
+            this.lblTangGiaPivot = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -88,8 +89,6 @@
             this.xemDữLiệuCủa1MãCụThểToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtMaQuanTam = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
             this.panel1.SuspendLayout();
@@ -163,8 +162,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -240,7 +239,6 @@
             this.groupBox1.Controls.Add(this.chkPivot);
             this.groupBox1.Controls.Add(this.chkRSI);
             this.groupBox1.Controls.Add(this.chkBienDongKhoiLuong);
-            this.groupBox1.Controls.Add(this.chkCoPhieuManh);
             this.groupBox1.Controls.Add(this.chkDanhMucChuMinh);
             this.groupBox1.Controls.Add(this.chkKietCung);
             this.groupBox1.Controls.Add(this.chkMorningStar);
@@ -251,9 +249,9 @@
             this.groupBox1.Controls.Add(this.chkMACD);
             this.groupBox1.Controls.Add(this.txtMaQuanTam);
             this.groupBox1.Controls.Add(this.txtMaCK);
-            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.lblMaCKQuanTam);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.lblNguongKhoiLuong);
             this.groupBox1.Controls.Add(this.btnXuatRaExcel);
             this.groupBox1.Controls.Add(this.btnLoc);
             this.groupBox1.Controls.Add(this.txtNguongKhoiLuong);
@@ -268,8 +266,8 @@
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtSoNgay);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.lblThanNenSupply);
+            this.groupBox1.Controls.Add(this.lblTangGiaPivot);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label5);
@@ -313,16 +311,6 @@
             this.chkBienDongKhoiLuong.TabIndex = 16;
             this.chkBienDongKhoiLuong.Text = "Biến động khối lượng lớn";
             this.chkBienDongKhoiLuong.UseVisualStyleBackColor = true;
-            // 
-            // chkCoPhieuManh
-            // 
-            this.chkCoPhieuManh.AutoSize = true;
-            this.chkCoPhieuManh.Location = new System.Drawing.Point(814, 93);
-            this.chkCoPhieuManh.Name = "chkCoPhieuManh";
-            this.chkCoPhieuManh.Size = new System.Drawing.Size(141, 20);
-            this.chkCoPhieuManh.TabIndex = 16;
-            this.chkCoPhieuManh.Text = "Lấy cổ phiếu mạnh";
-            this.chkCoPhieuManh.UseVisualStyleBackColor = true;
             // 
             // chkDanhMucChuMinh
             // 
@@ -404,6 +392,14 @@
             this.chkMACD.Text = "MACD";
             this.chkMACD.UseVisualStyleBackColor = true;
             // 
+            // txtMaQuanTam
+            // 
+            this.txtMaQuanTam.Location = new System.Drawing.Point(135, 26);
+            this.txtMaQuanTam.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMaQuanTam.Name = "txtMaQuanTam";
+            this.txtMaQuanTam.Size = new System.Drawing.Size(1281, 22);
+            this.txtMaQuanTam.TabIndex = 12;
+            // 
             // txtMaCK
             // 
             this.txtMaCK.Location = new System.Drawing.Point(366, 182);
@@ -412,6 +408,16 @@
             this.txtMaCK.Size = new System.Drawing.Size(140, 22);
             this.txtMaCK.TabIndex = 12;
             this.txtMaCK.TextChanged += new System.EventHandler(this.txtMaCK_TextChanged);
+            // 
+            // lblMaCKQuanTam
+            // 
+            this.lblMaCKQuanTam.AutoSize = true;
+            this.lblMaCKQuanTam.Location = new System.Drawing.Point(18, 29);
+            this.lblMaCKQuanTam.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMaCKQuanTam.Name = "lblMaCKQuanTam";
+            this.lblMaCKQuanTam.Size = new System.Drawing.Size(104, 16);
+            this.lblMaCKQuanTam.TabIndex = 12;
+            this.lblMaCKQuanTam.Text = "Mã CK quan tâm";
             // 
             // label9
             // 
@@ -423,14 +429,14 @@
             this.label9.TabIndex = 12;
             this.label9.Text = "Tìm mã CK:";
             // 
-            // label4
+            // lblNguongKhoiLuong
             // 
-            this.label4.Location = new System.Drawing.Point(11, 109);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(116, 54);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Ngưỡng khối lượng tăng đột biến (%)";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblNguongKhoiLuong.Location = new System.Drawing.Point(11, 109);
+            this.lblNguongKhoiLuong.Name = "lblNguongKhoiLuong";
+            this.lblNguongKhoiLuong.Size = new System.Drawing.Size(116, 54);
+            this.lblNguongKhoiLuong.TabIndex = 8;
+            this.lblNguongKhoiLuong.Text = "Ngưỡng khối lượng tăng đột biến (%)";
+            this.lblNguongKhoiLuong.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btnXuatRaExcel
             // 
@@ -532,9 +538,9 @@
             this.label13.Location = new System.Drawing.Point(656, 137);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(83, 16);
+            this.label13.Size = new System.Drawing.Size(84, 16);
             this.label13.TabIndex = 0;
-            this.label13.Text = "Ngày supply";
+            this.label13.Text = "Phiên supply";
             // 
             // label12
             // 
@@ -542,9 +548,9 @@
             this.label12.Location = new System.Drawing.Point(664, 106);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(73, 16);
+            this.label12.Size = new System.Drawing.Size(74, 16);
             this.label12.TabIndex = 0;
-            this.label12.Text = "Ngày Pivot";
+            this.label12.Text = "Phiên Pivot";
             // 
             // label8
             // 
@@ -565,25 +571,25 @@
             this.txtSoNgay.TabIndex = 0;
             this.txtSoNgay.Text = "10";
             // 
-            // label11
+            // lblThanNenSupply
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(477, 137);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(118, 16);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "% thân nến supply:";
+            this.lblThanNenSupply.AutoSize = true;
+            this.lblThanNenSupply.Location = new System.Drawing.Point(477, 137);
+            this.lblThanNenSupply.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblThanNenSupply.Name = "lblThanNenSupply";
+            this.lblThanNenSupply.Size = new System.Drawing.Size(118, 16);
+            this.lblThanNenSupply.TabIndex = 0;
+            this.lblThanNenSupply.Text = "% thân nến supply:";
             // 
-            // label10
+            // lblTangGiaPivot
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(489, 109);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(106, 16);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "% tăng giá Pivot:";
+            this.lblTangGiaPivot.AutoSize = true;
+            this.lblTangGiaPivot.Location = new System.Drawing.Point(489, 109);
+            this.lblTangGiaPivot.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTangGiaPivot.Name = "lblTangGiaPivot";
+            this.lblTangGiaPivot.Size = new System.Drawing.Size(106, 16);
+            this.lblTangGiaPivot.TabIndex = 0;
+            this.lblTangGiaPivot.Text = "% tăng giá Pivot:";
             // 
             // label6
             // 
@@ -721,24 +727,6 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(18, 29);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(104, 16);
-            this.label14.TabIndex = 12;
-            this.label14.Text = "Mã CK quan tâm";
-            // 
-            // txtMaQuanTam
-            // 
-            this.txtMaQuanTam.Location = new System.Drawing.Point(135, 26);
-            this.txtMaQuanTam.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMaQuanTam.Name = "txtMaQuanTam";
-            this.txtMaQuanTam.Size = new System.Drawing.Size(1281, 22);
-            this.txtMaQuanTam.TabIndex = 12;
-            // 
             // frmPhanTichKyThuat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -802,7 +790,7 @@
         private System.Windows.Forms.CheckBox chkMACD;
         private System.Windows.Forms.TextBox txtMaCK;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblNguongKhoiLuong;
         private System.Windows.Forms.Button btnLoc;
         private System.Windows.Forms.TextBox txtNguongKhoiLuong;
         private System.Windows.Forms.TextBox txtTuNgay;
@@ -821,17 +809,16 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtNguongPivot;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblTangGiaPivot;
         private System.Windows.Forms.TextBox txtNguongKietCung;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblThanNenSupply;
         private System.Windows.Forms.Button btnXuatRaExcel;
         private System.Windows.Forms.TextBox txtNgaySupply;
         private System.Windows.Forms.TextBox txtNgayPivot;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.CheckBox chkCoPhieuManh;
         private System.Windows.Forms.TextBox txtMaQuanTam;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblMaCKQuanTam;
     }
 }
 

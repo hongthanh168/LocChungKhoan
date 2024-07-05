@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnXuatDuLieu4Ngay = new System.Windows.Forms.Button();
+            this.btnXuatDuLieu3Tuan = new System.Windows.Forms.Button();
             this.btnXuatRaExcel = new System.Windows.Forms.Button();
             this.txtMaCK = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -124,6 +126,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnXuatDuLieu4Ngay);
+            this.groupBox1.Controls.Add(this.btnXuatDuLieu3Tuan);
             this.groupBox1.Controls.Add(this.btnXuatRaExcel);
             this.groupBox1.Controls.Add(this.txtMaCK);
             this.groupBox1.Controls.Add(this.label9);
@@ -155,20 +159,42 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tham số:";
             // 
+            // btnXuatDuLieu4Ngay
+            // 
+            this.btnXuatDuLieu4Ngay.Location = new System.Drawing.Point(355, 201);
+            this.btnXuatDuLieu4Ngay.Margin = new System.Windows.Forms.Padding(4);
+            this.btnXuatDuLieu4Ngay.Name = "btnXuatDuLieu4Ngay";
+            this.btnXuatDuLieu4Ngay.Size = new System.Drawing.Size(200, 28);
+            this.btnXuatDuLieu4Ngay.TabIndex = 12;
+            this.btnXuatDuLieu4Ngay.Text = "Xuất dữ liệu 4 ngày";
+            this.btnXuatDuLieu4Ngay.UseVisualStyleBackColor = true;
+            this.btnXuatDuLieu4Ngay.Click += new System.EventHandler(this.btnXuatDuLieu4Ngay_Click);
+            // 
+            // btnXuatDuLieu3Tuan
+            // 
+            this.btnXuatDuLieu3Tuan.Location = new System.Drawing.Point(143, 201);
+            this.btnXuatDuLieu3Tuan.Margin = new System.Windows.Forms.Padding(4);
+            this.btnXuatDuLieu3Tuan.Name = "btnXuatDuLieu3Tuan";
+            this.btnXuatDuLieu3Tuan.Size = new System.Drawing.Size(200, 28);
+            this.btnXuatDuLieu3Tuan.TabIndex = 12;
+            this.btnXuatDuLieu3Tuan.Text = "Xuất dữ liệu 3 tuần";
+            this.btnXuatDuLieu3Tuan.UseVisualStyleBackColor = true;
+            this.btnXuatDuLieu3Tuan.Click += new System.EventHandler(this.btnXuatDuLieu3Tuan_Click);
+            // 
             // btnXuatRaExcel
             // 
-            this.btnXuatRaExcel.Location = new System.Drawing.Point(585, 199);
+            this.btnXuatRaExcel.Location = new System.Drawing.Point(585, 201);
             this.btnXuatRaExcel.Margin = new System.Windows.Forms.Padding(4);
             this.btnXuatRaExcel.Name = "btnXuatRaExcel";
             this.btnXuatRaExcel.Size = new System.Drawing.Size(200, 28);
             this.btnXuatRaExcel.TabIndex = 12;
-            this.btnXuatRaExcel.Text = "Xuất bảng ra Excel";
+            this.btnXuatRaExcel.Text = "Xuất grid ra Excel";
             this.btnXuatRaExcel.UseVisualStyleBackColor = true;
             this.btnXuatRaExcel.Click += new System.EventHandler(this.btnXuatRaExcel_Click);
             // 
             // txtMaCK
             // 
-            this.txtMaCK.Location = new System.Drawing.Point(874, 201);
+            this.txtMaCK.Location = new System.Drawing.Point(875, 203);
             this.txtMaCK.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaCK.Name = "txtMaCK";
             this.txtMaCK.Size = new System.Drawing.Size(140, 22);
@@ -178,7 +204,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(793, 205);
+            this.label9.Location = new System.Drawing.Point(794, 207);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 16);
@@ -389,8 +415,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -626,6 +652,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnLocNenNgay;
         private System.Windows.Forms.Button btnXuatRaExcel;
+        private System.Windows.Forms.Button btnXuatDuLieu4Ngay;
+        private System.Windows.Forms.Button btnXuatDuLieu3Tuan;
     }
 }
 

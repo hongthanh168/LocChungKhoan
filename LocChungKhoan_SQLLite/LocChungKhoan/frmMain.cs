@@ -267,6 +267,8 @@ namespace LocChungKhoan
             string locNenDang1 = "Giá đóng cửa tuần 3 > Giá đóng cửa tuần 2 >= Giá đóng cửa tuần 1";
             string locNenDang2 = "1) Giá đóng cửa tuần 1< Giá đóng cửa tuần 2 < Giá đóng cửa tuần 3 \r\n2) Giá đóng cửa tuần 1 = Giá thấp nhất tuần 3";
             string locNenNgay = "- Giá đóng cửa ngày  lọc > Giá đóng cửa tuần 3\r\n-Giá thấp nhất ngày lọc<Giá đóng cửa tuần 3\r\n- Sắp xếp theo chỉ số: giảm dần của (Giá đóng cửa ngày lọc -Giá mở cửa ngày lọc) / max(giá đóng cửa ngày lọc, giá mở cửa ngày lọc) * 100";
+            string xuatThongKeTuan = "Thống kê dữ liệu của từng mã chứng khoán trong 3 tuần (nhập ngày đầu tuần và cuối tuần vào các ô bên trên)";
+            string xuatThongKe4Ngay = "Thống kê dữ liệu của từng mã chứng khoán trong vòng 4 ngày trước ngày ở ô Ngày xét. Ngày 1 là ngày nhỏ nhất, ngày 4 là ngày lớn nhất và <= Ngày xét";
             System.Windows.Forms.ToolTip toolTip2Tuan = new System.Windows.Forms.ToolTip();
             toolTip2Tuan.SetToolTip(btnXietGia2Tuan, xietGia2Tuan );
             System.Windows.Forms.ToolTip toolTip3Tuan = new System.Windows.Forms.ToolTip();
@@ -277,6 +279,10 @@ namespace LocChungKhoan
             toolTipLocNen2.SetToolTip(btnLocNenTuanDang2, locNenDang2);
             System.Windows.Forms.ToolTip toolTipLocNenNgay = new System.Windows.Forms.ToolTip();
             toolTipLocNenNgay.SetToolTip(btnLocNenNgay, locNenNgay);
+            System.Windows.Forms.ToolTip toolTipXuatThongKeTuan = new System.Windows.Forms.ToolTip();
+            toolTipXuatThongKeTuan.SetToolTip(btnXuatDuLieu3Tuan, xuatThongKeTuan);
+            System.Windows.Forms.ToolTip toolTipXuatThongKe4Ngay = new System.Windows.Forms.ToolTip();
+            toolTipXuatThongKe4Ngay.SetToolTip(btnXuatDuLieu4Ngay, xuatThongKe4Ngay);
         }
         private void AdjustSplitterDistance()
         {
@@ -306,18 +312,7 @@ namespace LocChungKhoan
             }            
         }
 
-        private void btnMoFormLocTheoGia_Click(object sender, EventArgs e)
-        {
-            //open frmMain and close this form
-            this.Hide();
-            var form2 = new frmVersion1();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
-
-        }
-
-        
-
+   
         private void btnMoThuMuc_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Chức năng này sẽ import dữ liệu từ tất cả các file excel .xlsx trong thư mục được chọn. Dữ liệu theo format của Vietstock theo link: https://finance.vietstock.vn/ket-qua-giao-dich. Tuy nhiên, phải chuyển sang định dạng file .xlsx.. Bạn có chắc chắn file sẽ chọn đúng cấu trúc?", "Xác nhận file", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -547,252 +542,6 @@ namespace LocChungKhoan
                 }
             }
         }
-
-        private void btnThongKeNgay2_Click(object sender, EventArgs e)
-        {
-            gridKQLoc.DataSource = null;
-            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
-            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "")
-            {
-                MessageBox.Show("Vui lòng nhập đủ thông tin");
-                return;
-            }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
-            //display to grid
-            //create datatable
-            System.Data.DataTable dt = new System.Data.DataTable();
-            dt.Columns.Add("MaCK", typeof(string));
-            dt.Columns.Add("GiaDC1", typeof(decimal));
-            dt.Columns.Add("GiaDC2", typeof(decimal));
-            dt.Columns.Add("GiaMC3", typeof(decimal));
-            dt.Columns.Add("GiaDC3", typeof(decimal));
-            dt.Columns.Add("GiaDay", typeof(decimal));
-            dt.Columns.Add("NgayDay", typeof(string));
-            gridKQLoc.DataSource = null;
-            int i = 1;
-            foreach (var item in list)
-            {
-                string sNgayDay = "";
-                decimal giaMin = 0;
-                if (item.GiaDongCua2 <= Math.Min(item.GiaDongCua1 , item.GiaDongCua3 ))
-                {
-                    giaMin = item.GiaDongCua2;
-                    sNgayDay = "Ngày 2";
-                }
-                else if (item.GiaDongCua3 <= Math.Min(item.GiaDongCua1, item.GiaDongCua2))
-                {
-                    giaMin = item.GiaDongCua3 ;
-                    sNgayDay = "Ngày 3";
-                }
-                if (giaMin!=0 && item.GiaDongCua3>= item.GiaMoCua3)
-                {
-                    DataRow dr = dt.NewRow();
-                    dr["MaCK"] = item.MaChungKhoan;
-                    dr["GiaDC1"] = item.GiaDongCua1;
-                    dr["GiaDC2"] = item.GiaDongCua2;
-                    dr["GiaMC3"] = item.GiaMoCua3;
-                    dr["GiaDC3"] = item.GiaDongCua3;
-                    dr["GiaDay"] = giaMin;
-                    dr["NgayDay"] = sNgayDay;
-                    dt.Rows.Add(dr);
-                    i++;
-                }
-            }
-            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
-            gridKQLoc.DataSource = dt;
-            //invisible column ChiSo
-            //gridKQLoc.Columns["ChiSo"].Visible = false;
-            //fix first column when scroll
-            gridKQLoc.Columns[0].Frozen = true;
-        }
-
-        private void btnLocNhanh1_Click(object sender, EventArgs e)
-        {
-            gridKQLoc.DataSource = null;
-            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
-            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "")
-            {
-                MessageBox.Show("Vui lòng nhập đủ thông tin");
-                return;
-            }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
-            //display to grid
-            //create datatable
-            System.Data.DataTable dt = new System.Data.DataTable();
-            dt.Columns.Add("MaCK", typeof(string));
-            dt.Columns.Add("GiaMC1", typeof(decimal));
-            dt.Columns.Add("GiaDC1", typeof(decimal));
-            dt.Columns.Add("GiaMC2", typeof(decimal));
-            dt.Columns.Add("GiaDC2", typeof(decimal));
-            dt.Columns.Add("GiaMC3", typeof(decimal));
-            dt.Columns.Add("GiaDC3", typeof(decimal));
-            gridKQLoc.DataSource = null;
-            int i = 1;
-            foreach (var item in list)
-            {
-                //- Giá đóng cửa ngày 1 > Giá đóng cửa ngày 2 
-                //-Giá đóng cửa ngày 2 < Giá mở cửa ngày 2
-               // - Giá đóng cửa ngày 3 = giá mở cửa ngày 3 = giá đóng cửa ngày 2
-                if (item.GiaDongCua1 > item.GiaDongCua2 &&
-                    item.GiaDongCua2 < item.GiaMoCua2 &&
-                    item.GiaDongCua3 == item.GiaMoCua3 &&
-                    item.GiaDongCua3 == item.GiaDongCua2 )
-                {
-                    DataRow dr = dt.NewRow();
-                    dr["MaCK"] = item.MaChungKhoan;
-                    dr["GiaDC1"] = item.GiaDongCua1;
-                    dr["GiaDC2"] = item.GiaDongCua2;                    
-                    dr["GiaDC3"] = item.GiaDongCua3;
-                    dr["GiaMC1"] = item.GiaMoCua1;
-                    dr["GiaMC2"] = item.GiaMoCua2;
-                    dr["GiaMC3"] = item.GiaMoCua3;
-                    dt.Rows.Add(dr);
-                    i++;
-                }
-            }
-            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
-            gridKQLoc.DataSource = dt;
-            //invisible column ChiSo
-            //gridKQLoc.Columns["ChiSo"].Visible = false;
-            //fix first column when scroll
-            gridKQLoc.Columns[0].Frozen = true;
-        }
-
-        private void btnLocNhanh2_Click(object sender, EventArgs e)
-        {
-            gridKQLoc.DataSource = null;
-            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
-            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "")
-            {
-                MessageBox.Show("Vui lòng nhập đủ thông tin");
-                return;
-            }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
-            //display to grid
-            //create datatable
-            System.Data.DataTable dt = new System.Data.DataTable();
-            dt.Columns.Add("MaCK", typeof(string));
-            dt.Columns.Add("GiaMC1", typeof(decimal));
-            dt.Columns.Add("GiaDC1", typeof(decimal));
-            dt.Columns.Add("GiaMax1", typeof(decimal));
-            dt.Columns.Add("GiaMin1", typeof(decimal));
-            dt.Columns.Add("GiaMC2", typeof(decimal));
-            dt.Columns.Add("GiaDC2", typeof(decimal));
-            dt.Columns.Add("GiaMax2", typeof(decimal));
-            dt.Columns.Add("GiaMin2", typeof(decimal));
-            dt.Columns.Add("GiaMC3", typeof(decimal));
-            dt.Columns.Add("GiaDC3", typeof(decimal));
-            dt.Columns.Add("GiaMax3", typeof(decimal));
-            dt.Columns.Add("GiaMin3", typeof(decimal));
-            gridKQLoc.DataSource = null;
-            int i = 1;
-            foreach (var item in list)
-            {
-                //- Giá cao nhất ngày 1 < giá cao nhất ngày 2 
-                //-Giá đóng cửa ngày 1 < giá đóng cửa ngày 2
-                //- Giá đóng cửa ngày 2 > giá mở cửa ngày 2
-                //- Giá đóng cửa ngày 3 < Giá mở cửa ngày 3
-                //- Giá đóng cửa ngày 3 > max(giá đóng cửa ngày 1, giá mở cửa ngày 2)
-                if (item.GiaCaoNhat1 < item.GiaCaoNhat2 &&
-                    item.GiaDongCua1 < item.GiaDongCua2 &&
-                    item.GiaDongCua2 > item.GiaMoCua2 &&
-                    item.GiaDongCua3 < item.GiaDongCua3 &&
-                    item.GiaDongCua3 > Math.Max (item.GiaDongCua1, item.GiaMoCua2 ))
-                {
-                    DataRow dr = dt.NewRow();
-                    dr["MaCK"] = item.MaChungKhoan;
-                    dr["GiaDC1"] = item.GiaDongCua1;
-                    dr["GiaDC2"] = item.GiaDongCua2;
-                    dr["GiaDC3"] = item.GiaDongCua3;
-                    dr["GiaMC1"] = item.GiaMoCua1;
-                    dr["GiaMC2"] = item.GiaMoCua2;
-                    dr["GiaMC3"] = item.GiaMoCua3;
-                    dr["GiaMax1"] = item.GiaCaoNhat1;
-                    dr["GiaMin1"] = item.GiaThapNhat1;
-                    dr["GiaMax2"] = item.GiaCaoNhat2;
-                    dr["GiaMin2"] = item.GiaThapNhat2;
-                    dr["GiaMax3"] = item.GiaCaoNhat3;
-                    dr["GiaMin3"] = item.GiaThapNhat3;
-                    dt.Rows.Add(dr);
-                    i++;
-                }
-            }
-            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
-            gridKQLoc.DataSource = dt;
-            //invisible column ChiSo
-            //gridKQLoc.Columns["ChiSo"].Visible = false;
-            //fix first column when scroll
-            gridKQLoc.Columns[0].Frozen = true;
-        }
-
-        private void btnLocNhanh3_Click(object sender, EventArgs e)
-        {
-            gridKQLoc.DataSource = null;
-            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
-            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "")
-            {
-                MessageBox.Show("Vui lòng nhập đủ thông tin");
-                return;
-            }
-            DateTime ngay1 = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay2 = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime ngay3 = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Ngay(ngay1, ngay2, ngay3);
-            //display to grid
-            //create datatable
-            System.Data.DataTable dt = new System.Data.DataTable();
-            dt.Columns.Add("MaCK", typeof(string));
-            dt.Columns.Add("GiaMC1", typeof(decimal));
-            dt.Columns.Add("GiaDC1", typeof(decimal));
-            dt.Columns.Add("GiaMC2", typeof(decimal));
-            dt.Columns.Add("GiaDC2", typeof(decimal));
-            dt.Columns.Add("GiaMC3", typeof(decimal));
-            dt.Columns.Add("GiaDC3", typeof(decimal));
-            dt.Columns.Add("LechNgay3", typeof(decimal));
-            gridKQLoc.DataSource = null;
-            int i = 1;
-            foreach (var item in list)
-            {
-                //-(| giá đóng cửa ngày 3 - giá mở cửa ngày 3 | / max(giá mở cửa ngày 3, giá đóng cửa ngày 3) ) *100 <= 1
-                //- Giá đóng cửa ngày 2 > Giá mở cửa ngày 2
-                //- Giá đóng cửa ngày 2 < min(giá mở cửa ngày 3, giá đóng cửa ngày 3)
-                decimal lech = Math.Abs(item.GiaDongCua3 - item.GiaMoCua3) / Math.Max(item.GiaDongCua3, item.GiaMoCua3) * 100;
-                if (item.GiaDongCua2 > item.GiaMoCua2 &&
-                    item.GiaDongCua2 < Math.Min(item.GiaMoCua3, item.GiaDongCua3) &&
-                    lech <=1)
-                {
-                    DataRow dr = dt.NewRow();
-                    dr["MaCK"] = item.MaChungKhoan;
-                    dr["GiaDC1"] = item.GiaDongCua1;
-                    dr["GiaDC2"] = item.GiaDongCua2;
-                    dr["GiaDC3"] = item.GiaDongCua3;
-                    dr["GiaMC1"] = item.GiaMoCua1;
-                    dr["GiaMC2"] = item.GiaMoCua2;
-                    dr["GiaMC3"] = item.GiaMoCua3;
-                    dr["LechNgay3"] = Math.Round(lech, 2, MidpointRounding.AwayFromZero);
-                    dt.Rows.Add(dr);
-                    i++;
-                }
-            }
-            groupBox2.Text = "Số cổ phiếu thỏa mãn: " + (i - 1).ToString();
-            gridKQLoc.DataSource = dt;
-            //invisible column ChiSo
-            //gridKQLoc.Columns["ChiSo"].Visible = false;
-            //fix first column when scroll
-            gridKQLoc.Columns[0].Frozen = true;
-        }
-
-   
-
         private void danhMụcChứngKhoánQuanTâmToolStripMenuItem_Click(object sender, EventArgs e)
         {
             gridKQLoc.DataSource = null;
@@ -1377,6 +1126,55 @@ namespace LocChungKhoan
                 {
                     string filePath = sfd.FileName;
                     CExcelController.ExportDataGridViewToExcel(gridKQLoc, filePath);
+                    MessageBox.Show("Xuất file excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void btnXuatDuLieu3Tuan_Click(object sender, EventArgs e)
+        {
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = sfd.FileName;
+                    CExcelController.ExportListThongKeKhoiLuongToExcel(list, filePath);
+                    MessageBox.Show("Xuất file excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void btnXuatDuLieu4Ngay_Click(object sender, EventArgs e)
+        {
+            //kiểm tra có ngày cụ thể chưa
+            if (txtNgayLoc.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập ngày lọc:");
+                txtNgayLoc.Focus();
+                return;
+            }
+            //convert sang ngày
+            DateTime ngayLoc = DateTime.ParseExact(txtNgayLoc.Text, "d/M/yyyy", CultureInfo.InvariantCulture);            
+            List<ThongKe4Ngay> list = BieuDoKhoiLuongController.ThongKe4Ngay(ngayLoc);
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = sfd.FileName;
+                    CExcelController.Export4NgayToExcel(list, filePath);
                     MessageBox.Show("Xuất file excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

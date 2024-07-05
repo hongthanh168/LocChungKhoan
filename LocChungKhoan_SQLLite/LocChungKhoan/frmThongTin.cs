@@ -25,5 +25,17 @@ namespace LocChungKhoan
             form2.Closed += (s, args) => this.Close();
             form2.ShowDialog ();
         }
+
+        private void frmThongTin_KeyUp(object sender, KeyEventArgs e)
+        {
+            //nếu nhấn phím Ctrl + T thì gọi form frmPhanTichKyThuat và đóng form hiện tại
+            if (e.Control && e.KeyCode == Keys.T)
+            {
+                this.Hide();
+                frmPhanTichKyThuat form2 = new frmPhanTichKyThuat();
+                form2.Closed += (s, args) => this.Close();
+                form2.ShowDialog();
+            }
+        }
     }
 }

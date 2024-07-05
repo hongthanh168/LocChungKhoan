@@ -259,6 +259,19 @@ namespace LocChungKhoan
         private void frmMainKhoiLuong_Load(object sender, EventArgs e)
         {
             txtTuNgay.Text = DateTime.Now.ToString("d/M/yyyy");
+            //hướng dẫn cho các textbox
+            string toolTiplblDsMaCK = "Danh sách mã chứng khoán cách nhau bởi dấu ;";
+            System.Windows.Forms.ToolTip toolTipDsMaCK = new System.Windows.Forms.ToolTip();
+            toolTipDsMaCK.SetToolTip(lblMaCKQuanTam, toolTiplblDsMaCK);
+
+            string stoolTipNguongPivot = "Phần % tăng giá của cây nến đạt chuẩn Pivot, chính là % chênh lệch giữa giá đóng cửa và giá mở cửa. Với nến Pivot, % này càng cao càng tốt, nhưng thường là 2%";
+            System.Windows.Forms.ToolTip toolTipNguongPivot = new System.Windows.Forms.ToolTip();
+            toolTipNguongPivot.SetToolTip(lblTangGiaPivot, stoolTipNguongPivot);
+
+
+            string stoolTipNgaySupply = "Phần % chênh lệch giữa giá đóng cửa và mở cửa. Với nến No supply, % này càng nhỏ càng tốt.";
+            System.Windows.Forms.ToolTip toolTipNgaySupply = new System.Windows.Forms.ToolTip();
+            toolTipNgaySupply.SetToolTip(lblThanNenSupply, stoolTipNgaySupply);
         }
      
 
@@ -282,17 +295,7 @@ namespace LocChungKhoan
             }            
         }
 
-        private void btnMoFormLocTheoGia_Click(object sender, EventArgs e)
-        {
-            //open frmMain and close this form
-            this.Hide();
-            var form2 = new frmVersion1();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
-
-        }
-
-        
+      
 
         private void btnMoThuMuc_Click(object sender, EventArgs e)
         {
