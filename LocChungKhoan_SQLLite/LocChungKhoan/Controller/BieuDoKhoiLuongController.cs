@@ -658,6 +658,7 @@ namespace LocChungKhoan
                                    GiaThapNhat3 = decimal.MaxValue,
                                    GiaThapNhat4 = t4.GiaThapNhat
                                })
+                                .Join(dbContext.DMQuanTams, t => t.MaChungKhoan, d => d.MaChungKhoan, (t, d) => t)
                                .GroupBy(x => x.MaChungKhoan)
                                .Select(g => new ThongKe4Ngay
                                {
