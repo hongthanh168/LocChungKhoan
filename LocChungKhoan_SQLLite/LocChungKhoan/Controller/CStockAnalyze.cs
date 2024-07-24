@@ -113,10 +113,10 @@ namespace LocChungKhoan
                 var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
                 int i = 0;
                 bool kq = false;
-                while (i < data.Count - 1 && !kq)
+                while (i < data.Count - 2 && !kq)
                 {
                     //kiểm tra có gấp đôi ngày trước đó hay không?
-                    if (data[i].KhoiLuong > data[i].KhoiLuongTB * volumeThreshold && data[i].GiaMoCua < data[i].GiaDongCua)
+                    if (data[i].KhoiLuong > data[i+1].KhoiLuong * volumeThreshold && data[i].KhoiLuong > data[i].KhoiLuongTB && data[i].GiaMoCua <= data[i].GiaDongCua)
                     {
                         result.Add(stock.MaChungKhoan);
                         kq = true;

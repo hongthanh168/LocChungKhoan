@@ -266,7 +266,7 @@ namespace LocChungKhoan
             string xietGia3Tuan = "1) Vol giảm từ tuần 2 đến tuần 3 \r\n2) Biên độ giá theo giá lớn nhất - Giá nhỏ nhất giảm từ tuần 1 đến tuần 3 \r\n3) Biên độ giá theo |giá mở cửa - giá đóng cửa| giảm từ tuần 1 đến tuần 3 \r\n4) Giá đóng cửa tuần 1 < Giá mở cửa tuần 1\r\nCó thể lọc 4 điều kiện cùng một lúc , từng cặp 2 điều kiện hoặc từng điều kiện một";
             string locNenDang1 = "Giá đóng cửa tuần 3 > Giá đóng cửa tuần 2 >= Giá đóng cửa tuần 1";
             string locNenDang2 = "1) Giá đóng cửa tuần 1< Giá đóng cửa tuần 2 < Giá đóng cửa tuần 3 \r\n2) Giá đóng cửa tuần 1 = Giá thấp nhất tuần 3";
-            string locNenNgay = "- Giá đóng cửa ngày  lọc > Giá đóng cửa tuần 3\r\n-Giá thấp nhất ngày lọc<Giá đóng cửa tuần 3\r\n- Sắp xếp theo chỉ số: giảm dần của (Giá đóng cửa ngày lọc -Giá mở cửa ngày lọc) / max(giá đóng cửa ngày lọc, giá mở cửa ngày lọc) * 100";
+            string locNenNgay = "- Giá đóng cửa ngày  lọc > Giá đóng cửa tuần 3\r\n-Giá thấp nhất ngày lọc<=Giá đóng cửa tuần 3\r\n- Sắp xếp theo chỉ số: giảm dần của (Giá đóng cửa ngày lọc -Giá mở cửa ngày lọc) / max(giá đóng cửa ngày lọc, giá mở cửa ngày lọc) * 100";
             string xuatThongKeTuan = "Thống kê dữ liệu của từng mã chứng khoán trong 3 tuần (nhập ngày đầu tuần và cuối tuần vào các ô bên trên)";
             string xuatThongKe4Ngay = "Thống kê dữ liệu của từng mã chứng khoán trong vòng 4 ngày trước ngày ở ô Ngày xét. Ngày 1 là ngày nhỏ nhất, ngày 4 là ngày lớn nhất và <= Ngày xét";
             System.Windows.Forms.ToolTip toolTip2Tuan = new System.Windows.Forms.ToolTip();
@@ -1090,10 +1090,10 @@ namespace LocChungKhoan
             foreach (var item in list)
             {
                 //- Giá đóng cửa ngày  lọc > Giá đóng cửa tuần 3
-                //-Giá thấp nhất ngày lọc<Giá đóng cửa tuần 3
+                //-Giá thấp nhất ngày lọc<=Giá đóng cửa tuần 3
                 //sắp xếp theo chỉ số: giảm dần của (Giá đóng cửa ngày lọc -Giá mở cửa ngày lọc) / max(giá đóng cửa ngày lọc, giá mở cửa ngày lọc) * 100
                 //do lấy dữ liệu tuần 1 thực ra là của ngày lọc nên sẽ so sánh như kiểu tuần 1 với tuần 3
-                if (item.GiaDongCua1 > item.GiaDongCua3 && item.GiaThapNhat1 < item.GiaDongCua3 
+                if (item.GiaDongCua1 > item.GiaDongCua3 && item.GiaThapNhat1 <= item.GiaDongCua3 
                     )
                 {
                     DataRow dr = dt.NewRow();
