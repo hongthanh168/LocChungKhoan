@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -67,8 +67,8 @@
             this.txtNguongKietCung = new System.Windows.Forms.TextBox();
             this.txtNguongPivot = new System.Windows.Forms.TextBox();
             this.txtKLGDMin = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lblPhienSupply = new System.Windows.Forms.Label();
+            this.lblPhienPivot = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtSoNgay = new System.Windows.Forms.TextBox();
             this.lblThanNenSupply = new System.Windows.Forms.Label();
@@ -89,6 +89,9 @@
             this.xemDữLiệuCủa1MãCụThểToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtSoNgayXetTimKL = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.chkTangQuyetLiet = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
             this.panel1.SuspendLayout();
@@ -155,15 +158,15 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1523, 465);
+            this.groupBox2.Size = new System.Drawing.Size(1523, 466);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kết quả lọc";
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -171,7 +174,7 @@
             this.gridKQLoc.Margin = new System.Windows.Forms.Padding(4);
             this.gridKQLoc.Name = "gridKQLoc";
             this.gridKQLoc.RowHeadersWidth = 51;
-            this.gridKQLoc.Size = new System.Drawing.Size(1515, 442);
+            this.gridKQLoc.Size = new System.Drawing.Size(1515, 443);
             this.gridKQLoc.TabIndex = 0;
             // 
             // panel1
@@ -208,7 +211,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Size = new System.Drawing.Size(1527, 816);
-            this.splitContainer1.SplitterDistance = 342;
+            this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -238,6 +241,7 @@
             // 
             this.groupBox1.Controls.Add(this.chkPivot);
             this.groupBox1.Controls.Add(this.chkRSI);
+            this.groupBox1.Controls.Add(this.chkTangQuyetLiet);
             this.groupBox1.Controls.Add(this.chkBienDongKhoiLuong);
             this.groupBox1.Controls.Add(this.chkDanhMucChuMinh);
             this.groupBox1.Controls.Add(this.chkKietCung);
@@ -251,9 +255,11 @@
             this.groupBox1.Controls.Add(this.txtMaCK);
             this.groupBox1.Controls.Add(this.lblMaCKQuanTam);
             this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.lblNguongKhoiLuong);
             this.groupBox1.Controls.Add(this.btnXuatRaExcel);
             this.groupBox1.Controls.Add(this.btnLoc);
+            this.groupBox1.Controls.Add(this.txtSoNgayXetTimKL);
             this.groupBox1.Controls.Add(this.txtNguongKhoiLuong);
             this.groupBox1.Controls.Add(this.txtNgaySupply);
             this.groupBox1.Controls.Add(this.txtNgayPivot);
@@ -262,8 +268,8 @@
             this.groupBox1.Controls.Add(this.txtNguongKietCung);
             this.groupBox1.Controls.Add(this.txtNguongPivot);
             this.groupBox1.Controls.Add(this.txtKLGDMin);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.lblPhienSupply);
+            this.groupBox1.Controls.Add(this.lblPhienPivot);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtSoNgay);
             this.groupBox1.Controls.Add(this.lblThanNenSupply);
@@ -307,9 +313,9 @@
             this.chkBienDongKhoiLuong.AutoSize = true;
             this.chkBienDongKhoiLuong.Location = new System.Drawing.Point(1042, 93);
             this.chkBienDongKhoiLuong.Name = "chkBienDongKhoiLuong";
-            this.chkBienDongKhoiLuong.Size = new System.Drawing.Size(175, 20);
+            this.chkBienDongKhoiLuong.Size = new System.Drawing.Size(167, 20);
             this.chkBienDongKhoiLuong.TabIndex = 16;
-            this.chkBienDongKhoiLuong.Text = "Biến động khối lượng lớn";
+            this.chkBienDongKhoiLuong.Text = "Tăng với khối lượng lớn";
             this.chkBienDongKhoiLuong.UseVisualStyleBackColor = true;
             // 
             // chkDanhMucChuMinh
@@ -431,11 +437,12 @@
             // 
             // lblNguongKhoiLuong
             // 
-            this.lblNguongKhoiLuong.Location = new System.Drawing.Point(11, 109);
+            this.lblNguongKhoiLuong.AutoSize = true;
+            this.lblNguongKhoiLuong.Location = new System.Drawing.Point(12, 111);
             this.lblNguongKhoiLuong.Name = "lblNguongKhoiLuong";
-            this.lblNguongKhoiLuong.Size = new System.Drawing.Size(116, 54);
+            this.lblNguongKhoiLuong.Size = new System.Drawing.Size(105, 16);
             this.lblNguongKhoiLuong.TabIndex = 8;
-            this.lblNguongKhoiLuong.Text = "Ngưỡng khối lượng tăng đột biến (%)";
+            this.lblNguongKhoiLuong.Text = "% KL đột biến >=";
             this.lblNguongKhoiLuong.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btnXuatRaExcel
@@ -532,25 +539,25 @@
             this.txtKLGDMin.TabIndex = 0;
             this.txtKLGDMin.Text = "500000";
             // 
-            // label13
+            // lblPhienSupply
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(656, 137);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(84, 16);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Phiên supply";
+            this.lblPhienSupply.AutoSize = true;
+            this.lblPhienSupply.Location = new System.Drawing.Point(656, 137);
+            this.lblPhienSupply.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPhienSupply.Name = "lblPhienSupply";
+            this.lblPhienSupply.Size = new System.Drawing.Size(84, 16);
+            this.lblPhienSupply.TabIndex = 0;
+            this.lblPhienSupply.Text = "Phiên supply";
             // 
-            // label12
+            // lblPhienPivot
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(664, 106);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 16);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "Phiên Pivot";
+            this.lblPhienPivot.AutoSize = true;
+            this.lblPhienPivot.Location = new System.Drawing.Point(664, 106);
+            this.lblPhienPivot.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPhienPivot.Name = "lblPhienPivot";
+            this.lblPhienPivot.Size = new System.Drawing.Size(74, 16);
+            this.lblPhienPivot.TabIndex = 0;
+            this.lblPhienPivot.Text = "Phiên Pivot";
             // 
             // label8
             // 
@@ -632,7 +639,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 82);
+            this.label2.Location = new System.Drawing.Point(41, 81);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 16);
@@ -727,6 +734,34 @@
             this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             // 
+            // txtSoNgayXetTimKL
+            // 
+            this.txtSoNgayXetTimKL.Location = new System.Drawing.Point(131, 137);
+            this.txtSoNgayXetTimKL.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSoNgayXetTimKL.Name = "txtSoNgayXetTimKL";
+            this.txtSoNgayXetTimKL.Size = new System.Drawing.Size(107, 22);
+            this.txtSoNgayXetTimKL.TabIndex = 3;
+            this.txtSoNgayXetTimKL.Text = "3";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(12, 136);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(105, 41);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Số ngày xét KL tăng đột biến";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // chkTangQuyetLiet
+            // 
+            this.chkTangQuyetLiet.AutoSize = true;
+            this.chkTangQuyetLiet.Location = new System.Drawing.Point(814, 93);
+            this.chkTangQuyetLiet.Name = "chkTangQuyetLiet";
+            this.chkTangQuyetLiet.Size = new System.Drawing.Size(177, 20);
+            this.chkTangQuyetLiet.TabIndex = 16;
+            this.chkTangQuyetLiet.Text = "Tăng quyết liệt với KL lớn";
+            this.chkTangQuyetLiet.UseVisualStyleBackColor = true;
+            // 
             // frmPhanTichKyThuat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -815,10 +850,13 @@
         private System.Windows.Forms.Button btnXuatRaExcel;
         private System.Windows.Forms.TextBox txtNgaySupply;
         private System.Windows.Forms.TextBox txtNgayPivot;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblPhienSupply;
+        private System.Windows.Forms.Label lblPhienPivot;
         private System.Windows.Forms.TextBox txtMaQuanTam;
         private System.Windows.Forms.Label lblMaCKQuanTam;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtSoNgayXetTimKL;
+        private System.Windows.Forms.CheckBox chkTangQuyetLiet;
     }
 }
 

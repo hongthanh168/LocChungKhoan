@@ -44,3 +44,35 @@ D:\CONG VIEC\LAM CHO CHU MINH\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\Docu
 D:\CONG VIEC\LAM CHO CHU MINH\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\DocumentFormat.OpenXml.Framework.xml
 D:\CONG VIEC\LAM CHO CHU MINH\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmLocTheoNgay.resources
 D:\CONG VIEC\LAM CHO CHU MINH\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmXoaTheoNgay.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\LocChungKhoan.exe.config
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\LocChungKhoan.exe
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\LocChungKhoan.pdb
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\DocumentFormat.OpenXml.dll
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\DocumentFormat.OpenXml.Framework.dll
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\EntityFramework.dll
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\EntityFramework.SqlServer.dll
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\System.Data.SQLite.dll
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\System.Data.SQLite.EF6.dll
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\System.Data.SQLite.Linq.dll
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\DocumentFormat.OpenXml.xml
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\DocumentFormat.OpenXml.Framework.xml
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\EntityFramework.xml
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\EntityFramework.SqlServer.xml
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\bin\Debug\System.Data.SQLite.xml
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.csproj.AssemblyReference.cache
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.csproj.ResolveComReference.cache
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmChiTietMaCK.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmDieuKienLoc.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmDieuKienTuan.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmLocTheoNgay.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmPhanTichKyThuat.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmMain.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmTuNgayDenNgay.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmXoaTheoNgay.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.frmThongTin.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.Properties.Resources.resources
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.csproj.GenerateResource.cache
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.csproj.CoreCompileInputs.cache
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChung.9E756EDB.Up2Date
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.exe
+D:\LAM THEM\LocChungKhoan\LocChungKhoan_SQLLite\LocChungKhoan\obj\Debug\LocChungKhoan.pdb

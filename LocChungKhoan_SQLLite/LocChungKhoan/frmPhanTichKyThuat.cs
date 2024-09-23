@@ -268,10 +268,18 @@ namespace LocChungKhoan
             System.Windows.Forms.ToolTip toolTipNguongPivot = new System.Windows.Forms.ToolTip();
             toolTipNguongPivot.SetToolTip(lblTangGiaPivot, stoolTipNguongPivot);
 
+            string stoolTipNgayPivot = "Số ngày xét để tìm phiên Pivot, tính lùi từ ngày tối đa đã thiết lập.";
+            System.Windows.Forms.ToolTip toolTipNgayPivot = new System.Windows.Forms.ToolTip();
+            toolTipNgayPivot.SetToolTip(lblPhienPivot, stoolTipNgayPivot);
 
-            string stoolTipNgaySupply = "Phần % chênh lệch giữa giá đóng cửa và mở cửa. Với nến No supply, % này càng nhỏ càng tốt.";
+
+            string stoolTipNguongSupply = "Phần % chênh lệch giữa giá đóng cửa và mở cửa. Với nến No supply, % này càng nhỏ càng tốt.";
+            System.Windows.Forms.ToolTip toolTipNguongSupply = new System.Windows.Forms.ToolTip();
+            toolTipNguongSupply.SetToolTip(lblThanNenSupply, stoolTipNguongSupply);
+
+            string stoolTipNgaySupply = "Số ngày xét để tìm phiên No supply, tính lùi từ ngày tối đa đã thiết lập.";
             System.Windows.Forms.ToolTip toolTipNgaySupply = new System.Windows.Forms.ToolTip();
-            toolTipNgaySupply.SetToolTip(lblThanNenSupply, stoolTipNgaySupply);
+            toolTipNgaySupply.SetToolTip(lblPhienSupply , stoolTipNgaySupply);
         }
      
 
@@ -632,6 +640,7 @@ namespace LocChungKhoan
                 return;
             }
             decimal nguongKhoiLuong = Convert.ToDecimal(txtNguongKhoiLuong.Text)/100.0m;
+            int soNgayXetKhoiLuong = Convert.ToInt32(txtSoNgayXetTimKL.Text);
             //lấy ra danh sách các cổ phiếu
             List<BieuDoKhoiLuong> duLieu = BieuDoKhoiLuongController.GetAllByDays(soNgay, ngayBD);
             List<string> coPhieuDaLoc = new List<string>(); 
@@ -669,7 +678,12 @@ namespace LocChungKhoan
             if (coPhieuDaLoc.Count>0 && chkBienDongKhoiLuong.Checked)
             {
                 duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
-                coPhieuDaLoc = stockAnalyzer.LayCoPhieuBienDongKhoiLuong(duLieu, ngayBD, nguongKhoiLuong);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuBienDongKhoiLuong(duLieu, ngayBD, nguongKhoiLuong,soNgayXetKhoiLuong, false);
+            }
+            if (coPhieuDaLoc.Count > 0 && chkTangQuyetLiet.Checked)
+            {
+                duLieu = BieuDoKhoiLuongController.GetFilter(duLieu, coPhieuDaLoc);
+                coPhieuDaLoc = stockAnalyzer.LayCoPhieuBienDongKhoiLuong(duLieu, ngayBD, nguongKhoiLuong, soNgayXetKhoiLuong, true);
             }
             if (coPhieuDaLoc.Count > 0 && chkMACD.Checked)
             {

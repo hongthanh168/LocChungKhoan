@@ -95,38 +95,53 @@ namespace LocChungKhoan
             }
             return false;
         }
-        //lấy cổ phiếu biến động khối lượng
-        public List<string> LayCoPhieuBienDongKhoiLuong(List<BieuDoKhoiLuong> listCoPhieu, DateTime ngayTinh, decimal volumeThreshold = 2.0m, int soLuong = 3)
+        //lấy cổ phiếu tăng với khối lượng lớn
+        public List<string> LayCoPhieuBienDongKhoiLuong(List<BieuDoKhoiLuong> listCoPhieu, DateTime ngayTinh, decimal volumeThreshold = 2.0m, int soNgayXet = 1, bool isQuyetLiet= false)
         {
             List<string> result = new List<string>();
             var listKhoiLuong = BieuDoKhoiLuongController.LayKhoiLuongTrungBinh(ngayTinh, 100);
             //join listKhoiLuong với listCoPhieu để lấy thông tin khối lượng
             var temp = from khoiLuong in listKhoiLuong
                        join coPhieu in listCoPhieu on khoiLuong.MaChungKhoan equals coPhieu.MaChungKhoan
-                       select new {khoiLuong.MaChungKhoan,khoiLuong.KhoiLuongTB,  coPhieu.Ngay, coPhieu.KhoiLuong, coPhieu.GiaDongCua, coPhieu.GiaMoCua  };
+                       select new { khoiLuong.MaChungKhoan, khoiLuong.KhoiLuongTB, coPhieu.Ngay, coPhieu.KhoiLuong, coPhieu.GiaDongCua, coPhieu.GiaMoCua, coPhieu.GiaCaoNhat, coPhieu.GiaThapNhat };
             //group by mã chứng khoán
             var list = temp.GroupBy(s => s.MaChungKhoan)
-                .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() }); 
+                .Select(g => new { MaChungKhoan = g.Key, Data = g.ToList() });
             foreach (var stock in list)
             {
                 //order by date
                 var data = stock.Data.OrderByDescending(x => x.Ngay).ToList();
                 int i = 0;
                 bool kq = false;
-                while (i < data.Count - 2 && !kq)
+                while (i < soNgayXet && i < data.Count - 2 && !kq)
                 {
                     //kiểm tra có gấp đôi ngày trước đó hay không?
-                    if (data[i].KhoiLuong > data[i+1].KhoiLuong * volumeThreshold && data[i].KhoiLuong > data[i].KhoiLuongTB && data[i].GiaMoCua <= data[i].GiaDongCua)
+                    if (data[i].KhoiLuong > data[i + 1].KhoiLuong * volumeThreshold && data[i].KhoiLuong > data[i].KhoiLuongTB && data[i].GiaMoCua <= data[i].GiaDongCua)
                     {
-                        result.Add(stock.MaChungKhoan);
-                        kq = true;
+                        if (isQuyetLiet)
+                        {
+                            //kiểm tra xem có tăng quyết liệt ko                        
+                            decimal thanNen = Math.Abs(data[i].GiaDongCua - data[i].GiaMoCua);
+                            decimal rauNenTren = data[i].GiaCaoNhat - data[i].GiaDongCua;
+                            decimal rauNenDuoi = data[i].GiaMoCua - data[i].GiaThapNhat;
+                            //tăng quyết liệt tức là thân nến phải lớn gấp 3 lần râu nến và không có râu nến dưới hoặc râu nến dưới rất ngắn
+                            if (thanNen >= rauNenTren * 3 && rauNenDuoi * 2 < rauNenTren)
+                            {
+                                result.Add(stock.MaChungKhoan);
+                                kq = true;
+                            }
+                        }
+                        else
+                        {
+                            result.Add(stock.MaChungKhoan);
+                            kq = true;
+                        }
                     }
                     i++;
                 }
             }
             return result;
         }
-
         #endregion
 
         #region "MACD"
