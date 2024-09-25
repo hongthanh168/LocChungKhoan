@@ -124,8 +124,8 @@ namespace LocChungKhoan
                             decimal thanNen = Math.Abs(data[i].GiaDongCua - data[i].GiaMoCua);
                             decimal rauNenTren = data[i].GiaCaoNhat - data[i].GiaDongCua;
                             decimal rauNenDuoi = data[i].GiaMoCua - data[i].GiaThapNhat;
-                            //tăng quyết liệt tức là thân nến phải lớn gấp 3 lần râu nến và không có râu nến dưới hoặc râu nến dưới rất ngắn
-                            if (thanNen >= rauNenTren * 3 && rauNenDuoi * 2 < rauNenTren)
+                            //tăng quyết liệt tức là thân nến phải lớn gấp 3 lần râu nến và không có râu nến dưới hoặc râu nến dưới rất ngắn hoặc đóng cửa mức cao nhất
+                            if ((thanNen >= rauNenTren * 3 && rauNenDuoi < rauNenTren) || (data[i].GiaDongCua == data[i].GiaCaoNhat))
                             {
                                 result.Add(stock.MaChungKhoan);
                                 kq = true;
