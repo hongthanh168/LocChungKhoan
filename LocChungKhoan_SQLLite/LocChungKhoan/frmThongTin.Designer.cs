@@ -43,7 +43,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(318, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Phần mềm cập nhật ngày 31/01/2024";
+            this.label1.Text = "Phần mềm cập nhật ngày 21/11/2024";
             // 
             // label2
             // 

@@ -618,7 +618,7 @@ namespace LocChungKhoan
                 DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
                 DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
                 DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-                List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+                List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Tuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
                 //display to grid
                 //create datatable
                 System.Data.DataTable dt = new System.Data.DataTable();
@@ -918,7 +918,7 @@ namespace LocChungKhoan
             DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Tuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
             //display to grid
             //create datatable
             System.Data.DataTable dt = new System.Data.DataTable();
@@ -1020,7 +1020,7 @@ namespace LocChungKhoan
             DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Tuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
             //display to grid
             //create datatable
             System.Data.DataTable dt = new System.Data.DataTable();
@@ -1145,7 +1145,7 @@ namespace LocChungKhoan
             DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
-            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKeTuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
+            List<ThongKeKhoiLuong> list = BieuDoKhoiLuongController.ThongKe3Tuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan);
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
@@ -1169,6 +1169,35 @@ namespace LocChungKhoan
             //convert sang ngày
             DateTime ngayLoc = DateTime.ParseExact(txtNgayLoc.Text, "d/M/yyyy", CultureInfo.InvariantCulture);            
             List<ThongKe4Ngay> list = BieuDoKhoiLuongController.ThongKe4Ngay(ngayLoc);
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = sfd.FileName;
+                    CExcelController.Export4NgayToExcel(list, filePath);
+                    MessageBox.Show("Xuất file excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void btnXuatDuLieu4Tuan_Click(object sender, EventArgs e)
+        {
+
+            //check if txtTuan1DauTuan, txtTuan2DauTuan, txtTuan3DauTuan, txtTuan1CuoiTuan, txtTuan2CuoiTuan, txtTuan3CuoiTuan is not empty and is date
+            if (txtTuan1DauTuan.Text == "" || txtTuan2DauTuan.Text == "" || txtTuan3DauTuan.Text == "" || txtTuan1CuoiTuan.Text == "" || txtTuan2CuoiTuan.Text == "" || txtTuan3CuoiTuan.Text == "" || txtTuan4DauTuan.Text =="" || txtTuan4CuoiTuan.Text =="")
+            {
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            DateTime tuan1DauTuan = DateTime.ParseExact(txtTuan1DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2DauTuan = DateTime.ParseExact(txtTuan2DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3DauTuan = DateTime.ParseExact(txtTuan3DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan4DauTuan = DateTime.ParseExact(txtTuan4DauTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan1CuoiTuan = DateTime.ParseExact(txtTuan1CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan2CuoiTuan = DateTime.ParseExact(txtTuan2CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan3CuoiTuan = DateTime.ParseExact(txtTuan3CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            DateTime tuan4CuoiTuan = DateTime.ParseExact(txtTuan4CuoiTuan.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
+            List<ThongKe4Ngay> list = BieuDoKhoiLuongController.ThongKe4Tuan(tuan1DauTuan, tuan1CuoiTuan, tuan2DauTuan, tuan2CuoiTuan, tuan3DauTuan, tuan3CuoiTuan, tuan4DauTuan, tuan4CuoiTuan);
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)

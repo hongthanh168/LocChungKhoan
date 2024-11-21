@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMoFile = new System.Windows.Forms.Button();
             this.txtDuongDan = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -76,6 +76,11 @@
             this.xemDữLiệuCủa1MãCụThểToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trợGiúpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnXuatDuLieu4Tuan = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtTuan4DauTuan = new System.Windows.Forms.TextBox();
+            this.txtTuan4CuoiTuan = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridKQLoc)).BeginInit();
@@ -127,10 +132,12 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnXuatDuLieu4Ngay);
+            this.groupBox1.Controls.Add(this.btnXuatDuLieu4Tuan);
             this.groupBox1.Controls.Add(this.btnXuatDuLieu3Tuan);
             this.groupBox1.Controls.Add(this.btnXuatRaExcel);
             this.groupBox1.Controls.Add(this.txtMaCK);
             this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label8);
@@ -139,11 +146,14 @@
             this.groupBox1.Controls.Add(this.btnLocNenTuanDang1);
             this.groupBox1.Controls.Add(this.btnXietGia3Tuan);
             this.groupBox1.Controls.Add(this.btnXietGia2Tuan);
+            this.groupBox1.Controls.Add(this.txtTuan4CuoiTuan);
             this.groupBox1.Controls.Add(this.txtTuan3CuoiTuan);
             this.groupBox1.Controls.Add(this.txtTuan2CuoiTuan);
             this.groupBox1.Controls.Add(this.txtTuan1CuoiTuan);
             this.groupBox1.Controls.Add(this.txtNgayLoc);
             this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.txtTuan4DauTuan);
+            this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.txtTuan3DauTuan);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtTuan2DauTuan);
@@ -161,50 +171,50 @@
             // 
             // btnXuatDuLieu4Ngay
             // 
-            this.btnXuatDuLieu4Ngay.Location = new System.Drawing.Point(355, 201);
+            this.btnXuatDuLieu4Ngay.Location = new System.Drawing.Point(490, 201);
             this.btnXuatDuLieu4Ngay.Margin = new System.Windows.Forms.Padding(4);
             this.btnXuatDuLieu4Ngay.Name = "btnXuatDuLieu4Ngay";
-            this.btnXuatDuLieu4Ngay.Size = new System.Drawing.Size(200, 28);
-            this.btnXuatDuLieu4Ngay.TabIndex = 12;
+            this.btnXuatDuLieu4Ngay.Size = new System.Drawing.Size(143, 28);
+            this.btnXuatDuLieu4Ngay.TabIndex = 16;
             this.btnXuatDuLieu4Ngay.Text = "Xuất dữ liệu 4 ngày";
             this.btnXuatDuLieu4Ngay.UseVisualStyleBackColor = true;
             this.btnXuatDuLieu4Ngay.Click += new System.EventHandler(this.btnXuatDuLieu4Ngay_Click);
             // 
             // btnXuatDuLieu3Tuan
             // 
-            this.btnXuatDuLieu3Tuan.Location = new System.Drawing.Point(143, 201);
+            this.btnXuatDuLieu3Tuan.Location = new System.Drawing.Point(65, 201);
             this.btnXuatDuLieu3Tuan.Margin = new System.Windows.Forms.Padding(4);
             this.btnXuatDuLieu3Tuan.Name = "btnXuatDuLieu3Tuan";
             this.btnXuatDuLieu3Tuan.Size = new System.Drawing.Size(200, 28);
-            this.btnXuatDuLieu3Tuan.TabIndex = 12;
+            this.btnXuatDuLieu3Tuan.TabIndex = 14;
             this.btnXuatDuLieu3Tuan.Text = "Xuất dữ liệu 3 tuần";
             this.btnXuatDuLieu3Tuan.UseVisualStyleBackColor = true;
             this.btnXuatDuLieu3Tuan.Click += new System.EventHandler(this.btnXuatDuLieu3Tuan_Click);
             // 
             // btnXuatRaExcel
             // 
-            this.btnXuatRaExcel.Location = new System.Drawing.Point(585, 201);
+            this.btnXuatRaExcel.Location = new System.Drawing.Point(641, 201);
             this.btnXuatRaExcel.Margin = new System.Windows.Forms.Padding(4);
             this.btnXuatRaExcel.Name = "btnXuatRaExcel";
-            this.btnXuatRaExcel.Size = new System.Drawing.Size(200, 28);
-            this.btnXuatRaExcel.TabIndex = 12;
+            this.btnXuatRaExcel.Size = new System.Drawing.Size(191, 28);
+            this.btnXuatRaExcel.TabIndex = 17;
             this.btnXuatRaExcel.Text = "Xuất grid ra Excel";
             this.btnXuatRaExcel.UseVisualStyleBackColor = true;
             this.btnXuatRaExcel.Click += new System.EventHandler(this.btnXuatRaExcel_Click);
             // 
             // txtMaCK
             // 
-            this.txtMaCK.Location = new System.Drawing.Point(875, 203);
+            this.txtMaCK.Location = new System.Drawing.Point(918, 203);
             this.txtMaCK.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaCK.Name = "txtMaCK";
-            this.txtMaCK.Size = new System.Drawing.Size(140, 22);
-            this.txtMaCK.TabIndex = 13;
+            this.txtMaCK.Size = new System.Drawing.Size(122, 22);
+            this.txtMaCK.TabIndex = 18;
             this.txtMaCK.TextChanged += new System.EventHandler(this.txtMaCK_TextChanged);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(794, 207);
+            this.label9.Location = new System.Drawing.Point(840, 206);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 16);
@@ -240,55 +250,55 @@
             // 
             // btnLocNenNgay
             // 
-            this.btnLocNenNgay.Location = new System.Drawing.Point(641, 154);
+            this.btnLocNenNgay.Location = new System.Drawing.Point(641, 159);
             this.btnLocNenNgay.Margin = new System.Windows.Forms.Padding(4);
             this.btnLocNenNgay.Name = "btnLocNenNgay";
             this.btnLocNenNgay.Size = new System.Drawing.Size(191, 28);
-            this.btnLocNenNgay.TabIndex = 11;
+            this.btnLocNenNgay.TabIndex = 13;
             this.btnLocNenNgay.Text = "Lọc nến với ngày cụ thể";
             this.btnLocNenNgay.UseVisualStyleBackColor = true;
             this.btnLocNenNgay.Click += new System.EventHandler(this.btnLocNenNgay_Click);
             // 
             // btnLocNenTuanDang2
             // 
-            this.btnLocNenTuanDang2.Location = new System.Drawing.Point(498, 154);
+            this.btnLocNenTuanDang2.Location = new System.Drawing.Point(498, 159);
             this.btnLocNenTuanDang2.Margin = new System.Windows.Forms.Padding(4);
             this.btnLocNenTuanDang2.Name = "btnLocNenTuanDang2";
             this.btnLocNenTuanDang2.Size = new System.Drawing.Size(135, 28);
-            this.btnLocNenTuanDang2.TabIndex = 10;
+            this.btnLocNenTuanDang2.TabIndex = 12;
             this.btnLocNenTuanDang2.Text = "Lọc nến tuần K2";
             this.btnLocNenTuanDang2.UseVisualStyleBackColor = true;
             this.btnLocNenTuanDang2.Click += new System.EventHandler(this.btnLocNenTuanDang2_Click);
             // 
             // btnLocNenTuanDang1
             // 
-            this.btnLocNenTuanDang1.Location = new System.Drawing.Point(355, 154);
+            this.btnLocNenTuanDang1.Location = new System.Drawing.Point(355, 159);
             this.btnLocNenTuanDang1.Margin = new System.Windows.Forms.Padding(4);
             this.btnLocNenTuanDang1.Name = "btnLocNenTuanDang1";
             this.btnLocNenTuanDang1.Size = new System.Drawing.Size(135, 28);
-            this.btnLocNenTuanDang1.TabIndex = 9;
+            this.btnLocNenTuanDang1.TabIndex = 11;
             this.btnLocNenTuanDang1.Text = "Lọc nến tuần K1";
             this.btnLocNenTuanDang1.UseVisualStyleBackColor = true;
             this.btnLocNenTuanDang1.Click += new System.EventHandler(this.btnLocNenTuan_Click);
             // 
             // btnXietGia3Tuan
             // 
-            this.btnXietGia3Tuan.Location = new System.Drawing.Point(208, 154);
+            this.btnXietGia3Tuan.Location = new System.Drawing.Point(208, 159);
             this.btnXietGia3Tuan.Margin = new System.Windows.Forms.Padding(4);
             this.btnXietGia3Tuan.Name = "btnXietGia3Tuan";
             this.btnXietGia3Tuan.Size = new System.Drawing.Size(135, 28);
-            this.btnXietGia3Tuan.TabIndex = 8;
+            this.btnXietGia3Tuan.TabIndex = 10;
             this.btnXietGia3Tuan.Text = "Xiết giá 3 tuần";
             this.btnXietGia3Tuan.UseVisualStyleBackColor = true;
             this.btnXietGia3Tuan.Click += new System.EventHandler(this.btnThongKeTuan2_Click);
             // 
             // btnXietGia2Tuan
             // 
-            this.btnXietGia2Tuan.Location = new System.Drawing.Point(65, 154);
+            this.btnXietGia2Tuan.Location = new System.Drawing.Point(65, 159);
             this.btnXietGia2Tuan.Margin = new System.Windows.Forms.Padding(4);
             this.btnXietGia2Tuan.Name = "btnXietGia2Tuan";
             this.btnXietGia2Tuan.Size = new System.Drawing.Size(135, 28);
-            this.btnXietGia2Tuan.TabIndex = 7;
+            this.btnXietGia2Tuan.TabIndex = 9;
             this.btnXietGia2Tuan.Text = "Xiết giá 2 tuần";
             this.btnXietGia2Tuan.UseVisualStyleBackColor = true;
             this.btnXietGia2Tuan.Click += new System.EventHandler(this.btnXietGia2Tuan_Click);
@@ -319,16 +329,16 @@
             // 
             // txtNgayLoc
             // 
-            this.txtNgayLoc.Location = new System.Drawing.Point(200, 119);
+            this.txtNgayLoc.Location = new System.Drawing.Point(697, 120);
             this.txtNgayLoc.Margin = new System.Windows.Forms.Padding(4);
             this.txtNgayLoc.Name = "txtNgayLoc";
             this.txtNgayLoc.Size = new System.Drawing.Size(140, 22);
-            this.txtNgayLoc.TabIndex = 6;
+            this.txtNgayLoc.TabIndex = 8;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(119, 122);
+            this.label10.Location = new System.Drawing.Point(629, 123);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(60, 16);
@@ -415,8 +425,8 @@
             // 
             // gridKQLoc
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gridKQLoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.gridKQLoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gridKQLoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridKQLoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -576,6 +586,52 @@
             this.thôngTinToolStripMenuItem.Text = "Thông tin";
             this.thôngTinToolStripMenuItem.Click += new System.EventHandler(this.thôngTinToolStripMenuItem_Click);
             // 
+            // btnXuatDuLieu4Tuan
+            // 
+            this.btnXuatDuLieu4Tuan.Location = new System.Drawing.Point(278, 201);
+            this.btnXuatDuLieu4Tuan.Margin = new System.Windows.Forms.Padding(4);
+            this.btnXuatDuLieu4Tuan.Name = "btnXuatDuLieu4Tuan";
+            this.btnXuatDuLieu4Tuan.Size = new System.Drawing.Size(200, 28);
+            this.btnXuatDuLieu4Tuan.TabIndex = 15;
+            this.btnXuatDuLieu4Tuan.Text = "Xuất dữ liệu 4 tuần";
+            this.btnXuatDuLieu4Tuan.UseVisualStyleBackColor = true;
+            this.btnXuatDuLieu4Tuan.Click += new System.EventHandler(this.btnXuatDuLieu4Tuan_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(41, 123);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(144, 16);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Tuần 4, Ngày đầu tuần:";
+            // 
+            // txtTuan4DauTuan
+            // 
+            this.txtTuan4DauTuan.Location = new System.Drawing.Point(200, 120);
+            this.txtTuan4DauTuan.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTuan4DauTuan.Name = "txtTuan4DauTuan";
+            this.txtTuan4DauTuan.Size = new System.Drawing.Size(140, 22);
+            this.txtTuan4DauTuan.TabIndex = 6;
+            // 
+            // txtTuan4CuoiTuan
+            // 
+            this.txtTuan4CuoiTuan.Location = new System.Drawing.Point(470, 120);
+            this.txtTuan4CuoiTuan.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTuan4CuoiTuan.Name = "txtTuan4CuoiTuan";
+            this.txtTuan4CuoiTuan.Size = new System.Drawing.Size(140, 22);
+            this.txtTuan4CuoiTuan.TabIndex = 7;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(352, 123);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(102, 16);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Ngày cuối tuần: ";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -654,6 +710,11 @@
         private System.Windows.Forms.Button btnXuatRaExcel;
         private System.Windows.Forms.Button btnXuatDuLieu4Ngay;
         private System.Windows.Forms.Button btnXuatDuLieu3Tuan;
+        private System.Windows.Forms.Button btnXuatDuLieu4Tuan;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtTuan4CuoiTuan;
+        private System.Windows.Forms.TextBox txtTuan4DauTuan;
+        private System.Windows.Forms.Label label11;
     }
 }
 
